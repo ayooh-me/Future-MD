@@ -3,13 +3,17 @@ import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
 
 let handler = async(m, { conn, usedPrefix, text, args, command }) => {
-
+let urut = text.split`|`
+  let one = urut[1]
+  let two = urut[2]
+  let three = urut[3]
+  
 if (command == 'cdnjs') {
 if (!args[0]) throw `Contoh penggunaan ${usedPrefix}${command} angular`
 
 let f = await fetch(`https://api.cdnjs.com/libraries/${text}`)
 let x = await f.json()
-let caption = `🤠 *Name:* ${x.name}
+let caption = `*Name:* ${x.name}
 *Latest:* ${x.latest}
 
 *Description:* ${x.description}
@@ -29,10 +33,25 @@ let q = m.quoted ? m.quoted : m
 
 let f = await fetch(`https://api.lolhuman.xyz/api/read-qr?apikey=${global.lolkey}&img=${url}`)
 let x = await f.json()
-let caption = `🤠 *Hasil:* ${x.result}`
-await conn.sendHydrated(m.chat, caption, botdate, null, 'https://www.whatsapp.com/otp/copy/' + x.result, 'C O P Y', null, null, [
-      [null, null]
-    ], m)
+let caption = `*Hasil:* ${x.result}`
+m.reply(caption)
+}
+
+if (command == 'scanqr') {
+let q = m.quoted ? m.quoted : m
+  let mime = (q.msg || q).mimetype || ''
+  if (!mime) throw 'Fotonya Mana? Reply gambar yg gk ada button aja'
+  if (!/image\/(jpe?g|png)/.test(mime)) throw `Tipe ${mime} tidak didukung!`
+    let img = await q.download?.()
+    let url = await uploadImage(img)
+
+let f = await fetch(`http://api.qrserver.com/v1/read-qr-code/?fileurl=${url}`)
+let x = await f.json()
+var caption = `*Type :* ${x[0].type}
+*Seq :* ${x[0].symbol[0].seq}
+*Data :* ${x[0].symbol[0].data}
+`
+m.reply(caption)
 }
 
 if (command == 'animechan') {
@@ -59,7 +78,7 @@ let f = await fetch(`https://api.trace.moe/search?url=${url}`)
 let xc = await f.json()
 let r = xc.result
 let x = r.getRandom()
-let caption = `🤠 *Anilist:* ${x.anilist}
+let caption = `*Anilist:* ${x.anilist}
 *Name:* ${x.filename}
 *Episode:* ${x.episode}
 *Dari:* ${x.from}
@@ -191,12 +210,53 @@ await conn.sendButton(m.chat, caption, wm, r.thumb, [
             ], m)
 }
 
+if (command == 'mcskin') {
+if (!args[0] && !one && !two) throw `Contoh:\n${usedPrefix + command} .mcskin stone |atas|bawah`
+let res = await mcskin(args[0], one, two)
+await conn.sendFile(m.chat, res, 'image.png', "Your Text: \n" + one + " " + two, m)
+}
+
 
 }
-handler.command = handler.help = ['cdnjs', 'readqr', 'animechan', 'whatanime', 'isgd', 'resmush', 'toascii', 'calc', 'dlytmp3', 'dlytmp4']
+handler.command = handler.help = ['cdnjs', 'readqr', 'scanqr', 'animechan', 'whatanime', 'isgd', 'resmush', 'toascii', 'calc', 'dlytmp3', 'dlytmp4', 'mcskin']
 handler.tags = ['tools']
 
 export default handler
 
-	
-    
+function mcskin(teks, atas, bawah) {
+let link;
+    if (teks == 'stone')
+      link = `https://minecraftskinstealer.com/achievement/20/${atas}/${bawah}`;
+    if (teks == 'grass')
+      link = `https://minecraftskinstealer.com/achievement/1/${atas}/${bawah}`;
+    if (teks == 'craftingtable')
+      link = `https://minecraftskinstealer.com/achievement/13/${atas}/${bawah}`;
+    if (teks == 'furnace')
+      link = `https://minecraftskinstealer.com/achievement/18/${atas}/${bawah}`;
+    if (teks == 'coal')
+      link = `https://minecraftskinstealer.com/achievement/31/${atas}/${bawah}`;
+    if (teks == 'iron')
+      link = `https://minecraftskinstealer.com/achievement/22/${atas}/${bawah}`;
+    if (teks == 'gold')
+      link = `https://minecraftskinstealer.com/achievement/23/${atas}/${bawah}`;
+    if (teks == 'diamond')
+      link = `https://minecraftskinstealer.com/achievement/2/${atas}/${bawah}`;
+    if (teks == 'redstone')
+      link = `https://minecraftskinstealer.com/achievement/14/${atas}/${bawah}`;
+    if (teks == 'diamond-sword')
+      link = `https://minecraftskinstealer.com/achievement/3/${atas}/${bawah}`;
+    if (teks == 'tnt')
+      link = `https://minecraftskinstealer.com/achievement/6/${atas}/${bawah}`;
+    if (teks == 'cookie')
+      link = `https://minecraftskinstealer.com/achievement/7/${atas}/${bawah}`;
+    if (teks == 'cake')
+      link = `https://minecraftskinstealer.com/achievement/10/${atas}/${bawah}`;
+    if (teks == 'creeper')
+      link = `https://minecraftskinstealer.com/achievement/4/${atas}/${bawah}`;
+    if (teks == 'pig')
+      link = `https://minecraftskinstealer.com/achievement/5/${atas}/${bawah}`;
+    if (teks == 'heart')
+      link = `https://minecraftskinstealer.com/achievement/8/${atas}/${bawah}`;
+      
+      return link
+}

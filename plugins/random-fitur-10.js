@@ -9,13 +9,10 @@ let pp = await conn.profilePictureUrl(who).catch(_ => hoppai.getRandom())
 let name = await conn.getName(who)
 let imgr = flaaa.getRandom()
 
-if (command == 'cqr') {
+if (command == 'createqr') {
 if (!text) throw `Contoh:\n${usedPrefix + command} Teks`
 let res = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${text}`
-await conn.sendButton(m.chat, `*Silahkan pilih di bawah:*
-  ${command}`, wm, res, [
-                ['Get Picture', `${usedPrefix}get ${res}`]
-            ], fakes, adReply)
+await conn.sendFile(m.chat, res, 'image.png', "Your Text: \n" + text, m)
 }
 
 if (command == 'catboys') {
@@ -193,7 +190,7 @@ if (command == 'nhentais') {
 }
 
 }
-handler.command = handler.help = ['nhentais', 'cqr', 'catboys', 'nekos', 'avatar', 'randomuser', 'karakter']
+handler.command = handler.help = ['nhentais', 'createqr', 'catboys', 'nekos', 'avatar', 'randomuser', 'karakter']
 handler.tags = ['random']
 
 export default handler
