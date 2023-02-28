@@ -3,14 +3,38 @@ import fetch from "node-fetch"
 import cheerio from "cheerio"
 import got from "got"
 
-let handler = async (m, { conn, text, args, usedPrefix, command }) => {
-let spas = "                "
-try {
-if (!text) throw "\nSertakan querinya kak !\n\nContoh: .tiktok url"
-    m.reply(wait)
-    let ler = await(await fetch("https://api.tikdl.caliphdev.codes/video?url=" + text)).json()
-    let cer = ler.result
-	let cap = `${spas}*[ T I K T O K ]*
+let handler = async (m, {
+    conn,
+    text,
+    args,
+    usedPrefix,
+    command
+}) => {
+    let spas = "                "
+    let one = args[0]
+    let two = args[1]
+
+    let data = [
+        "tikdl",
+        "scraper",
+        "godown"
+    ]
+
+    if (!one) throw "\nSertakan querinya kak !\n\nContoh: .tiktok url"
+    let listSections = []
+    Object.keys(data).map((v, index) => {
+        listSections.push(["Num. " + ++index, [
+            ["Method " + data[v].toUpperCase(), usedPrefix + command + " " + one + " " + data[v], ""]
+        ]])
+    })
+    if (one && !two) return conn.sendList(m.chat, htki + " TIKTOK DOWN " + htka, "⚡ Silakan pilih metode yang anda mau.", author, "[ Download ]", listSections, m)
+    if (!two) throw "\nSertakan querinya kak !\n\nContoh: .tiktok url scraper\nList:\n" + data.join(' ')
+    try {
+        if (one && two == "tikdl") {
+            m.reply(wait)
+            let ler = await (await fetch("https://api.tikdl.caliphdev.codes/video?url=" + one)).json()
+            let cer = ler.result
+            let cap = `${spas}*[ T I K T O K ]*
 
 *ID:* ${cer.id}
 *Title:* ${cer.title}
@@ -35,23 +59,44 @@ ${spas}*[ A U D I O ]*
 *Author:* ${cer.music.author}
 *Duration:* ${cer.music.durationFormatted}
 `
- conn.sendButton(m.chat, cap, author, cer.video.watermark, [["🎥 Video [NO WM]", usedPrefix + "get " + cer.video.noWatermark], ["🎶 Music", usedPrefix + "get " + cer.music.play_url]], m, adReplyS)
- } catch (e) {
- if (!text) throw "\nSertakan querinya kak !\n\nContoh: .tiktok url"
-    m.reply(wait)
-    let ler = await Tiktokdl(text)
-    let cer = ler.result
-	let cap = `${spas}*「 T I K T O K 」*
+            conn.sendButton(m.chat, cap, author, cer.video.watermark, [
+                ["🎥 Video [NO WM]", usedPrefix + "get " + cer.video.noWatermark],
+                ["🎶 Music", usedPrefix + "get " + cer.music.play_url]
+            ], m, adReplyS)
+        }
+        if (one && two == "scraper") {
+            m.reply(wait)
+            let ler = await Tiktokdl(one)
+            let cer = ler.result
+            let cap = `${spas}*「 T I K T O K 」*
 
 *📛Author:* ${cer.author.nickname}
 *📒Title:* ${cer.desc}
 `
- conn.sendButton(m.chat, cap, author, cer.download.wm, [["🎥 Video [NO WM]", usedPrefix + "get " + cer.download.nowm], ["🎶 Music", usedPrefix + "get " + cer.download.music]], m, adReplyS)
- }
+            conn.sendButton(m.chat, cap, author, cer.download.wm, [
+                ["🎥 Video [NO WM]", usedPrefix + "get " + cer.download.nowm],
+                ["🎶 Music", usedPrefix + "get " + cer.download.music]
+            ], m, adReplyS)
+        }
+        if (one && two == "godown") {
+            m.reply(wait)
+            const god = await axios.get("https://godownloader.com/api/tiktok-no-watermark-free?url=" + one + "&key=godownloader.com");
+            let cap = `${spas}*[ T I K T O K ]*
+
+*Desc:* ${god.data.desc}
+`
+            conn.sendButton(m.chat, cap, author, god.data.video_watermark, [
+                ["🎥 Video [NO WM]", usedPrefix + "get " + god.data.video_no_watermark],
+                ["🎶 Music", usedPrefix + "get " + god.data.music_url]
+            ], m, adReplyS)
+        }
+    } catch (e) {
+        throw eror
+    }
 }
 handler.help = ["tiktok"]
 handler.tags = ["downloader"]
-handler.command = /^(tiktok|tt|ttdl)$/i
+handler.command = /^t(iktok|t(dl)?)$/i
 
 export default handler
 const more = String.fromCharCode(8206)
@@ -62,37 +107,35 @@ const readMore = more.repeat(4001)
 //@xct007/tiktok-scraper
 
 async function Tiktokdl(url) {
-//async function tiktokdl(url) {
+    //async function tiktokdl(url) {
     try {
         function API_URL(aweme) {
             return `https://api16-core-c-useast1a.tiktokv.com/aweme/v1/feed/?aweme_id=${aweme}&version_name=1.0.4&version_code=104&build_number=1.0.4&manifest_version_code=104&update_version_code=104&openudid=4dsoq34x808ocz3m&uuid=6320652962800978&_rticket=1671193816600&ts=1671193816&device_brand=POCO&device_type=surya&device_platform=android&resolution=1080*2179&dpi=440&os_version=12&os_api=31&carrier_region=US&sys_region=US%C2%AEion=US&app_name=TikMate%20Downloader&app_language=en&language=en&timezone_name=Western%20Indonesia%20Time&timezone_offset=25200&channel=googleplay&ac=wifi&mcc_mnc=&is_my_cn=0&aid=1180&ssmix=a&as=a1qwert123&cp=cbfhckdckkde1`;
         };
         async function getAwemeId(url) {
-    // any :/
+            // any :/
             let result;
             const Konto1 = /video\/([\d|\+]+)?\/?/;
             const valid = url.match(Konto1);
             if (valid) {
                 return valid[1];
-            }
-            else {
+            } else {
                 try {
                     const data = await got
-                    .get(url, {
-                        headers: {
-                            "Accept-Encoding": "deflate",
-                        },
-                        maxRedirects: 0,
-                    })
-                    .catch((e) => e.response.headers.location);
+                        .get(url, {
+                            headers: {
+                                "Accept-Encoding": "deflate",
+                            },
+                            maxRedirects: 0,
+                        })
+                        .catch((e) => e.response.headers.location);
                     const _url = data;
                     const _valid = _url.match(Konto1);
                     if (_valid) {
                         result = _valid[1];
                     }
-                }
-                catch (error) {
-            // console.log(error)
+                } catch (error) {
+                    // console.log(error)
                     result = false;
                 }
             }
@@ -101,13 +144,13 @@ async function Tiktokdl(url) {
         const valid = await getAwemeId(url);
         //if (!valid) return false // result = false
         const data = await got
-        .get(API_URL(valid), {
-            headers: {
-                "Accept-Encoding": "deflate",
-                "User-Agent": "okhttp/3.14.9",
-            },
-        })
-        .catch((e) => e.response);
+            .get(API_URL(valid), {
+                headers: {
+                    "Accept-Encoding": "deflate",
+                    "User-Agent": "okhttp/3.14.9",
+                },
+            })
+            .catch((e) => e.response);
         //if (!data) return false // result = false
         const body = JSON.parse(data.body);
         const obj = body.aweme_list.find((o) => o.aweme_id === valid)
@@ -140,9 +183,12 @@ async function Tiktokdl(url) {
         };
         return {
             status: true,
-            result: results//data.body //valid
+            result: results //data.body //valid
         }
     } catch (e) {
-        return { status: false, result: e }
+        return {
+            status: false,
+            result: e
+        }
     }
 }
