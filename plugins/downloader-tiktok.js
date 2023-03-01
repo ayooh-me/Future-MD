@@ -11,87 +11,100 @@ let handler = async (m, {
     command
 }) => {
     let spas = "                "
-    let one = args[0]
-    let two = args[1]
+    let type = (args[0] || '').toLowerCase()
+    let urut = text.split`|`
+    let one = urut[1]
+    if (!text) throw 'Masukkan link tiktok\nApa yang kamu cari?'
 
     let data = [
         "tikdl",
         "scraper",
         "godown"
     ]
-
-    if (!one) throw "\nSertakan querinya kak !\n\nContoh: .tiktok url"
     let listSections = []
     Object.keys(data).map((v, index) => {
         listSections.push(["Num. " + ++index, [
-            ["Method " + data[v].toUpperCase(), usedPrefix + command + " " + one + " " + data[v], ""]
+            ["Method " + data[v].toUpperCase(), usedPrefix + command + " " + data[v] + " |" + text, ""]
         ]])
     })
-    if (one && !two) return conn.sendList(m.chat, htki + " TIKTOK DOWN " + htka, "⚡ Silakan pilih metode yang anda mau.", author, "[ Download ]", listSections, m)
-    if (!two) throw "\nSertakan querinya kak !\n\nContoh: .tiktok url scraper\nList:\n" + data.join(' ')
-    try {
-        if (one && two == "tikdl") {
-            m.reply(wait)
-            let ler = await (await fetch("https://api.tikdl.caliphdev.codes/video?url=" + one)).json()
-            let cer = ler.result
-            let cap = `${spas}*[ T I K T O K ]*
+    switch (type) {
+        case 'tikdl':
+            try {
+                m.reply(wait)
+                let Tikdl = await (await fetch("https://api.tikdl.caliphdev.codes/video?url=" + one)).json()
+                let T = Tikdl.result
+                let TikdlCap = `${spas}*[ T I K T O K ]*
 
-*ID:* ${cer.id}
-*Title:* ${cer.title}
-*Created:* ${cer.created_at}
+*ID:* ${T.id}
+*Title:* ${T.title}
+*Created:* ${T.created_at}
 
 ${readMore}${spas}*[ S T A T S ]*
-*Like:* ${cer.stats.likeCount}
-*Comment:* ${cer.stats.commentCount}
-*Share:* ${cer.stats.shareCount}
-*Play:* ${cer.stats.playCount}
-*Saved:* ${cer.stats.saveCount}
+*Like:* ${T.stats.likeCount}
+*Comment:* ${T.stats.commentCount}
+*Share:* ${T.stats.shareCount}
+*Play:* ${T.stats.playCount}
+*Saved:* ${T.stats.saveCount}
 
 ${spas}*[ V I D E O ]*
-*Widh:* ${cer.video.width}
-*Height:* ${cer.video.height}
-*Duration:* ${cer.video.durationFormatted}
-*Ratio:* ${cer.video.ratio}
+*Widh:* ${T.video.width}
+*Height:* ${T.video.height}
+*Duration:* ${T.video.durationFormatted}
+*Ratio:* ${T.video.ratio}
 
 ${spas}*[ A U D I O ]*
-*ID:* ${cer.music.id}
-*Title:* ${cer.music.title}
-*Author:* ${cer.music.author}
-*Duration:* ${cer.music.durationFormatted}
+*ID:* ${T.music.id}
+*Title:* ${T.music.title}
+*Author:* ${T.music.author}
+*Duration:* ${T.music.durationFormatted}
 `
-            conn.sendButton(m.chat, cap, author, cer.video.watermark, [
-                ["🎥 Video [NO WM]", usedPrefix + "get " + cer.video.noWatermark],
-                ["🎶 Music", usedPrefix + "get " + cer.music.play_url]
-            ], m, adReplyS)
-        }
-        if (one && two == "scraper") {
-            m.reply(wait)
-            let ler = await Tiktokdl(one)
-            let cer = ler.result
-            let cap = `${spas}*「 T I K T O K 」*
+                await conn.sendButton(m.chat, TikdlCap, author, T.video.watermark, [
+                    ["🎥 Video [NO WM]", usedPrefix + "get " + T.video.noWatermark],
+                    ["🎶 Music", usedPrefix + "get " + T.music.play_url]
+                ], m, adReplyS)
+            } catch (e) {
+                throw eror
+            }
+            break
 
-*📛Author:* ${cer.author.nickname}
-*📒Title:* ${cer.desc}
+        case 'scraper':
+            try {
+                m.reply(wait)
+                let Scrap = await Tiktokdl(one)
+                let S = Scrap.result
+                let ScrapCap = `${spas}*「 T I K T O K 」*
+
+*📛Author:* ${S.author.nickname}
+*📒Title:* ${S.desc}
 `
-            conn.sendButton(m.chat, cap, author, cer.download.wm, [
-                ["🎥 Video [NO WM]", usedPrefix + "get " + cer.download.nowm],
-                ["🎶 Music", usedPrefix + "get " + cer.download.music]
-            ], m, adReplyS)
-        }
-        if (one && two == "godown") {
-            m.reply(wait)
-            const god = await axios.get("https://godownloader.com/api/tiktok-no-watermark-free?url=" + one + "&key=godownloader.com");
-            let cap = `${spas}*[ T I K T O K ]*
+                await conn.sendButton(m.chat, ScrapCap, author, S.download.wm, [
+                    ["🎥 Video [NO WM]", usedPrefix + "get " + S.download.nowm],
+                    ["🎶 Music", usedPrefix + "get " + S.download.music]
+                ], m, adReplyS)
+            } catch (e) {
+                throw eror
+            }
+            break
+
+        case 'godown':
+            try {
+                m.reply(wait)
+                const god = await axios.get("https://godownloader.com/api/tiktok-no-watermark-free?url=" + one + "&key=godownloader.com");
+                let GoCap = `${spas}*[ T I K T O K ]*
 
 *Desc:* ${god.data.desc}
 `
-            conn.sendButton(m.chat, cap, author, god.data.video_watermark, [
-                ["🎥 Video [NO WM]", usedPrefix + "get " + god.data.video_no_watermark],
-                ["🎶 Music", usedPrefix + "get " + god.data.music_url]
-            ], m, adReplyS)
-        }
-    } catch (e) {
-        throw eror
+                await conn.sendButton(m.chat, GoCap, author, god.data.video_watermark, [
+                    ["🎥 Video [NO WM]", usedPrefix + "get " + god.data.video_no_watermark],
+                    ["🎶 Music", usedPrefix + "get " + god.data.music_url]
+                ], m, adReplyS)
+            } catch (e) {
+                throw eror
+            }
+            break
+
+        default:
+            return conn.sendList(m.chat, htki + " TIKTOK DOWN " + htka, "⚡ Silakan pilih metode yang anda mau.", author, "[ Download ]", listSections, m)
     }
 }
 handler.help = ["tiktok"]
