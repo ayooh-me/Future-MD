@@ -1,19 +1,19 @@
-const isToxic = /anj(k|g)|ajn?(g|k)|a?njin(g|k)|bajingan|b(a?n)?gsa?t|ko?nto?l|me?me?(k|q)|pe?pe?(k|q)|meki|titi(t|d)|pe?ler|tetek|toket|ngewe|go?blo?k|to?lo?l|idiot|(k|ng)e?nto?(t|d)|jembut|bego|dajj?al|janc(u|o)k|pantek|puki ?(mak)?|kimak|kampang|lonte|col(i|mek?)|pelacur|henceu?t|nigga|fuck|dick|bitch|tits|bastard|asshole|a(su|sw|syu)/i // tambahin sendiri
 import axios from "axios"
 import fetch from "node-fetch"
 
-export async function before(m, { isAdmin, isBotAdmin }) {
-    if (m.isBaileys && m.fromMe)
-        return !0
-    if (!m.isGroup) return !1
-    let chat = global.db.data.chats[m.chat]
-    let bot = global.db.data.settings[this.user.jid] || {}
-    const isAntiToxic = isToxic.exec(m.text)
-    let hapus = m.key.participant
-    let bang = m.key.id
-    
-    if (chat.antiToxic && isAntiToxic) {
-        var tes = await Analyze(m.text)
+let handler = async (m, {
+    conn,
+    args,
+    usedPrefix,
+    command
+}) => {
+let text
+    if (args.length >= 1) {
+        text = args.slice(0).join(" ")
+    } else if (m.quoted && m.quoted.text) {
+        text = m.quoted.text
+    } else throw "Input Teks"
+var tes = await Analyze(text)
 var shipverdict = [
     "❤️  ❤️  ❤️  ❤️  ❤️", //1-20
     "☠️  ❤️  ❤️  ❤️  ❤️", //21-40
@@ -50,17 +50,12 @@ var caption = `*[ TOXIC STRENGTH ]*
 ${shipverdict[sIndexer]}
 ${shipfooter[sIndexer]}
 `
-await this.sendButton(m.chat, `*Kata Aneh Terdeteksi!* ${isBotAdmin ? '' : '\n\n_Bot bukan atmin_'}`, caption, ['off antitoxic', '/disable antitoxic'], m)
-if (isBotAdmin && bot.restrict) {
-            // await this.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-    global.db.data.users[m.sender].warn += 1
-    global.db.data.users[m.sender].banned = true
-    return this.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: bang, participant: hapus }})
-        } else if (!bot.restrict) return m.reply('Semoga harimu suram!')
-    }
-    return !0
+throw caption
 }
-
+handler.help = ["toxicity"]
+handler.tags = ["info"]
+handler.command = /^(toxicity)$/i
+export default handler
 
 async function Analyze(teks) {
 try {
