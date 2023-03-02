@@ -78,6 +78,7 @@
         "jimp": "*",
         "jsdom": "*",
         "knights-canvas" : "*",
+        "link-preview-js": "*",
         "lodash": "*",
         "lowdb" : "*",
         "mime-types": "*",
