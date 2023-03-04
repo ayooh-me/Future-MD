@@ -27,10 +27,11 @@ let f = await fetch(domain + "/api/application/users?page=" + page, {
 "Authorization": "Bearer " + apikey
 }
 })
+
 let res = await f.json();
-let users = res.data
+let Usrs = res.data
 let sections = []
-for (let user of users) {
+for (let user of Usrs) {
 let u = user.attributes
 let obj = {
 title: author,
