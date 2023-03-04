@@ -51,9 +51,9 @@ let handler = async (m, {
         stiker = await createSticker(false, out, packname, name, 60)
         
         m.reply(wait)
-        try {
+        if (stiker) {
         m.reply(stiker)
-        } catch (e) {
+        } else {
         throw eror
         }
     } else {
