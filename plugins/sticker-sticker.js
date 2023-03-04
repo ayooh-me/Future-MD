@@ -23,10 +23,11 @@ let handler = async (m, {
     let name = await conn.getName(who)
     if (!args[0]) {
         let q = m.quoted ? m.quoted : m
-        if (!m.quoted) throw `balas gambar/video/stiker dengan perintah ${usedPrefix + command}`
         let mime = (q.msg || q).mimetype || q.mediaType || ''
-        if (/video/g.test(mime))
+        if (/video/g.test(mime)) {
             if ((q.msg || q).seconds > 11) return m.reply('Maksimal 10 detik!')
+            }
+        if (!/webp|image|video|gif|viewOnce/g.test(mime)) return m.reply('Reply media!')
         let img = await q.download?.()
         var stek = new Sticker(img, {
             pack: name,
@@ -43,15 +44,18 @@ let handler = async (m, {
             out = stek
         } else if (/viewOnce/g.test(mime)) {
             out = await uploadFile(img)
-        }
+        } else throw "Reply media"
         if (typeof out !== 'string') {
             out = await uploadImage(img)
         }
         stiker = await createSticker(false, out, packname, name, 60)
+        
         m.reply(wait)
-        if (stiker) {
-            return m.reply(stiker)
-        } else throw eror
+        try {
+        m.reply(stiker)
+        } catch (e) {
+        throw eror
+        }
     } else {
         if (isUrl(args[0])) {
             stiker = await createSticker(false, args[0], packname, author, 60)
