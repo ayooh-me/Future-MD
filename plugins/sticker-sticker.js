@@ -1,12 +1,6 @@
 import uploadImage from '../lib/uploadImage.js'
 import uploadFile from '../lib/uploadFile.js'
 import {
-    webp2png
-} from '../lib/webp2mp4.js'
-import {
-    mp4towebp
-} from '../lib/uploader.js'
-import {
     Sticker,
     StickerTypes
 } from 'wa-sticker-formatter'
@@ -29,26 +23,20 @@ let handler = async (m, {
             }
         if (!/webp|image|video|gif|viewOnce/g.test(mime)) return m.reply('Reply media!')
         let img = await q.download?.()
-        var stek = new Sticker(img, {
-            pack: name,
-            author: packname,
-            type: StickerTypes.FULL
-        })
+        
         if (/webp/g.test(mime)) {
-            out = await webp2png(img)
+            out = await createSticker(img, false, packname, author, 60)
         } else if (/image/g.test(mime)) {
-            out = await uploadImage(img)
+            out = await createSticker(img, false, packname, author, 60)
         } else if (/video/g.test(mime)) {
-            out = await mp4towebp(img)
+            out = await createStickerV(img, false, packname, author, 60)
         } else if (/gif/g.test(mime)) {
-            out = stek
+            out = await createSticker(img, false, packname, author, 60)
         } else if (/viewOnce/g.test(mime)) {
-            out = await uploadFile(img)
-        } else throw "Reply media"
-        if (typeof out !== 'string') {
-            out = await uploadImage(img)
+            out = await createSticker(img, false, packname, author, 60)
         }
-        stiker = await createSticker(false, out, packname, name, 60)
+        
+        stiker = out
         
         m.reply(wait)
         if (stiker) {
@@ -74,7 +62,17 @@ const isUrl = (text) => {
 
 async function createSticker(img, url, packName, authorName, quality) {
     let stickerMetadata = {
-        type: 'full',
+        type: StickerTypes.FULL,
+        pack: packName,
+        author: authorName,
+        quality
+    }
+    return (new Sticker(img ? img : url, stickerMetadata)).toBuffer()
+}
+
+async function createStickerV(img, url, packName, authorName, quality) {
+    let stickerMetadata = {
+        type: StickerTypes.CROPPED,
         pack: packName,
         author: authorName,
         quality
