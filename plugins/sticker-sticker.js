@@ -4,6 +4,7 @@ import {
     Sticker,
     StickerTypes
 } from 'wa-sticker-formatter'
+import { sticker } from '../lib/sticker.js'
 
 let handler = async (m, {
     conn,
@@ -29,7 +30,7 @@ let handler = async (m, {
         } else if (/image/g.test(mime)) {
             out = await createSticker(img, false, packname, author, 60)
         } else if (/video/g.test(mime)) {
-            out = await createStickerV(img, false, packname, author, 60)
+            out = await sticker(img, false, packname, author)
         } else if (/gif/g.test(mime)) {
             out = await createSticker(img, false, packname, author, 60)
         } else if (/viewOnce/g.test(mime)) {

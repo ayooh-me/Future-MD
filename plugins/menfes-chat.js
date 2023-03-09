@@ -1,6 +1,6 @@
 let handler = async(m, { conn, text, usedPrefix, command, args }) => {
 	// Batas
-    let [jid, name, pesan] = text.split('|');
+    let [jid, name, pesan] = text.split(/[|/i!#\$%\+£¢€¥\^°=¶∆×÷π√✓©®:;\?&\.\\\-]+/)
     jid = jid.replace(/[^0-9]/g, '') + '@s.whatsapp.net';
     let data = (await conn.onWhatsApp(jid))[0] || {};
     if (!data.exists) throw 'Nomer tidak terdaftar di whatsapp.';
