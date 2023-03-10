@@ -7,7 +7,7 @@ import cheerio from 'cheerio'
 
 let split = '|'
 let handler = async (m, { conn, args: [effect], text: txt, usedPrefix, command }) => {
-var lurl = await fetch('https://raw.githubusercontent.com/wudysoft/Textpro-Theme/main/textprome.json') 
+var lurl = await fetch('https://raw.githubusercontent.com/AyGemuy/Textpro-Theme/master/textprome.json') 
 var effects = await lurl.json()
   if (!effect) throw 'Ketik .tekspro <nama efek>\n*Contoh:*\n.tekspro space Ayang\n\n*「 LIST EFFECT 」*\n' + effects.map((v, index) => { return `${++index}. ${v.title}` }).join('\n')
   effect = effect.toLowerCase()
@@ -35,7 +35,7 @@ function pickRandom(list) {
 }
 
 async function tekspro(effect, ...texts) {
-var lurl = await fetch('https://raw.githubusercontent.com/wudysoft/Textpro-Theme/main/textprome.json') 
+var lurl = await fetch('https://raw.githubusercontent.com/AyGemuy/Textpro-Theme/master/textprome.json') 
 var effects = await lurl.json()
   texts = texts.filter(v => v)
   let eff = effects.find(v => (new RegExp(v.title, 'gi')).test(effect))

@@ -93,7 +93,7 @@ List Alphabet
 if (isNumber(text)) {
 //VN 1
 let vn
- try { vn = 'https://raw.githubusercontent.com/wudysoft/Sound/main/' + text + '.mp3' }
+ try { vn = 'https://raw.githubusercontent.com/AyGemuy/Sound/main/' + text + '.mp3' }
  catch { vn = 'https://hansxd.nasihosting.com/sound/sound' + text + '.mp3' }
 await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
 } else if (!isNumber(text)) {
@@ -110,10 +110,10 @@ if (command == 'mangkane') {
 if (!text) throw `Contoh:
 ${usedPrefix + command} 1`
 let vn
- try { vn = 'https://raw.githubusercontent.com/wudysoft/Rest-Sound/main/HyuuraKane/mangkane' + text + '.mp3' }
+ try { vn = 'https://raw.githubusercontent.com/AyGemuy/Rest-Sound/main/HyuuraKane/mangkane' + text + '.mp3' }
  catch { vn = 'raw.githubusercontent.com/WH-MODS-BOT/Soundskane/master/mangkane' + text + '.mp3' }
  if (args[0] > 25) {
- let ya = 'https://raw.githubusercontent.com/wudysoft/mangkane/main/Mangkanenya/mangkane' + args[0] + '.mp3'
+ let ya = 'https://raw.githubusercontent.com/AyGemuy/mangkane/main/Mangkanenya/mangkane' + args[0] + '.mp3'
  await conn.sendFile(m.chat, ya, text + '.mp3', '', m, null, adReply)
  }
 await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
