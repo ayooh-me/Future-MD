@@ -93,9 +93,12 @@ List Alphabet
 if (isNumber(text)) {
 //VN 1
 let vn
- try { vn = 'https://raw.githubusercontent.com/AyGemuy/Sound/main/' + text + '.mp3' }
- catch { vn = 'https://hansxd.nasihosting.com/sound/sound' + text + '.mp3' }
-await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
+ try { vn = 'https://raw.githubusercontent.com/AyGemuy/Sound/main/sound' + text + '.mp3'
+ await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
+ } catch (e) { vn = 'https://hansxd.nasihosting.com/sound/sound' + text + '.mp3'
+ await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
+ }
+
 } else if (!isNumber(text)) {
 //VN 2
 let vn = `https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/${text}.mp3`
@@ -110,13 +113,15 @@ if (command == 'mangkane') {
 if (!text) throw `Contoh:
 ${usedPrefix + command} 1`
 let vn
- try { vn = 'https://raw.githubusercontent.com/AyGemuy/Rest-Sound/main/HyuuraKane/mangkane' + text + '.mp3' }
- catch { vn = 'raw.githubusercontent.com/WH-MODS-BOT/Soundskane/master/mangkane' + text + '.mp3' }
+ try { vn = 'https://raw.githubusercontent.com/AyGemuy/Rest-Sound/main/HyuuraKane/mangkane' + text + '.mp3'
+ await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
+ } catch (e) { vn = 'raw.githubusercontent.com/WH-MODS-BOT/Soundskane/master/mangkane' + text + '.mp3'
+ await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
+ }
  if (args[0] > 25) {
  let ya = 'https://raw.githubusercontent.com/AyGemuy/mangkane/main/Mangkanenya/mangkane' + args[0] + '.mp3'
  await conn.sendFile(m.chat, ya, text + '.mp3', '', m, null, adReply)
  }
-await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
   }
   
 //VN 3
