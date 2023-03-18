@@ -9,20 +9,33 @@ let handler = async (m, {
     command,
     args
 }) => {
-    let query = usedPrefix + command + " Wibu"
-    let text
-    if (args.length >= 1) {
-        text = args.slice(0).join(" ")
-    } else if (m.quoted && m.quoted.text) {
-        text = m.quoted.text
-    } else throw query
+if (!text) throw "*ex:* .mg direction usa|amerika"
     let urut = text.split`|`
     let one = urut[0]
     let two = urut[1]
     let three = urut[2]
-
+    let four = urut[3]
+    
+    if (args[0] == 'direction') {
     let res = await direction(one, two)
     throw res
+    }
+    if (args[0] == 'geocode') {
+    let res = await geocode(one, two)
+    throw res
+    }
+    if (args[0] == 'distancematrix') {
+    let res = await distancematrix(one, two, three, four)
+    throw res
+    }
+    if (args[0] == 'fpftext') {
+    let res = await fpftext(one, two, three)
+    throw res
+    }
+    if (args[0] == 'acomplete') {
+    let res = await acomplete(one, two)
+    throw res
+    }
 
 }
 handler.help = ["mg"]

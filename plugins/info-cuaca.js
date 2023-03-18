@@ -8,10 +8,10 @@ let pp = await conn.profilePictureUrl(who).catch(_ => hwaifu.getRandom())
 let namemu = await conn.getName(who)
 
 if (!args[0]) throw "Masukkan Nama Lokasi"
-
+m.reply(wait)
+try {
         let response = axios.get('https://api.weatherapi.com/v1/current.json?key=897dba35c1d94f4cbea134758220207&q=' + text)
         let res = await response
-        try {
         let { name, region, country, lat, lon, tz_id, localtime_epoch, localtime } = res.data.location
         let { last_updated_epoch, last_updated, temp_c, temp_f, is_day, wind_mph, wind_kph, wind_degree, wind_dir, pressure_mb, pressure_in, precip_mm, precip_in, humidity, cloud, feelslike_c, feelslike_f, vis_km, vis_miles, uv, gust_mph, gust_kph } = res.data.current
         let icon = await(await fetch('https:' + res.data.current.condition.icon)).buffer()
@@ -64,20 +64,20 @@ ${readMore}
         body: 'C U A C A',
         thumbnail: icon,
         mediaType: 1,
-        sourceUrl: sgh 
+        sourceUrl: null
         }
       }
     }
   }, { quoted: m })
     await conn.relayMessage(m.chat, msg.message, {})
         } catch (e) {
-         throw res.data.error.message
+         throw eror
          }
 }
 
 handler.help = ['infocuaca <city>']
 handler.tags = ['info']
-handler.command = /^infocuaca|weather$/i
+handler.command = /^(info(weather|cuaca)|weather|cuaca)$/i
 handler.limit = true
 
 export default handler
