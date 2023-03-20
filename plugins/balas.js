@@ -2,7 +2,7 @@ import fs from 'fs'
 import fetch from 'node-fetch'
 
 let handler = async(m, { conn, text, usedPrefix: _p }) => {
-let [number, pesan, boddy] = text.split `|`
+let [number, pesan, boddy] = text.split(/[^\w\s]/g)
 
 let td = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 

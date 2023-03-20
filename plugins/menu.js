@@ -368,7 +368,8 @@ let handler = async (m, {
         }
 
         // Sound
-        await conn.sendFile(m.chat, "https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/bot.mp3", "", "", m)
+        var vn = "https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/bot.mp3"
+        conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [0,100,0,100,0] }, { quoted: m })
     } catch (e) {
         conn.reply(m.chat, "Maaf, menu sedang error", m)
         throw e

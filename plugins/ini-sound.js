@@ -94,15 +94,15 @@ if (isNumber(text)) {
 //VN 1
 let vn
  try { vn = 'https://raw.githubusercontent.com/AyGemuy/Sound/main/sound' + text + '.mp3'
- await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
+ await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [0,100,0,100,0] }, { quoted: m })
  } catch (e) { vn = 'https://hansxd.nasihosting.com/sound/sound' + text + '.mp3'
- await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
+ await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [0,100,0,100,0] }, { quoted: m })
  }
 
 } else if (!isNumber(text)) {
 //VN 2
 let vn = `https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/${text}.mp3`
-await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
+await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [0,100,0,100,0] }, { quoted: m })
 } else if (e) {
 throw `Error`
 }
@@ -114,9 +114,9 @@ if (!text) throw `Contoh:
 ${usedPrefix + command} 1`
 let vn
  try { vn = 'https://raw.githubusercontent.com/AyGemuy/Rest-Sound/main/HyuuraKane/mangkane' + text + '.mp3'
- await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
+ await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [0,100,0,100,0] }, { quoted: m })
  } catch (e) { vn = 'raw.githubusercontent.com/WH-MODS-BOT/Soundskane/master/mangkane' + text + '.mp3'
- await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
+ await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [0,100,0,100,0] }, { quoted: m })
  }
  if (args[0] > 25) {
  let ya = 'https://raw.githubusercontent.com/AyGemuy/mangkane/main/Mangkanenya/mangkane' + args[0] + '.mp3'

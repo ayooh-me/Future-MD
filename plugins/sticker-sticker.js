@@ -5,6 +5,7 @@ import {
     StickerTypes
 } from 'wa-sticker-formatter'
 import { sticker } from '../lib/sticker.js'
+import wibusoft from 'wibusoft'
 
 let handler = async (m, {
     conn,
@@ -26,15 +27,27 @@ let handler = async (m, {
         let img = await q.download?.()
         
         if (/webp/g.test(mime)) {
-            out = await createSticker(img, false, packname, author, 60)
+            out = await wibusoft.tools.makeSticker(img, {
+    author: packname,
+    pack: name
+})
         } else if (/image/g.test(mime)) {
-            out = await createSticker(img, false, packname, author, 60)
+            out = await wibusoft.tools.makeSticker(img, {
+    author: packname,
+    pack: name
+})
         } else if (/video/g.test(mime)) {
-            out = await sticker(img, false, packname, author)
+            out = await sticker(img, false, packname, name)
         } else if (/gif/g.test(mime)) {
-            out = await createSticker(img, false, packname, author, 60)
+            out = await wibusoft.tools.makeSticker(img, {
+    author: packname,
+    pack: name
+})
         } else if (/viewOnce/g.test(mime)) {
-            out = await createSticker(img, false, packname, author, 60)
+            out = await wibusoft.tools.makeSticker(img, {
+    author: packname,
+    pack: name
+})
         }
         
         stiker = out
@@ -47,7 +60,7 @@ let handler = async (m, {
         }
     } else {
         if (isUrl(args[0])) {
-            stiker = await createSticker(false, args[0], packname, author, 60)
+            stiker = await createSticker(false, args[0], packname, name, 60)
         } else throw 'URL tidak valid!'
     }
 }

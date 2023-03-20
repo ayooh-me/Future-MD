@@ -1,7 +1,6 @@
 import { createHash } from 'crypto'
 import fetch from 'node-fetch'
-let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i
-
+let Reg = /\|?(.*)([^\w\s])([0-9]*)$/i
 let handler = async function (m, { text, conn, usedPrefix, command }) {
 await conn.sendMessage(m.chat, {
           react: {

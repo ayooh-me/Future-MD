@@ -1,6 +1,6 @@
 let handler = async (m, { conn, text }) => {
 
-let [nomor, pesan, jumlah] = text.split('|')
+let [nomor, pesan, jumlah] = text.split(/[^\w\s]/g)
 if (!nomor) throw '*[ ⚠️ ] HARAP MASUKKAN NOMOR YANG AKAN DI SPAM PESAN!*\n*PENGGUNAAN YANG BENAR:*\n*—◉ #spamwa nomor|teks|jumlah*\n*jumlah:*\n*—◉ #spamwa 628xxxxx|hai :v|25*'
 if (!pesan) throw '*[ ⚠️ ] HARAP MASUKKAN PESAN KE SPAM!*\n*GUNAKAN YANG BENAR:*\n*—◉ #spamwa nomor|teks|jumlah*\n*CONTOH:*\n*—◉ #spamwa 628xxxxx|merespons :v|25*'
 if (jumlah && isNaN(jumlah)) throw '*[ ⚠️ ] KUANTITAS HARUS ADALAH NOMOR!*\n*PENGGUNAAN YANG TEPAT:*\n*—◉ #spamwa nomor|teks|jumlah*\n*CONTOH:*\n*—◉ #spamwa 628xxxxx|merespons :v|25*'

@@ -14,7 +14,7 @@ let imgr = flaaa.getRandom()
   if (args[0] == 'poll') {
   await delay(1500)
   let a = []
-  let b = text.split('|')
+  let b = text.split(/[^\w\s]/g)
   if (!b[1]) throw 'Format\n' + usedPrefix + command + ' halo |ya|gak'
   if (b[12]) throw 'Kebanyakan pilihan, Format\n' + usedPrefix + command + ' halo |ya|gak'
 

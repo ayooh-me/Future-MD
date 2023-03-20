@@ -12,36 +12,9 @@ let imgr = flaaa.getRandom()
         conn.sendButton(m.chat, 'Masih ada soal belum terjawab di chat ini', author, null, buttons, conn.tebaklagu[id][0])
         throw false
     }
-    let res = await fetch(global.API('xteam', '/game/tebaklagu', { id: spotify_id }, 'apikey'))
-    let ress = await fetch('https://raw.githubusercontent.com/qisyana/scrape/main/tebaklagu.json')
     
-    if (res.code == 200) {
-    let result = await res.json()
-    let json = result.result
-    if (json.artist !== '404') {
-    // if (!json.status) throw json
-    let caption = `*${command.toUpperCase()}*
-Penyanyi: ${json.artist}
-
-Timeout *${(timeout / 1000).toFixed(2)} detik*
-Ketik *${usedPrefix}hlag* untuk bantuan
-Bonus: ${poin} XP
-*Balas pesan ini untuk menjawab!*`.trim()
-    conn.tebaklagu[id] = [
-        await conn.sendButton(m.chat, caption, author, `${imgr + command}`, buttons, m),
-        json, poin,
-        setTimeout(() => {
-            if (conn.tebaklagu[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.judul}*`, author, null, [
-                ['tebaklagu', '/tebaklagu']
-            ], conn.tebaklagu[id][0])
-            delete conn.tebaklagu[id]
-        }, timeout)
-    ]
-    await conn.sendFile(m.chat, json.preview, 'coba-lagi.mp3', '', m)
-    } else if (json.artist == '404') {
-    m.reply(`*Ulangi! Command ${usedPrefix + command} Karena ${json.judul}*`)
-    }
-   } else {
+    try {
+    let ress = await fetch('https://raw.githubusercontent.com/qisyana/scrape/main/tebaklagu.json')
    let data = await ress.json()
     let json = data[Math.floor(Math.random() * data.length)]
     // if (!json.status) throw json
@@ -62,8 +35,11 @@ Bonus: ${poin} XP
             delete conn.tebaklagu[id]
         }, timeout)
     ]
-    await conn.sendFile(m.chat, json.lagu, 'coba-lagi.mp3', '', m)
-   }
+    var vn = json.lagu
+    await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [0,100,0,100,0] }, { quoted: m })
+   } catch (e) {
+   throw eror
+      }
 }
 handler.help = ['tebaklagu']
 handler.tags = ['game']

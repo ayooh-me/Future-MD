@@ -29,7 +29,7 @@ let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
   }
   if (command == "ttscget") {
   let res = await requestSpeech(one, two)
-  await conn.sendFile(m.chat, res, "", "", fakes, null, adReply)
+  await conn.sendMessage(m.chat, { audio: { url: res }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [0,100,0,100,0] }, { quoted: m })
   }
 }
 handler.help = ["ttsc"]
