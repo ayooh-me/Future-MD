@@ -39,7 +39,7 @@ global.APIs = {
 /*Apikey*/
 global.APIKeys = {
     "https://api.neoxr.my.id": "5VC9rvNx",
-    "https://api.lolhuman.xyz": "SGWN",
+    "https://api.lolhuman.xyz": "BrunoSobrino",
     "https://api.xteam.xyz": "HIRO",
     "https://api.zeks.xyz": "apivinz",
     "https://hardianto.xyz": "hardianto",
@@ -52,7 +52,7 @@ global.APIKeys = {
 }
 
 /*Lolhuman*/
-global.lolkey = "SGWN"
+global.lolkey = "BrunoSobrino"
 /*OpenAi*/
 global.openaikey = "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"
 /*AmeApi*/
@@ -65,7 +65,7 @@ bukanitucuy14315195
 85faf717d0545d14074659ad
 ed78c137a46873c5b8e5fe3b
 zulfikarbot
-SGWN
+BrunoSobrino
 
 -XTEAM-
 5bd33b276d41d6b4
