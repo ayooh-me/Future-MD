@@ -7,34 +7,40 @@ let handler = async (m, {
     isOwner,
     usedPrefix,
     command,
-    args
+    args,
+    text
 }) => {
-if (!text) throw "*ex:* .mg direction usa|amerika"
+if (!text) throw ".mg text1|text2|text3..dst"
+try {
     let urut = text.split`|`
     let one = urut[0]
     let two = urut[1]
     let three = urut[2]
     let four = urut[3]
+    let five = urut[4]
     
-    if (args[0] == 'direction') {
-    let res = await direction(one, two)
+    if (one == "direction") {
+    let res = await direction(two, three)
     throw res
     }
-    if (args[0] == 'geocode') {
-    let res = await geocode(one, two)
+    if (one == "geocode") {
+    let res = await geocode(two, three)
     throw res
     }
-    if (args[0] == 'distancematrix') {
-    let res = await distancematrix(one, two, three, four)
+    if (one == "distancematrix") {
+    let res = await distancematrix(two, three, four, five)
     throw res
     }
-    if (args[0] == 'fpftext') {
-    let res = await fpftext(one, two, three)
+    if (one == "fpftext") {
+    let res = await fpftext(two, three, four)
     throw res
     }
-    if (args[0] == 'acomplete') {
-    let res = await acomplete(one, two)
+    if (one == "acomplete") {
+    let res = await acomplete(two, three)
     throw res
+    }
+    } catch (e) {
+    throw eror
     }
 
 }

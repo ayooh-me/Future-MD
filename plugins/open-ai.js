@@ -183,7 +183,7 @@ let handler = async (m, {
             m.reply('*Result:*' + response.data.choices[0].text + '\n\n' + '*Made by:* ' + 'OpenAi')
         } catch (e) {
             try {
-                let ainya = await (await fetch('https://api.zahwazein.xyz/entertainment/openai?query=' + text + '&apikey=LuOlangNgentot')).json()
+                let ainya = await (await fetch('https://api.zahwazein.xyz/entertainment/openai?query=' + text + '&apikey=85345ee3d9de')).json()
                 if (!ainya) throw eror
                 m.reply('*Result:*\n' + ainya.result.message + '\n\n' + '*Made by:* api.zahwazein.xyz')
             } catch (e) {
@@ -228,7 +228,7 @@ let handler = async (m, {
             m.reply('*Result:*' + res.data.choices[0].text + '\n\n' + '*Made by:* ' + 'OpenAi')
         } catch (e) {
             try {
-                let ainya = await (await fetch('https://api.zahwazein.xyz/entertainment/openai?query=' + text + '&apikey=LuOlangNgentot')).json()
+                let ainya = await (await fetch('https://api.zahwazein.xyz/entertainment/openai?query=' + text + '&apikey=85345ee3d9de')).json()
                 if (!ainya) throw eror
                 m.reply('*Result:*\n' + ainya.result.message + '\n\n' + '*Made by:* api.zahwazein.xyz')
             } catch (e) {

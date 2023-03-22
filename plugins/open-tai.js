@@ -23,7 +23,7 @@ let handler = async (m, {
         m.reply('*Result:*\n' + res.result + '\n\n' + '*Made by:* mfarels.my.id')
     } catch (e) {
         try {
-            let ainya = await (await fetch('https://api.zahwazein.xyz/entertainment/openai?query=' + text + '&apikey=LuOlangNgentot')).json()
+            let ainya = await (await fetch('https://api.zahwazein.xyz/entertainment/openai?query=' + text + '&apikey=85345ee3d9de')).json()
             if (!ainya) throw eror
             m.reply('*Result:*\n' + ainya.result.message + '\n\n' + '*Made by:* api.zahwazein.xyz')
 

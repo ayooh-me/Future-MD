@@ -23,7 +23,7 @@ let name = await conn.getName(who)
     if (!text) throw `Use example ${usedPrefix}${command} en hello world`
     res = await tts(text, defaultLang)
   } finally {
-    if (res) await conn.sendMessage(m.chat, { audio: { url: res }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [0,100,0,100,0] }, { quoted: m })
+    if (res) await conn.sendMessage(m.chat, { audio: res, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [100,0,100,0,100,0,100] }, { quoted: m })
   }
 }
 handler.help = ['tts <lang> <teks>']

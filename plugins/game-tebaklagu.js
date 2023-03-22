@@ -35,8 +35,7 @@ Bonus: ${poin} XP
             delete conn.tebaklagu[id]
         }, timeout)
     ]
-    var vn = json.lagu
-    await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [0,100,0,100,0] }, { quoted: m })
+    await conn.sendMessage(m.chat, { audio: { url: json.lagu }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [100,0,100,0,100,0,100] }, { quoted: m })
    } catch (e) {
    throw eror
       }
