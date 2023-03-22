@@ -39,7 +39,7 @@ global.APIs = {
 /*Apikey*/
 global.APIKeys = {
     "https://api.neoxr.my.id": "5VC9rvNx",
-    "https://api.lolhuman.xyz": "BrunoSobrino",
+    "https://api.lolhuman.xyz": "SGWN",
     "https://api.xteam.xyz": "HIRO",
     "https://api.zeks.xyz": "apivinz",
     "https://hardianto.xyz": "hardianto",
@@ -52,30 +52,11 @@ global.APIKeys = {
 }
 
 /*Lolhuman*/
-global.lolkey = "BrunoSobrino"
+global.lolkey = "SGWN"
 /*OpenAi*/
 global.openaikey = "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"
 /*AmeApi*/
 global.ameapikey = "1f98ec7e4842d057d7551722f83e9ae5c59896856aa3f96d406ff8fc9185752062920fadf1df1ea71c332d3f6be2dd6fa62b7ac3d0140e40d86ba0e736135820"
-
-/*List Key
--Lolhuman-
-327a6596e4c4baa20c756132
-bukanitucuy14315195
-85faf717d0545d14074659ad
-ed78c137a46873c5b8e5fe3b
-zulfikarbot
-BrunoSobrino
-
--XTEAM-
-5bd33b276d41d6b4
-NezukoTachibana281207
-HIRO
-
--Neoxr-
-5VC9rvNx
-
-*/
 
 /*Number*/
 global.nomorbot = "6285171216276"
