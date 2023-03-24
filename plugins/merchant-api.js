@@ -1,34 +1,27 @@
 import axios from "axios"
-import md5 from "md5"
+import { createHash } from "node:crypto";
 
-class ampangPedia {
-	#userid = "";
-	#apikey = "";
-	#sign = "";
-	#api = "";
-	constructor(userid, apikey) {
-		this.#userid = userid;
-		this.#apikey = apikey;
-		this.#sign = md5(`${this.#userid}${this.#apikey}`);
-		this.headers = {
+function md5(content, algo = "md5") {
+  const hashFunc = createHash(algo);   // you can also sha256, sha512 etc
+  hashFunc.update(content);
+  return hashFunc.digest("hex");       // will return hash, formatted to HEX
+}
+
+		var userid = "mqahp5zM";
+		var apikey = "9WMugYrv57cppyyEAZmb0LVXcWagTjr6YGbFqBZd1WeHDq1tTxKLwc2R2t0l36GA";
+		var sign = md5(`${userid}${apikey}`);
+		var headers = {
 			"user-agent": "FrierenDv NodeJS(18.1x)",
 		};
-		this.profile = this.profile;
-		this.prepaid = this.prepaid;
-		this.media = this.media;
-		this.#api = {
+		
+		var api = {
 			prepaid: "https://ampangpedia.com/api/prepaid",
 			social_media: "https://ampangpedia.com/api/social-media",
 		};
-	}
-	init() {
-		if (this.prepaid) return this;
-		if (this.media) return this;
-		this.#prepaid();
-		this.#media();
-	}
+	
+	
 	// Probably usefull
-	async profile() {
+	async function profile() {
 		let Response = {};
 		const { data } = await axios
 			.request({
@@ -36,11 +29,11 @@ class ampangPedia {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/x-www-form-urlencoded",
-					...this.headers,
+					...headers,
 				},
 				data: new URLSearchParams({
-					key: this.#apikey,
-					sign: this.#sign,
+					key: apikey,
+					sign: sign,
 				}),
 			})
 			.catch((e) => (e === null || e === void 0 ? void 0 : e.response));
@@ -55,21 +48,21 @@ class ampangPedia {
 		}
 		return Response;
 	}
-	async watch(trxid) {
+	async function watch(trxid) {
 		let retry = 0;
 		let Response;
 		while (true) {
 			const { data } = await axios
 				.request({
-					url: this.#api.prepaid,
+					url: api.prepaid,
 					method: "POST",
 					headers: {
 						"Content-Type": "application/x-www-form-urlencoded",
-						...this.headers,
+						...headers,
 					},
 					data: new URLSearchParams({
-						key: this.#apikey,
-						sign: this.#sign,
+						key: apikey,
+						sign: sign,
 						type: "status",
 						trxid: trxid,
 					}),
@@ -95,18 +88,18 @@ class ampangPedia {
 		}
 		return Response;
 	}
-	async #post(api, opts) {
+	async function post(api, opts) {
 		const { data } = await axios
 			.request({
 				url: api,
 				method: "POST",
 				headers: {
 					"Content-Type": "application/x-www-form-urlencoded",
-					...this.headers,
+					...headers,
 				},
 				data: new URLSearchParams({
-					key: this.#apikey,
-					sign: this.#sign,
+					key: apikey,
+					sign: sign,
 					...opts,
 				}),
 			})
@@ -119,7 +112,7 @@ class ampangPedia {
 			return data;
 		}
 	}
-	async #prepaid() {
+	async function prepaid() {
 		const order = async (service, id, server) => {
 			if (!service || !id) {
 				return {
@@ -127,34 +120,34 @@ class ampangPedia {
 					messagge: `Missing ${!service ? "service code" : "data_no"}`,
 				};
 			}
-			return this.#post(this.#api.prepaid, {
+			return post(api.prepaid, {
 				type: "order",
 				service,
 				data_no: `${id}${server ? server : ""}`,
 			});
 		};
 		const status = async (trxid, limit) => {
-			return this.#post(this.#api.prepaid, {
+			return post(api.prepaid, {
 				type: "status",
 				trxid: trxid ? trxid : "",
 				limit: typeof limit === "number" ? limit : "",
 			});
 		};
 		const services = async (filter_type, filter_value) => {
-			return this.#post(this.#api.prepaid, {
+			return post(api.prepaid, {
 				type: "services",
 				filter_type: filter_type ? filter_type : "",
 				filter_value: filter_value ? filter_value : "",
 			});
 		};
-		this.prepaid = {
+		var prepaid = {
 			order,
 			status,
 			services,
 		};
-		return this;
+		return prepaid;
 	}
-	async #media() {
+	async function media() {
 		const order = async (service, id, server) => {
 			if (!service || !data_no) {
 				return {
@@ -162,32 +155,32 @@ class ampangPedia {
 					messagge: `Missing ${!service ? "service code" : "data_no"}`,
 				};
 			}
-			return this.#post(this.#api.social_media, {
+			return post(api.social_media, {
 				type: "order",
 				service,
 				data_no: `${id}${server ? server : ""}`,
 			});
 		};
 		const status = async (trxid, limit) => {
-			return this.#post(this.#api.social_media, {
+			return post(api.social_media, {
 				type: "status",
 				trxid: trxid ? trxid : "",
 				limit: limit ? limit : "",
 			});
 		};
 		const services = async (filter_type, filter_value) => {
-			return this.#post(this.#api.social_media, {
+			return post(api.social_media, {
 				type: "services",
 				filter_type: filter_type ? filter_type : "",
 				filter_value: filter_value ? filter_value : "",
 			});
 		};
-		this.media = {
+		var media = {
 			order,
 			status,
 			services,
 		};
-		return this;
+		return media;
 	}
-}
-export { ampangPedia }
+
+export { profile, watch, prepaid, post, media }

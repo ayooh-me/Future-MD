@@ -59,8 +59,8 @@ ${spas}*[ A U D I O ]*
 *Duration:* ${T.music.durationFormatted}
 `
                 await conn.sendButton(m.chat, TikdlCap, author, T.video.watermark, [
-                    ["🎥 Video [NO WM]", usedPrefix + "get " + T.video.noWatermark],
-                    ["🎶 Music", usedPrefix + "get " + T.music.play_url]
+                    ["🎥 Video [NO WM]", usedPrefix + command + " getvideo |" + T.video.noWatermark],
+                    ["🎶 Music", usedPrefix + command + " getmusic |" + T.music.play_url]
                 ], m, adReplyS)
             } catch (e) {
                 throw eror
@@ -78,8 +78,8 @@ ${spas}*[ A U D I O ]*
 *📒Title:* ${S.desc}
 `
                 await conn.sendButton(m.chat, ScrapCap, author, S.download.wm, [
-                    ["🎥 Video [NO WM]", usedPrefix + "get " + S.download.nowm],
-                    ["🎶 Music", usedPrefix + "get " + S.download.music]
+                    ["🎥 Video [NO WM]", usedPrefix + command + " getvideo |" + S.download.nowm],
+                    ["🎶 Music", usedPrefix + command + " getmusic |" + S.download.music]
                 ], m, adReplyS)
             } catch (e) {
                 throw eror
@@ -95,9 +95,37 @@ ${spas}*[ A U D I O ]*
 *Desc:* ${god.data.desc}
 `
                 await conn.sendButton(m.chat, GoCap, author, god.data.video_watermark, [
-                    ["🎥 Video [NO WM]", usedPrefix + "get " + god.data.video_no_watermark],
-                    ["🎶 Music", usedPrefix + "get " + god.data.music_url]
+                    ["🎥 Video [NO WM]", usedPrefix + command + " getvideo |" + god.data.video_no_watermark],
+                    ["🎶 Music", usedPrefix + command + " getmusic |" + god.data.music_url]
                 ], m, adReplyS)
+            } catch (e) {
+                throw eror
+            }
+            break
+
+        case 'getmusic':
+            try {
+                m.reply(wait)
+                await conn.sendMessage(m.chat, {
+                    audio: {
+                        url: one
+                    },
+                    seconds: fsizedoc,
+                    ptt: true,
+                    mimetype: "audio/mpeg",
+                    fileName: "vn.mp3",
+                    waveform: [100, 0, 100, 0, 100, 0, 100]
+                }, {
+                    quoted: m
+                })
+            } catch (e) {
+                throw eror
+            }
+            break
+        case 'getvideo':
+            try {
+                m.reply(wait)
+                await conn.sendFile(m.chat, one, 'tiktok.mp4', `${spas}*[ T I K T O K]*\nNo Watermark\nMade by: ${author}`, m)
             } catch (e) {
                 throw eror
             }

@@ -1,9 +1,4 @@
-const { ampangPedia: _ampangPedia } = await(await import('../plugins/merchant-api.js'))
-var uuserid = "mqahp5zM"
-var aapikey = "9WMugYrv57cppyyEAZmb0LVXcWagTjr6YGbFqBZd1WeHDq1tTxKLwc2R2t0l36GA"
-const ampangPedia = new _ampangPedia(uuserid, aapikey)
-ampangPedia.init()
-
+const { profile, watch, prepaid, post, media } = await(await import('../plugins/ampang-api.js'))
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 let urut = text.split`|`
   let one = urut[1]
@@ -29,7 +24,8 @@ switch (template) {
 /* Start */
 					case "list":
 					if (!one && !two) {
-						const resu = await ampangPedia.prepaid.services()
+					const Ser = await prepaid()
+						const resu = await Ser.services()
 						if (!resu.data) return m.reply(resu.message)
         Object.values(resu.data).map((v, index) => {
             listSections.push(["List. " + ++index, [
@@ -39,7 +35,8 @@ switch (template) {
         return conn.sendList(m.chat, htki + " List Product " + htka, "Berikut daftar semua produk", author, "[ Choose ]", listSections, m)
 					}
 					if (one && !two) {
-						let resul = await ampangPedia.prepaid.services(one)
+					let Oser = await prepaid(one)
+						let resul = await Oser.services(one)
 						if (resul.result) {
 							var res = resul.data.filter((item) => item.type === one)
         Object.values(res).map((v, index) => {
@@ -51,7 +48,8 @@ switch (template) {
 						} else return m.reply(resul.message)
 					}
 					if (one && two) {
-						let result = await ampangPedia.prepaid.services(one, two)
+					let OTS = await prepaid(one, two)
+						let result = await OTS.services(one, two)
 						if (!result.data) return m.reply(result.message)
 						var reso = result.data.filter((v) => v.type === one && v.brand === two)
 						let teks = spas + "*[ Berikut daftar produk ]*\n\n"
@@ -66,7 +64,8 @@ switch (template) {
 				
 				case "trx":
 					if (!one || !two) return m.reply(`.*${command + " " + args[0]}* |Code|Nomor`)
-					const TRX = await ampangPedia.prepaid.order(one, two)
+					const OTR = await prepaid(one, two)
+					const TRX = await OTR.order(one, two)
 					console.log(TRX)
 					const { data } = TRX
 					if (TRX.result && data !== null) {
@@ -75,7 +74,7 @@ switch (template) {
 					} else {
 						return m.reply(TRX.message)
 					}
-					const stats = await ampangPedia.watch(data.trxid)
+					const stats = await watch(data.trxid)
 					if (stats.result) {
 						const { data } = stats
 						let datas1 = data[0]
@@ -87,7 +86,7 @@ switch (template) {
 				
 				case "status":
 					if (!one) return m.reply(`.*${command}* TRXID`)
-					const stats2 = await ampangPedia.watch(one)
+					const stats2 = await watch(one)
 					if (stats2.result) {
 						const { data } = stats2
 						let datas = data[0]
@@ -97,7 +96,7 @@ switch (template) {
 					break
 					
 					case "profile":
-					const prof = await ampangPedia.profile()
+					const prof = await profile()
 					let prip = `*Username:* ${prof.data.username}\n*Balance:* ${
 					(prof.data.balance).toLocaleString("id-ID", {style: "currency", currency: "IDR", minimumFractionDigits: 2})
 					}\n*Point:* ${prof.data.point}\n*Level:* ${prof.data.level}\n*Registered:* ${prof.data.registered}\n\n*${prof.message}*`

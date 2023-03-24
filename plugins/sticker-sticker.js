@@ -4,7 +4,9 @@ import {
     Sticker,
     StickerTypes
 } from 'wa-sticker-formatter'
-import { sticker } from '../lib/sticker.js'
+import {
+    sticker
+} from '../lib/sticker.js'
 import wibusoft from 'wibusoft'
 
 let handler = async (m, {
@@ -22,41 +24,45 @@ let handler = async (m, {
         let mime = (q.msg || q).mimetype || q.mediaType || ''
         if (/video/g.test(mime)) {
             if ((q.msg || q).seconds > 11) return m.reply('Maksimal 10 detik!')
-            }
+        }
         if (!/webp|image|video|gif|viewOnce/g.test(mime)) return m.reply('Reply media!')
         let img = await q.download?.()
-        
+
         if (/webp/g.test(mime)) {
             out = await wibusoft.tools.makeSticker(img, {
-    author: packname,
-    pack: name
-})
+                author: packname,
+                pack: name,
+                keepScale: true
+            })
         } else if (/image/g.test(mime)) {
             out = await wibusoft.tools.makeSticker(img, {
-    author: packname,
-    pack: name
-})
+                author: packname,
+                pack: name,
+                keepScale: true
+            })
         } else if (/video/g.test(mime)) {
             out = await sticker(img, false, packname, name)
         } else if (/gif/g.test(mime)) {
             out = await wibusoft.tools.makeSticker(img, {
-    author: packname,
-    pack: name
-})
+                author: packname,
+                pack: name,
+                keepScale: true
+            })
         } else if (/viewOnce/g.test(mime)) {
             out = await wibusoft.tools.makeSticker(img, {
-    author: packname,
-    pack: name
-})
+                author: packname,
+                pack: name,
+                keepScale: true
+            })
         }
-        
+
         stiker = out
-        
+
         m.reply(wait)
         if (stiker) {
-        m.reply(stiker)
+            m.reply(stiker)
         } else {
-        throw eror
+            throw eror
         }
     } else {
         if (isUrl(args[0])) {

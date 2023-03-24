@@ -2,6 +2,7 @@ import fetch from 'node-fetch'
 
 let handler = async(m, { conn, text }) => {
   if (!text) throw `Masukkan judul musik!`
+  try {
   let res = await fetch(global.API('zeks', '/api/spotify', { q: text }, 'apikey'))
   if (!res.ok) throw await res.text()
   let json = await res.json()
@@ -15,6 +16,9 @@ let spotifyinfo = `✨️ *Title:* ${title}
 
   await conn.sendFile(m.chat, thumb, '', spotifyinfo, m)
   await conn.sendFile(m.chat, preview_mp3, 'spotify.mp3', spotifyinfo, m)
+  } catch (e) {
+  throw eror
+  }
 }
 handler.help = ['spotify <query>']
 handler.tags = ['internet']

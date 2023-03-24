@@ -39,6 +39,10 @@ try {
     let res = await acomplete(two, three)
     throw res
     }
+    if (one == "getimg") {
+    let res = await getimg(two, three)
+    throw res
+    }
     } catch (e) {
     throw eror
     }
@@ -73,3 +77,8 @@ async function acomplete(input, type) {
     let result = await axios("https://maps.googleapis.com/maps/api/place/autocomplete/json?input=" + input + "&types=" + type + "&key=AIzaSyC53_pp_QYvLdHd-b8ZcfhaVNe5s6EprEU")
     return result.data
 }
+async function getimg(lat, lng) {
+    let result = "http://maps.google.com/maps/api/staticmap?zoom=16&size=600x600&maptype=hybrid&markers=" + lat + "," + lng + "&sensor=false&key=AIzaSyAZfRJ8mfbqAa7F0ShdL1b0mmraLwhZSCM"
+    return result
+}
+
