@@ -31,7 +31,7 @@ if (!list_input.includes(text)) throw salah_input
 try {
     let res = 'https://api.zeeoneofc.my.id/api/cogan/' + text + '?apikey=dhmDlD5x'
     m.reply(wait)
-    conn.sendFile(m.chat, res, 'result', text.toUpperCase(), m)
+    conn.sendFile(m.chat, res, 'result', "Result Cogan: *" + text.toUpperCase() + "*", m)
     } catch (e) {
     throw eror
     }

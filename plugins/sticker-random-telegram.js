@@ -34,8 +34,8 @@ try {
     let res = 'https://api.zeeoneofc.my.id/api/telegram-sticker/' + text + '?apikey=dhmDlD5x'
     m.reply(wait)
     let out = await wibusoft.tools.makeSticker(res, {
-                author: packname,
-                pack: author,
+                author: author,
+                pack: packname,
                 keepScale: true
             })
             m.reply(out)

@@ -6,7 +6,8 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 let Token = [
 "pk.eyJ1IjoiY3liZXIyMSIsImEiOiJjbDBtbm40MWoxMzNmM2JxdGNjZmtvOHRzIn0.OLPda8qpTVVm7sbqFvxbIQ",
 "pk.eyJ1IjoidGhvbWFzcHJ1ZGVsNjQ5NCIsImEiOiJjbDA2dWpzYjMwMWlxM2tzN2c0Y2JoMGtnIn0.5tX0c-HsGG9qWniFxXIZEg",
-"pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
+"pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
+"pk.eyJ1IjoiYXl1c2hqb3NoaTEzODAiLCJhIjoiY2xhajN2bjV0MDhuYTNzbGZ4eXY3aWV0YyJ9.-t8ccvCJhwwHcOdi435HrQ"
 ].getRandom()
 
 let ke = await fetch("https://raw.githubusercontent.com/eesur/country-codes-lat-long/master/country-codes-lat-long-alpha3.json")
