@@ -9,11 +9,14 @@ let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
 	} else if (m.quoted && m.quoted.text) {
 		text = m.quoted.text
 	} else throw query
-	
+	try {
 	m.reply(wait)
 	 await Draw(text).then((img) => {
                 conn.sendFile(m.chat, img, "result", "Result openjourney: *" + text.toUpperCase() + "*", m)
             })
+      } catch (e) {
+      throw eror
+   }
             
 }
 handler.help = ["openjourney"]

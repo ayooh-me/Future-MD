@@ -10,11 +10,15 @@ let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
 		text = m.quoted.text
 	} else throw query
 	
+	try {
 	m.reply(wait)
 	 var imge = await searchImages(text)
 	 var xmg = imge.getRandom()
-	 conn.sendFile(m.chat, xmg, "result", "Result Unsplash: *" + text.toUpperCase() + "*", m)
-            
+	 
+	 conn.sendFile(m.chat, xmg.urls.full ? xmg.urls.regular : xmg.urls.thumb, "result", "Result Unsplash: *" + xmg.description + "*", m)
+   } catch (e) {
+   throw eror
+ }
 }
 handler.help = ["unsplash"]
 handler.tags = ["misc"]

@@ -16,7 +16,7 @@ let handler = async (m, {
     } else if (m.quoted && m.quoted.text) {
         text = m.quoted.text
     } else throw "Input Teks"
-        var fakec = "https://mfarels.my.id/api/fakechat-wa?nama=" + encodeURIComponent(name) + "&text=" + encodeURIComponent(text) + "&no=" + encodeURIComponent(m.sender.split("@")[0])
+        var fakec = "https://mfarels.my.id/api/fakechat-wa?nama=" + encodeURIComponent(name) + "&text=" + encodeURIComponent(text) + "&no=" + encodeURIComponent(who.split("@")[0])
         var out = await wibusoft.tools.makeSticker(fakec, {
     author: packname,
     pack: name,

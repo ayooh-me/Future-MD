@@ -11,12 +11,15 @@ let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
 		text = m.quoted.text
 	} else throw query
 	
+	try {
 	m.reply(wait)
 	 var imge = await searchTopic(text)
 	 var rand = imge.getRandom()
 	 var resul = "https://farm66.staticflickr.com/" + rand.server + "/" + rand.id + "_" + rand.secret + ".jpg"
 	 conn.sendFile(m.chat, resul, "result", "Result Flickr: *" + text.toUpperCase() + "*", m)
-            
+  } catch (e) {
+  throw eror
+ }
 }
 handler.help = ["flickr"]
 handler.tags = ["misc"]

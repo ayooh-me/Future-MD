@@ -1,4 +1,4 @@
-const { profile, watch, prepaid, post, media } = await(await import('../plugins/ampang-api.js'))
+const { profile, watch, prepaid, post, media } = await(await import('../plugins/merchant-api.js'))
 let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 let urut = text.split`|`
   let one = urut[1]
