@@ -1,20 +1,16 @@
-import fetch from 'node-fetch'
-
+import { spotifySearch } from '../lib/scraped-downloader.js'
 let handler = async(m, { conn, text }) => {
   if (!text) throw `Masukkan judul musik!`
   try {
-  let res = await fetch(global.API('zeks', '/api/spotify', { q: text }, 'apikey'))
-  if (!res.ok) throw await res.text()
-  let json = await res.json()
-  if(!json.data[0]) throw json
-  let { title, artists, album, thumb, url, preview_mp3 } = json.data[0]
+  let json = await spotifySearch(text)
+  let { title, artist, album, thumbnail, url, preview_mp3 } = json[0]
 let spotifyinfo = `✨️ *Title:* ${title}
-🗣️ *Artists:* ${artists}
+🗣️ *Artists:* ${artist}
 🎆️ *Album:* ${album}
 🌐️ *URL*: ${url}
-💚️ *Direct URL:* ${preview_mp3}\`
+💚️ *Direct URL:* ${preview_mp3}`
 
-  await conn.sendFile(m.chat, thumb, '', spotifyinfo, m)
+  await conn.sendFile(m.chat, thumbnail, '', spotifyinfo, m)
   await conn.sendFile(m.chat, preview_mp3, 'spotify.mp3', spotifyinfo, m)
   } catch (e) {
   throw eror
@@ -23,5 +19,4 @@ let spotifyinfo = `✨️ *Title:* ${title}
 handler.help = ['spotify <query>']
 handler.tags = ['internet']
 handler.command = /^(spotify|music)$/i
-// Made By github.com/TOXIC-DEVIL
 export default handler

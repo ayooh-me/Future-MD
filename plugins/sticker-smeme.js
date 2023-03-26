@@ -14,7 +14,6 @@ let handler = async (m, {
     usedPrefix,
     command
 }) => {
-    var stiker
     var out
     let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
     let name = await conn.getName(who)
@@ -27,24 +26,23 @@ let handler = async (m, {
             }
         if (!/webp|image|video|gif|viewOnce/g.test(mime)) return m.reply(`Reply Media dengan perintah\n\n${usedPrefix + command} <${atas ? atas : 'teks atas'}>|<${bawah ? bawah : 'teks bawah'}>`)
         let img = await q.download?.()
-        
+        let meme = "https://api.memegen.link/images/custom/" + encodeURIComponent(atas ? atas : '_') + "/" + encodeURIComponent(bawah ? bawah : '_') + ".png?background="
+
         if (/webp/g.test(mime)) {
-            out = await createSticker(await webp2png(img), false, packname, name, 60)
+            out = await createSticker(meme + await webp2png(img), false, packname, name, 60)
         } else if (/image/g.test(mime)) {
-            out = await createSticker(await uploadImage(img), false, packname, name, 60)
+            out = await createSticker(meme + await uploadImage(img), false, packname, name, 60)
         } else if (/video/g.test(mime)) {
-            out = await sticker(await uploadFile(img), false, packname, name)
+            out = await sticker(meme + await uploadFile(img), false, packname, name)
         } else if (/gif/g.test(mime)) {
-            out = await createSticker(img, false, packname, name, 60)
+            out = await createSticker(meme + await uploadFile(img), false, packname, name, 60)
         } else if (/viewOnce/g.test(mime)) {
-            out = await createSticker(out = await uploadFile(img), false, packname, name, 60)
+            out = await createSticker(meme + await uploadFile(img), false, packname, name, 60)
         }
         
-        stiker = out
-        
         m.reply(wait)
-        if (stiker) {
-        m.reply(stiker)
+        if (out) {
+        m.reply(out)
         } else {
         throw eror
         }

@@ -14,26 +14,32 @@ import crypto from "crypto";
 import { sizeFormatter } from "human-readable";
 
 const format = sizeFormatter()
-let handler = async (m, { conn, args, text, usedPrefix, command, isROwner }) => {
-    let _p = usedPrefix
-    const linkgc = " "
+let handler = async (m, { conn, args, text, usedPrefix: _p, command, isROwner }) => {
+    
+    //Manage panel
+    const domain = 'https://medal.planetxstore.my.id'
+    const apikey = 'ptla_hH331d244NkApofqBIOWQrspUX5I79oHaziqcL3FwoD';
+    const c_apikey = 'ptlc_rYA8xTZGGywkbNMwZ8Q1HyelXBtmPykrCwsdtXmxtJP'
+    
     const webPage = "https://joy.link/lyeepanel"
+    /*
     const domain = "https://panel.saukistore.my.id"
     const apikey = "ptlc_MR3id6vVYxZ419FWRtnyZrUXwYGvzfvA5hSTE4x7fjP";
     const c_apikey = "ptlc_JzuHB1fpRfSx63t06K9jOMoclfenP0MLvsc30Afh9W2"
+    */
     switch (command) {
         case "addusr": {
             if (!isROwner) return global.dfail("rowner", m, conn)
             let t = text.split(",");
             if (t.length < 1) return m.reply(`
-> Perintah :\n${usedPrefix + command} nomor/tag`);
+> Perintah :\n${_p + command} nomor/tag`);
             //let password
             let u = m.quoted ? m.quoted.sender : t[0] ? t[0].replace(/[^0-9]/g, "") + "@s.whatsapp.net" : m.mentionedJid[0];
             let dms = nomorown + "@s.whatsapp.net";
 
             if (!u) return m.reply(`*Format salah!*
 
-> Perintah : ${usedPrefix + command} nomer/tag`);
+> Perintah : ${_p + command} nomer/tag`);
             let d = (await conn.onWhatsApp(u.split`@`[0]))[0] || {}
             let profil = d.exists ? crypto.randomBytes(2).toString("hex") : t[2]
             let password = d.exists ? crypto.randomBytes(3).toString("hex") : t[3]
@@ -140,7 +146,7 @@ Gunakan dengan sebaik mungkin, simpan informasi akun karna jika hilang maka buka
                 let obj = {
                     title: "-- DPANEL HOST --",
                     rows: [
-                        { title: `${u.id}. ${u.username}`, rowId: `${usedPrefix}detusr ` + u.id, description: u.first_name + " " + u.last_name },
+                        { title: `${u.id}. ${u.username}`, rowId: `${_p}detusr ` + u.id, description: u.first_name + " " + u.last_name },
                     ]
                 }
                 await sections.push(obj)
@@ -148,7 +154,7 @@ Gunakan dengan sebaik mungkin, simpan informasi akun karna jika hilang maka buka
                     sections.push({
                         title: "-- PANEL --",
                         rows: [
-                            { title: `⏩ NEXT`, rowId: `${usedPrefix}listusr 2`, description: "Page 2" },
+                            { title: `⏩ NEXT`, rowId: `${_p}listusr 2`, description: "Page 2" },
                         ]
                     })
                 }
@@ -191,7 +197,7 @@ CREATED AT: ${u.created_at}\`\`\``)
             if (!isROwner) return global.dfail("rowner", m, conn)
             let s = text.split(",");
             if (s.length < 7) return m.reply(`> Perintah :\n
-${usedPrefix + command} name,desc,userId,eggId,locId,memory/disk,cpu`)
+${_p + command} name,desc,userId,eggId,locId,memory/disk,cpu`)
             let name = s[0];
             let desc = s[1] || ""
             let usr_id = s[2];
@@ -316,7 +322,7 @@ ${usedPrefix + command} name,desc,userId,eggId,locId,memory/disk,cpu`)
                 let obj = {
                     title: "-- PANEL --",
                     rows: [
-                        { title: `${s.id}. ${s.name}`, rowId: `${usedPrefix}detsrv ` + s.id, description: `Status: ${data.attributes ? data.attributes.current_state : s.status}` },
+                        { title: `${s.id}. ${s.name}`, rowId: `${_p}detsrv ` + s.id, description: `Status: ${data.attributes ? data.attributes.current_state : s.status}` },
                     ]
                 }
                 await sections.push(obj)
@@ -324,7 +330,7 @@ ${usedPrefix + command} name,desc,userId,eggId,locId,memory/disk,cpu`)
                     sections.push({
                         title: "-- PANEL --",
                         rows: [
-                            { title: `⏩ NEXT`, rowId: `${usedPrefix}listsrv 2`, description: "Page 2" },
+                            { title: `⏩ NEXT`, rowId: `${_p}listsrv 2`, description: "Page 2" },
                         ]
                     })
                 }
@@ -398,7 +404,7 @@ CREATED AT: ${s.created_at}\`\`\``)
             if (!isROwner) return global.dfail("rowner", m, conn)
             let t = text.split(",");
             if (t.length < 4) return m.reply(`Perintah :\n
-${usedPrefix + command} srvId,locId,memory/disk,cpu`)
+${_p + command} srvId,locId,memory/disk,cpu`)
             let srv = t[0];
             let loc = t[1];
             let memo_disk = t[2].split`/`;
