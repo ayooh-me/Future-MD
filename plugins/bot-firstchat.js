@@ -3,18 +3,6 @@ import moment from 'moment-timezone';
 export async function before(m) {
     if (m.chat.endsWith('broadcast') || m.fromMe || m.isGroup) return
 
-    let user = global.db.data.users[m.sender]
-    let txt = `👋Hai, ${Halo()}
-
-${user.banned ? '📮Maaf, kamu dibanned & Tidak bisa menggunakan bot ini lagi' : `💬 Ada yg bisa ${this.user.name} bantu?`}`.trim()
-
-    if (new Date() - user.pc < 21600000) return // waktu ori 21600000 (6 jam)
-    await this.sendButton(m.chat, txt, user.banned ? wm : '📮Note: Jangan spam bot nya', [user.banned ? 'OWNER' : 'OWNER', user.banned ? '.owner' : '.owner'], m)
-    user.pc = new Date * 1
-}
-
-
-function Halo() {
     const time = moment.tz('Asia/Jakarta').format('HH')
     let res = "Selamat dinihari 🌆"
     if (time >= 4) {
@@ -29,8 +17,13 @@ function Halo() {
     if (time >= 18) {
         res = "Selamat malam 🌙"
     }
-    return res
+
+    let user = global.db.data.users[m.sender]
+    let txt = `👋 Hai, ${res}
+
+${user.banned ? '📮Maaf, kamu dibanned & Tidak bisa menggunakan bot ini lagi' : `💬 Ada yg bisa ${this.user.name} bantu?\nSilahkan ketik *.menu* untuk melihat daftar menu pada bot.`}`.trim()
+
+    if (new Date() - user.pc < 21600000) return // waktu ori 21600000 (6 jam)
+    await this.reply(m.chat, txt, null)
+    user.pc = new Date * 1
 }
-
-
-// jasa buat plugins by FokusDotId (Fokus ID)

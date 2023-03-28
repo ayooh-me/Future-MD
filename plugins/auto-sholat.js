@@ -17,7 +17,7 @@ export async function before(m) {
     for (const [sholat, waktu] of Object.entries(jadwalSholat)) {
         if (timeNow === waktu) {
             this.autosholat[id] = [
-                this.reply(m.chat, "Untuk daerah\n*Makassar*\nSudah waktunya\n*" + sholat + "*Pukul\n*" + waktu + "*", null),
+                this.reply(m.chat, "Untuk daerah\n*Makassar*\nSudah waktunya\n*" + sholat + "*\nPukul\n*" + waktu + "*", null),
                 setTimeout(() => {
                     delete this.autosholat[id]
                 }, 60000)

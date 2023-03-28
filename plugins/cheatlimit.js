@@ -71,7 +71,7 @@ let cit = ['money',
 'umpan']
 
 let user = global.db.data.users[m.sender]
-
+let MaxCheat = 999999999
     let listSections = []
 	Object.keys(cit).map((v, index) => {
 	listSections.push([htki + 'Cheat Num. ' + ++index + ' ' + htka, [
@@ -79,9 +79,12 @@ let user = global.db.data.users[m.sender]
         ]])
 	})
 	if (!args[0]) return conn.sendList(m.chat, htki + ' 📺 Cheat Infinity 🔎 ' + htka, `⚡ Silakan pilih Cheat di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, `☂️ Cheat Disini ☂️`, listSections, m)
+	if (user[args[1]] > MaxCheat) {
+		m.reply("Udah gitu aja bg, ntar eror")
+		}
 	if (args[0] == 'cheat') {
-		await m.reply(`*Succes Cheat Infinity ${args[1]}*`)
-		user[args[1]] = Infinity
+		await m.reply(`*Succes Cheat MaxCheat ${args[1]}*`)
+		user[args[1]] = MaxCheat
 		}
 }
 handler.help = ['ngechit'].map(v => v + ' *hehe..*')
