@@ -1,8 +1,7 @@
-
-import axios from "axios"
+import fetch from "node-fetch"
 
 let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
-	let query = "input text\nEx. .ddg hello world\n<command> <tex>"
+	let query = "input text\nEx. .duckduckgo hello world\n<command> <tex>"
 	let text
 	if (args.length >= 1) {
 		text = args.slice(0).join(" ")
@@ -12,20 +11,22 @@ let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
 	
 	try {
 	m.reply(wait)
-	 var xmg = await DuckGo(text)
-	 
-	 conn.sendFile(m.chat, "https://duckduckgo.com" + xmg.RelatedTopics[0].Icon.URL, "result", xmg.RelatedTopics[0].Text, m)
+	 var res = await DuckGo(text)
+	 var list = res.RelatedTopics
+	 const captiond = list.map((v, index) => { return `*${htki + " " + ++index + " " + htka}*\nResult: ${v.Text ? v.Text : "Kosong"}\nLink: ${v.FirstURL ? v.FirstURL : "Kosong"}` }).join('\n\n\n')
+        await conn.sendFile(m.chat, flaaa.getRandom() + "DuckGo", "result", captiond, m)
    } catch (e) {
    throw eror
  }
 }
-handler.help = ["ddg"]
+handler.help = ["duckduckgo"]
 handler.tags = ["search"]
-handler.command = /^(ddg)$/i
+handler.command = /^(duckduckgo)$/i
 export default handler
 
 async function DuckGo(term) {
 var url = "https://api.duckduckgo.com/?q=" + term + "&format=json"
-  const response = await axios.get(url)
-  return response.data
+  const json = await fetch(url)
+  const result = await json.json()
+  return result
 };

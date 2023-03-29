@@ -4,10 +4,15 @@ import cheerio from 'cheerio'
 let handler = async (m, { conn, text, args, usedPrefix: _p, command: cmd }) => {
 	let sc = new SoundCloud
 	if (text && /soundcloud\.com\/[^/]+\//.test(args[0])) {
-		let data = await sc.download2(args[0])
+		let data
+		try {
+		data = await sc.download2(args[0])
+		} catch (e) {
+		data = await sc.download(args[0])
+		}
 		if (!data.status) throw data.message
 		let txt = `*Title:* ${data.title}\n*Likes:* ${data.like_count}\n*Duration:* ${sc.toTimeString(data.duration)}`
-		let msg = /^(?:-|--)doc$/i.test(args[1]) ? await conn.sendFile(m.chat, data.thumbnail, '', txt, m) : await conn.sendButton(m.chat, txt, '_Sending audio..._', data.thumbnail, [['Audio (Document)', `${_p + cmd} ${args[0]} --doc`]], m)
+		let msg = /^(?:-|--)doc$/i.test(args[1]) ? await conn.sendFile(m.chat, data.thumbnail, '', txt, m) : await conn.sendButton(m.chat, txt, wait, data.thumbnail, [['Audio (Document)', `${_p + cmd} ${args[0]} --doc`]], m)
 		let url = data.streams.find(v => /mp3/.test(v.extension) && v.has_audio).url
 		let audio = await sc.req(url, { responseType: 'arraybuffer' }).catch(e => m.reply(e + ''))
 		await conn.sendMessage(m.chat, { [/^(?:-|--)doc$/i.test(args[1]) ? 'document' : 'audio']: audio.data, fileName: `${data.title}.mp3`, mimetype: audio.headers['content-type'] }, { quoted: msg })

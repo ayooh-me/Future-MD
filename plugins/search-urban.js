@@ -23,8 +23,8 @@ let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
         const [answer] = response.list
         if (!answer) throw "No results found for " + text
         const { list } = response
-        const captiond = list.map((v, index) => { return `*${htki + ++index + htka}*\nWord: ${v.word}\nDefinition: ${v.definition}\nPermalink:${v.permalink}\nAuthor: ${v.author}\nExample: ${v.example}\nWritten on: ${v.written_on}` }).join('\n\n\n')
-        await m.reply(captiond)
+        const captiond = list.map((v, index) => { return `*${htki + " " + ++index + " " + htka}*\n*Word:* ${v.word}\n*Definition:* ${v.definition}\n*Permalink:* ${v.permalink}\n*Author:* ${v.author}\n*Example:* ${v.example}\n*Written on:* ${v.written_on}` }).join('\n\n\n')
+        await conn.sendFile(m.chat, flaaa.getRandom() + "Urban", "result", captiond, m)
 }
 handler.help = ["urban"]
 handler.tags = ["search"]

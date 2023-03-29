@@ -2,11 +2,17 @@ import fetch from "node-fetch"
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
     	try {
-			let fak = await fetch("https://recoders-area.caliph.repl.co/api/fakta?apikey=https://recoders-area.caliph.repl.co")
+			let fak = await fetch(global.API("lolhuman", "/api/random/faktaunik", {}, "apikey"))
 			let ta = await fak.json()
-			conn.reply(m.chat, ta.result, m)
+			await conn.reply(m.chat, "*Taukah kamu ternyata*\n" + ta.result + "\n\n*Powered by:* lolhuman", m)
     	} catch (e) {
-    		console.log(e)
+    	try {
+    	let fak = await fetch(global.API("zenz", "/randomtext/faktaunik", {}, "apikey"))
+			let ta = await fak.json()
+			await conn.reply(m.chat, "*Taukah kamu ternyata*\n" + ta.result.message + "\n\n*Powered by:* zenzapi", m)
+    	} catch (e) {
+    		throw eror
+    		}
     	}
 }
 handler.help = ['fakta']

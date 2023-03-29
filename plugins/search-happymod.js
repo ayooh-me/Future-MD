@@ -13,7 +13,7 @@ let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
 	
 	m.reply(wait)
 	 var list = await happymodSearch(text)
-	 const captiond = list.map((v, index) => { return `*${htki + ++index + htka}*\nTitle: ${v.title}\nRating: ${v.rating}\nLink:${v.link}\nLink Icon:${v.icon}` }).join('\n\n\n')
+	 const captiond = list.map((v, index) => { return `*${htki + " " + ++index + " " + htka}*\n*Title:* ${v.title}\n*Rating:* ${v.rating}\n*Link:* ${v.link}\n*Link Icon:* ${v.icon}` }).join('\n\n\n')
         await conn.sendFile(m.chat, flaaa.getRandom() + "HappyMod", "result", captiond, m)
 }
 handler.help = ["happymodsearch"]
