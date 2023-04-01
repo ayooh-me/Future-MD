@@ -9,11 +9,6 @@ import { createInterface } from "readline"
 import { setupMaster, fork } from "cluster"
 import { watchFile, unwatchFile } from "fs"
 
-// = PACKAGE IMPORT AND VARS = //
-import express from "express"
-import monitor from "express-status-monitor"
-const app = new express()
-
 // https://stackoverflow.com/a/50052194
 const { say } = cfonts
 const rl = createInterface(process.stdin, process.stdout)
@@ -97,52 +92,3 @@ function start(file) {
 }
 
 start("main.js")
-
-// = HOME PAGE(s) = //
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/html/home.html")
-})
-
-app.get("/home", (req, res) => {
-  res.sendFile(__dirname + "/html/home.html")
-})
-
-app.get("/game", (req, res) => {
-  res.sendFile(__dirname + "/html/game.html")
-})
-
-app.get("/chat", (req, res) => {
-  res.sendFile(__dirname + "/html/chat.html")
-})
-
-app.get("/tools", (req, res) => {
-  res.sendFile(__dirname + "/html/tools.html")
-})
-
-app.get("/music", (req, res) => {
-  res.sendFile(__dirname + "/html/music.html")
-})
-
-app.get("/views", (req, res) => {
-  res.sendFile(__dirname + "/views/index.html")
-})
-
-// = CHECK IF A ENDPOINT IS INVALID = //
-app.get("/*", (req, res) => {
-  res.send({ error: "Endpoint: home, game, chat, tools, music" })
-})
-
-// = TO RUN API AND LOG IT = //
-app.listen(80, () => {
-  console.log("⚡️[Bot]: Hinata is running")
-})
-
-// = FOR CLEAN LOOKING AND LOGS = //
-app.set("json spaces", 2);
-app.use(monitor())
-
-// = THE END = //
-app.use("/", express.static(__dirname));
-app.enable("trust proxy", 1);
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
