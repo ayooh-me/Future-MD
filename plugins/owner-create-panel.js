@@ -17,9 +17,9 @@ const format = sizeFormatter()
 let handler = async (m, { conn, args, text, usedPrefix: _p, command, isROwner }) => {
     
     //Manage panel
-    const domain = 'https://medal.planetxstore.my.id'
+    const domain = 'https://panel.retslav.nl'
     const apikey = 'ptla_hH331d244NkApofqBIOWQrspUX5I79oHaziqcL3FwoD';
-    const c_apikey = 'ptlc_rYA8xTZGGywkbNMwZ8Q1HyelXBtmPykrCwsdtXmxtJP'
+    const c_apikey = 'ptlc_u2PMgqef7dMT1ch4B0SqOME7oxLuBea2bmmVKaWNJOB'
     
     const webPage = "https://joy.link/lyeepanel"
     /*
