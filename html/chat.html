@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Hinata</title>
+  <title>Hinata AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
@@ -489,7 +489,7 @@ function insertMessage() {
   if ($.trim(msg) == '') {
     return false;
   }
-  url = 'https://api.zahwazein.xyz/entertainment/openai?query=' + msg + '&apikey=LuOlangNgentot'
+  url = 'https://mfarels.my.id/api/openai?text=' + msg
   $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
   setDate();
   $('.message-input').val(null);
@@ -527,7 +527,7 @@ fetch(url)
 .then(data => {
 
     $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="https://cerdasin.netlify.app/img/thumbnail.jpg" /></figure>' + data.result.message+ '</div>').appendTo($('.mCSB_container')).addClass('new');
+    $('<div class="message new"><figure class="avatar"><img src="https://cerdasin.netlify.app/img/thumbnail.jpg" /></figure>' + data.result + '</div>').appendTo($('.mCSB_container')).addClass('new');
 
     })
 .catch(e => {

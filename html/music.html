@@ -62,9 +62,9 @@ a:link, a:hover, a:visited, a:active{
 <script src='//cdnjs.cloudflare.com/ajax/libs/pixi.js/1.6.1/pixi.js'></script>
 <script>
 (function() {
-  var AUDIO_URL, TOTAL_BANDS, analyser, analyserDataArray, arrCircles, audio, build, buildCircles, canplay, changeMode, changeTheme, circlesContainer, cp, createCircleTex, gui, hammertime, init, initAudio, initGUI, initGestures, isPlaying, k, message, modes, mousePt, mouseX, mouseY, params, play, renderer, resize, stage, startAnimation, texCircle, themes, themesNames, update, v, windowH, windowW;
-
-  AUDIO_URL = "https://lab.ma77os.com/audio-cloud/music/paradise_circus.mp3";
+  var RandomNum, AUDIO_URL, TOTAL_BANDS, analyser, analyserDataArray, arrCircles, audio, build, buildCircles, canplay, changeMode, changeTheme, circlesContainer, cp, createCircleTex, gui, hammertime, init, initAudio, initGUI, initGestures, isPlaying, k, message, modes, mousePt, mouseX, mouseY, params, play, renderer, resize, stage, startAnimation, texCircle, themes, themesNames, update, v, windowH, windowW;
+  RandomNum= Math.floor((Math.random() * 119) + 1);
+  AUDIO_URL = "https://raw.githubusercontent.com/AyGemuy/Sound/main/sound" + RandomNum + ".mp3";
 
   modes = ["cubic", "conic"];
 
