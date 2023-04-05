@@ -12,12 +12,14 @@ global.__require = function require(dir = import.meta.url) { return createRequir
 import * as ws from 'ws'
 import {
   readdirSync,
+  rmSync,
   statSync,
   unlinkSync,
   existsSync,
   readFileSync,
   watch
 } from 'fs'
+
 import yargs from 'yargs'
 import { spawn } from 'child_process'
 import lodash from 'lodash'
@@ -110,18 +112,13 @@ if (opts['server']) (await import('./server.js')).default(global.conn, PORT)
 
 /* Clear */
 async function clearTmp() {
-  const tmp = [tmpdir(), join(__dirname, './tmp')]
-  const filename = []
-  tmp.forEach(dirname => readdirSync(dirname).forEach(file => filename.push(join(dirname, file))))
-  return filename.map(file => {
-    const stats = statSync(file)
-    if (stats.isFile() && (Date.now() - stats.mtimeMs >= 1000 * 60 * 3)) return unlinkSync(file) // 3 minutes
-    return false
-  })
+  const tmp = './tmp'
+ readdirSync(tmp).forEach(f => rmSync(`${tmp}/${f}`));
 }
 setInterval(async () => {
 	var a = await clearTmp()
-	console.log(chalk.cyanBright('Successfully clear tmp'))
+	var pesan = "The tmp folder has been cleaned"
+	console.log(chalk.cyanBright(pesan))
 }, 180000)
 
 /* Update */

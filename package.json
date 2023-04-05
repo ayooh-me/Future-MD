@@ -39,7 +39,7 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "^4.4.0",
+        "@adiwajshing/baileys": "github:amiruldev20/Baileys",
         "@arugaz/ai2d": "^1.0.1-z.8",
         "@bochilteam/scraper": "*",
         "@ibaraki-douji/pixivts": "*",
