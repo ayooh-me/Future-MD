@@ -7,7 +7,7 @@ let handler = async (m, { conn}) => {
 	await conn.reply(m.chat, `Please Wait`, m)
     let o
     try {
-        o = await exec('python speed.py')
+        o = await exec('python3 speed.py')
     } catch (e) {
         o = e
     } finally {

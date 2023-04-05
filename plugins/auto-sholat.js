@@ -11,17 +11,17 @@ export async function before(m) {
     //let data = await (await fetch("https://api.aladhan.com/v1/timingsByCity?city=Makassar&country=Indonesia&method=8")).json();
     //let jadwalSholat = data.data.timings;
     let jadwalSholat = {
-      Fajr: '04:49',
-      Sunrise: '06:04',
-      Dhuhr: '12:06',
-      Asr: '15:21',
-      Sunset: '18:08',
-      Maghrib: '18:08',
-      Isha: '19:38',
-      Imsak: '04:39',
-      Midnight: '00:06',
-      Firstthird: '22:07',
-      Lastthird: '02:06'
+      Fajr: "04:49",
+      Sunrise: "06:04",
+      Dhuhr: "12:06",
+      Asr: "15:21",
+      Sunset: "18:08",
+      Maghrib: "18:08",
+      Isha: "19:38",
+      Imsak: "04:39",
+      Midnight: "00:06",
+      Firstthird: "22:07",
+      Lastthird: "02:06"
     }
     const date = new Date((new Date).toLocaleString("en-US", {
         timeZone: "Asia/Makassar"
