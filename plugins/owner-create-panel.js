@@ -17,16 +17,13 @@ const format = sizeFormatter()
 let handler = async (m, { conn, args, text, usedPrefix: _p, command, isROwner }) => {
     
     //Manage panel
-    const domain = 'https://panel.retslav.nl'
-    const apikey = 'ptla_hH331d244NkApofqBIOWQrspUX5I79oHaziqcL3FwoD';
-    const c_apikey = 'ptlc_u2PMgqef7dMT1ch4B0SqOME7oxLuBea2bmmVKaWNJOB'
-    
+    const domain = "https://panel.naxybot.me"
+const apikey = "ptla_arujXKbxXtksMycgpjsJKwu7mHfjTg4rdKsd9voEG6V"
+const c_apikey = "ptlc_OuWrbBalXO8YVTuJIqh3h1cCQS7RE8hrjzmxyJFLHXS"
+
     const webPage = "https://joy.link/lyeepanel"
-    /*
-    const domain = "https://panel.saukistore.my.id"
-    const apikey = "ptlc_MR3id6vVYxZ419FWRtnyZrUXwYGvzfvA5hSTE4x7fjP";
-    const c_apikey = "ptlc_JzuHB1fpRfSx63t06K9jOMoclfenP0MLvsc30Afh9W2"
-    */
+    
+    
     switch (command) {
         case "addusr": {
             if (!isROwner) return global.dfail("rowner", m, conn)

@@ -4,8 +4,11 @@ let urut = text.split`|`
   let one = urut[1]
   
 var OpenAi = [
-"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",
-"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"
+"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",
+"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",
+"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",
+"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",
+"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"
 ]
 
 var Lolhum = [
@@ -42,7 +45,7 @@ switch (template) {
 					if (!one) {
         Object.keys(OpenAi).map((v, index) => {
             listSections.push(["List. " + ++index, [
-                ["Use This", usedPrefix + command + " keyopenai |" + OpenAi[v], ""]
+                [(OpenAi[v]).slice(0, 10) + "... ( Use This )", usedPrefix + command + " keyopenai |" + OpenAi[v], ""]
             ]])
         })
         return conn.sendList(m.chat, "EDIT APIKEY", args[0].toUpperCase(), author, "[ Choose ]", listSections, m)
@@ -50,9 +53,9 @@ switch (template) {
 					break
 					
 				case "keyopenai":
-						var openaiinfo =args[0] + " *Berhasil di set*"
+						var openaiinfo =((args[0]).slice(3)).toUpperCase() + " *Berhasil di set*"
 						global.openaikey = one
-					await conn.sendFile(m.chat, logonya + one, 'qr.png', openaiinfo, m)
+					await conn.sendFile(m.chat, logonya + (args[0]).slice(3), 'qr.png', openaiinfo, m)
 					break
 				
 				case "lolhuman":
@@ -67,9 +70,9 @@ switch (template) {
 					break
 					
 					case "keylolhuman":
-						var lolhumaninfo =args[0] + " *Berhasil di set*"
+						var lolhumaninfo =((args[0]).slice(3)).toUpperCase() + " *Berhasil di set*"
 						global.lolkey = one
-					await conn.sendFile(m.chat, logonya + one, 'qr.png', lolhumaninfo, m)
+					await conn.sendFile(m.chat, logonya + (args[0]).slice(3), 'qr.png', lolhumaninfo, m)
 					break
 				
 				case "ame":
@@ -84,16 +87,16 @@ switch (template) {
 					break
 					
 					case "keyame":
-						var ameinfo = args[0] + " *Berhasil di set*"
+						var ameinfo = ((args[0]).slice(3)).toUpperCase() + " *Berhasil di set*"
 						global.ameapikey = one
-					await conn.sendFile(m.chat, logonya + one, 'qr.png', ameinfo, m)
+					await conn.sendFile(m.chat, logonya + (args[0]).slice(3), 'qr.png', ameinfo, m)
 					break
 				
 //
             }
        }
 }
-handler.help = ["editkey <args>"]
+handler.help = ["changekey"]
 handler.tags = ["tools"] 
-handler.command = /^(editkey)$/i
+handler.command = /^(change|(edit|ubah))key$/i
 export default handler

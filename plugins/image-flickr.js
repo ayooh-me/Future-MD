@@ -3,7 +3,7 @@ import axios from "axios"
  const api_Key = "636e1481b4f3c446d26b8eb6ebfe7127";
  const URL = "https://farm66.staticflickr.com";
 let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
-	let query = "input text\nEx. .openjourney hello world\n<command> <tex>"
+	let query = "input text\nEx. .flickr hello world\n<command> <tex>"
 	let text
 	if (args.length >= 1) {
 		text = args.slice(0).join(" ")
@@ -22,7 +22,7 @@ let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
  }
 }
 handler.help = ["flickr"]
-handler.tags = ["misc"]
+handler.tags = ["search"]
 handler.command = /^(flickr)$/i
 export default handler
 
