@@ -8,6 +8,7 @@ import Jimp from 'jimp'
 import TinyColor from 'tinycolor2'
 
 let handler = async (m, { conn, args, text }) => {
+if (!m.quoted) throw "Reply media gambar"
 let a_ = m.quoted ? m.quoted : m
   let b_ = (a_.msg || a_).mimetype || ''
   let c_ = await a_.download()
@@ -49,144 +50,81 @@ let a_ = m.quoted ? m.quoted : m
 • sepia`
 
 if (!b_) throw 'No media found'
+let hoih
   if (args[0] == 'blur') {
-  	let hoih = await blur(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await blur(link, args[1])
+  }
 if (args[0] == 'color') {
-  	let hoih = await color(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await color(link, args[1])
+  }
 if (args[0] == 'flip') {
-  	let hoih = await flip(link)
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await flip(link)
+  }
 if (args[0] == 'flip2') {
-  	let hoih = await flip2(link)
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await flip2(link)
+  }
 if (args[0] == 'gaussian') {
-  	let hoih = await gaussian(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await gaussian(link, args[1])
+  }
 if (args[0] == 'invert') {
-  	let hoih = await invert(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await invert(link, args[1])
+  }
 if (args[0] == 'mask') {
-  	let hoih = await mask(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await mask(link, args[1])
+  }
 if (args[0] == 'normalize') {
-  	let hoih = await normalize(link)
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await normalize(link)
+  }
 if (args[0] == 'autocrop') {
-  	let hoih = await autocrop(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await autocrop(link, args[1])
+  }
 if (args[0] == 'background') {
-  	let hoih = await background(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await background(link, args[1])
+  }
 if (args[0] == 'brightness') {
-  	let hoih = await brightness(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await brightness(link, args[1])
+  }
 if (args[0] == 'contrast') {
-  	let hoih = await contrast(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await contrast(link, args[1])
+  }
 if (args[0] == 'crop') {
-  	let hoih = await crop(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await crop(link, args[1])
+  }
 if (args[0] == 'dither565') {
-  	let hoih = await dither565(link)
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await dither565(link)
+  }
 if (args[0] == 'fade') {
-  	let hoih = await fade(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await fade(link, args[1])
+  }
 if (args[0] == 'greyscale') {
-  	let hoih = await greyscale(link)
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await greyscale(link)
+  }
 if (args[0] == 'hasAlpha') {
-  	let hoih = await hasAlpha(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await hasAlpha(link, args[1])
+  }
 if (args[0] == 'mirror') {
-  	let hoih = await mirror(link)
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await mirror(link)
+  }
 if (args[0] == 'mirror2') {
-  	let hoih = await mirror2(link)
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await mirror2(link)
+  }
 if (args[0] == 'opacity') {
-  	let hoih = await opacity(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await opacity(link, args[1])
+  }
 if (args[0] == 'opaque') {
-  	let hoih = await opaque(link)
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await opaque(link)
+  }
 if (args[0] == 'posterize') {
-  	let hoih = await posterize(link, args[1])
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
-`, m)
-}
+  	hoih = await posterize(link, args[1])
+  }
 if (args[0] == 'sepia') {
-  	let hoih = await sepia(link)
-  conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
-*${htki} Result ${htka}*
+  	hoih = await sepia(link)
+  }
+  
+  if (args[0]) await conn.sendFile(m.chat, hoih, 'thumbnail.jpg', `
+*RESULT*
 `, m)
-}
+
 }
 handler.help = ['hooh']
 handler.tags = ['fun']

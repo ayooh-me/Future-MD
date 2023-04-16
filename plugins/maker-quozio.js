@@ -6,16 +6,15 @@ let handler = async (m, {
     args,
     command
 }) => {
-    let name = await conn.getName(m.sender)
     let text
     if (args.length >= 1) {
         text = args.slice(0).join(" ")
     } else if (m.quoted && m.quoted.text) {
         text = m.quoted.text
     } else throw "Input quotes atau reply teks yang ingin di jadikan quotes!"
-    if (text.length > 100) return m.reply("Lebih dari 100 karakter!")
-    let quote = await createQuote(name, text)
-    await conn.sendFile(m.chat, quote, '', "Request by:\n" + name, m)
+
+    let quote = await createQuote(m.name, text)
+    await conn.sendFile(m.chat, quote, '', "*Request by:*\n" + m.name, m)
 
 }
 handler.tags = ["search"]

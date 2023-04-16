@@ -17,7 +17,7 @@ let handler = async (m, {
     try {
         m.reply(wait)
         let result = await Carbonify(text)
-        await m.reply(result)
+        await conn.sendFile(m.chat, result, '', "*Request by:*\n" + m.name, m)
     } catch (e) {
         throw eror
     }
@@ -28,23 +28,26 @@ handler.command = /^carbon(ify)?$/i
 export default handler
 
 const config = {
-    bg: "rgba(255, 255, 255, 1)", //background color
-    ds: true, //dropShadow
-    dsblur: "68px", //dropShadowBlurRadius
-    dsyoff: "20px", //dropShadowOffsetY
-    es: "2x", //exportSize
-    fm: "Hack", //fontFamily
-    fl: 1, //firstLineNumber
-    fs: "14px", //fontSize
-    l: "auto", //language
-    ln: true, //lineNumbers
-    ph: "10px", //paddingHorizontal
-    pv: "10px", //paddingVertical
-    si: false, //squaredImage
-    t: "seti", //theme
-    wa: true, //widthAdjustment
-    // width: 800,
-    wc: true, //windowControls
+    bg: "rgba(255, 255, 255, 1)",
+    t: "seti",
+    wt: "none",
+    l: "auto",
+    // width: 680,
+    ds: true,
+    dsyoff: "20px",
+    dsblur: "68px",
+    wc: true,
+    wa: true,
+    pv: "56px",
+    ph: "56px",
+    //ln: false,
+    // fl: 1,
+    fm: "Hack",
+    fs: "14px",
+    // lh: "133%",
+    si: false,
+    es: "2x",
+    wm: false
 };
 
 function convertToParams(myData) {
@@ -64,6 +67,7 @@ async function Carbonify(teks) {
     }]
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    await page.setViewport({width: 800, height: 800, deviceScaleFactor: 2});
     let index = 1;
     for (const snippet of snippets) {
         console.log(`Carbonifying snippet ${index} of ${snippets.length}`);
