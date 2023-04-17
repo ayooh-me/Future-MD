@@ -31,7 +31,7 @@ let handler = async (m, {
     let img = await q.download?.()
     let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
     let name = await conn.getName(who)
-    if (text.length > 30) return m.reply("Lebih dari 30 karakter!")
+    
     let pp = await conn.profilePictureUrl(m.sender, "image").catch(_ => logo)
     let temas
     if (command == "quotlyimg") {

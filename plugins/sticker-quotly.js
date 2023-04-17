@@ -19,7 +19,6 @@ let handler = async (m, {
         text = m.quoted.text
     } else throw "Input Teks"
 
-    if (text.length > 30) return m.reply("Lebih dari 30 karakter!")
     await m.reply(wait)
     let pp = await conn.profilePictureUrl(m.sender, "image").catch(_ => logo)
     let temas
