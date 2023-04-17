@@ -5,6 +5,7 @@ let handler = async (m, {
     isOwner,
     usedPrefix,
     command,
+text,
     args
 }) => {
 if (!Number(text)) return m.reply("input number")
