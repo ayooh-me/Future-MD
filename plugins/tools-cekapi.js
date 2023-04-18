@@ -1,4 +1,7 @@
 import fetch from 'node-fetch'
+import cp, { exec as _exec } from 'child_process'
+import { promisify } from 'util'
+let exec = promisify(_exec).bind(cp)
 
 let handler = async (m, { conn, usedPrefix, args, command }) => {
 	let type = (args[1] || '').toLowerCase()
@@ -47,8 +50,27 @@ conn.reply(m.chat, `• *ᴛʏᴘᴇ:* XTEAM
 • *ᴇxᴘɪʀᴇᴅ:* ${lol.result.expired}`, m)
 } else m.reply('ɪɴᴠᴀʟɪᴅ ᴀᴘɪᴋᴇʏ !')
             break
+            case 'openai': 
+            let o = await exec(`curl https://api.openai.com/v1/models \
+  -H "Authorization: Bearer ${args[0]}"
+`)
+            let { stdout, stderr } = o
+            let oexec = JSON.parse(stdout)
+            
+    m.reply(cek)
+    if (!oexec.error) {
+    conn.reply(m.chat, `• *ᴛʏᴘᴇ:* OPENAI
+• *ᴀᴘɪᴋᴇʏ:* ${args[0]}
+
+• *Result:* ${oexec}`, m)
+} else m.reply('ɪɴᴠᴀʟɪᴅ ᴀᴘɪᴋᴇʏ !')
+            break
           default:
-            return conn.sendButton(m.chat, `*${htki} CEK APIKEY ${htka}*`, 'sᴇʟᴇᴄᴛ ᴛʏᴘᴇ ᴀᴘɪᴋᴇʏ ʜᴇʀᴇ!', null, [['xᴛᴇᴀᴍ', `.cekapi ${args[0]} xteam`],['ʟᴏʟʜᴜᴍᴀɴ', `.cekapi ${args[0]} lolhuman`]],m)
+            return conn.sendButton(m.chat, `*${htki} CEK APIKEY ${htka}*`, 'sᴇʟᴇᴄᴛ ᴛʏᴘᴇ ᴀᴘɪᴋᴇʏ ʜᴇʀᴇ!', null, [
+            ['xᴛᴇᴀᴍ', `.cekapi ${args[0]} xteam`],
+            ['ʟᴏʟʜᴜᴍᴀɴ', `.cekapi ${args[0]} lolhuman`],
+            ['ᴏᴩᴇɴᴀɪ', `.cekapi ${args[0]} openai`]
+            ],m)
         }
     } else if (/enchant|enchan/i.test(command)) {
       const count = args[2] && args[2].length > 0 ? Math.min(99999999, Math.max(parseInt(args[2]), 1)) : !args[2] || args.length < 4 ? 1 :Math.min(1, count)
@@ -68,6 +90,6 @@ conn.reply(m.chat, `• *ᴛʏᴘᴇ:* XTEAM
 }
 handler.help = ['cekapikey']
 handler.tags = ['internet', 'tools']
-handler.command = /^(cek(key|api))$/i
+handler.command = /^cek((api)?key|api)$/i
 
 export default handler

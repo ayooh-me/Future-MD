@@ -20,7 +20,7 @@ let handler = async (m, {
     command,
     args
 }) => {
-    let query = "input text\nEx. .aiworld naruto\n<command> <tex>\n\nCommand:\n-ai\n-aicute\n-aianime\n-aitextimg\n-aitextgen\n-aidiff\n-aisent\n-ai3d\n-aipunk\n-aiworld\n-aidalle"
+    let query = "input text\nEx. .openai naruto\n<command> <tex>\n"
     let text
     if (args.length >= 1) {
         text = args.slice(0).join(" ")
