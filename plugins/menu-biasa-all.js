@@ -326,63 +326,19 @@ let handler = async (m, {
         const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => "./src/avatar_contact.png")
 
         //------------------< MENU >----------------
-        let pusat = ["ke1", "ke2", "ke3", "ke4", "ke5", "ke6"]
-        let pilih = pusat.getRandom()
-        if (pilih == "ke1") {
-            await conn.sendButton(m.chat, text.trim(), author, knimg, [
-                [emojis + " All Menu", _p + "allmenu"],
-                [emojis + " List Menu", _p + "menulist"]
-            ], fakes, fakefb)
-        }
-        if (pilih == "ke2") {
-            await conn.send2ButtonLoc(m.chat, knimg, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, fakefb)
-        }
-        if (pilih == "ke3") {
-            await conn.send2ButtonVid(m.chat, knimg, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, adReplyS)
-        }
-        if (pilih == "ke4") {
-            await conn.sendTemplateButtonLoc(m.chat, knimg, text.trim(), author, emojis + " List Menu", _p + "menulist", fakes, fakefb)
-        }
-        if (pilih == "ke5") {
-            await conn.relayMessage(m.chat, {
-                requestPaymentMessage: {
-                    currencyCodeIso4217: "USD",
-                    amount1000: fsizedoc,
-                    requestFrom: m.sender,
-                    noteMessage: {
-                        extendedTextMessage: {
-                            text: text.trim(),
-                            contextInfo: {
-                                mentionedJid: [m.sender],
-                                externalAdReply: {
-                                    showAdAttribution: true
-                                }
-                            }
-                        }
-                    }
-                }
-            }, {})
-        }
-        if (pilih == "ke6") {
-            await conn.send2ButtonDoc(m.chat, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, adReply)
-        }
-        
-        // Biasa
-        if (pilih) {
-        let biasa = "_Ketik *.menubiasa* jika menu tidak muncul_"
-        await conn.sendMessage(m.chat, { text: biasa }, { quoted: m })
-        }
-        
+        await conn.reply(m.chat, text, m, {
+            mentions: [m.sender]
+        })
+
         // Sound
         var vn = "https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/bot.mp3"
-        await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [100,0,100,0,100,0,100] }, { quoted: m })
-        
+        conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [100,0,100,0,100,0,100] }, { quoted: m })
     } catch (e) {
-        await conn.reply(m.chat, "Maaf, menu sedang error", m)
+        conn.reply(m.chat, "Maaf, menu sedang error", m)
         throw e
     }
 }
-handler.command = /^(allmenu|help|\?)$/i
+handler.command = /^(menubiasa)$/i
 
 handler.exp = 3
 

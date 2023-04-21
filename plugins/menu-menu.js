@@ -101,6 +101,10 @@ let handler = async (m, {
         [emojis + " All Menu", usedPrefix + "allmenu"],
         [emojis + " List Menu", usedPrefix + "menulist"]
     ], m)
+    // Biasa
+        let biasa = "_Ketik *.menubiasa* jika menu tidak muncul_"
+        await conn.sendMessage(m.chat, { text: biasa }, { quoted: m })
+        
     await conn.sendMessage(m.chat, {
         audio: {
             url: vn

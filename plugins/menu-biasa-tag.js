@@ -376,187 +376,187 @@ let handler = async (m, {
             title: spas + htki + " MENU " + htka,
             rows: [{
                     title: ++index + "." + spas + "🧧 All Menu".toUpperCase(),
-                    rowId: _p + "menulist all",
+                    rowId: _p + "menulistbiasa all",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🗒️ Absen Menu".toUpperCase(),
-                    rowId: _p + "menulist absen",
+                    rowId: _p + "menulistbiasa absen",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🤵‍ Admin Menu".toUpperCase(),
-                    rowId: _p + "menulist admin",
+                    rowId: _p + "menulistbiasa admin",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🧰 Advanced Menu".toUpperCase(),
-                    rowId: _p + "menulist advanced",
+                    rowId: _p + "menulistbiasa advanced",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🎭 Anonymous Menu".toUpperCase(),
-                    rowId: _p + "menulist anonymous",
+                    rowId: _p + "menulistbiasa anonymous",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🎙️ Audio Menu".toUpperCase(),
-                    rowId: _p + "menulist audio",
+                    rowId: _p + "menulistbiasa audio",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🤖 Baileys Menu".toUpperCase(),
-                    rowId: _p + "menulist Baileys",
+                    rowId: _p + "menulistbiasa Baileys",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "💾 Database Menu".toUpperCase(),
-                    rowId: _p + "menulist database",
+                    rowId: _p + "menulistbiasa database",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "📥 Downloader Menu".toUpperCase(),
-                    rowId: _p + "menulist downloader",
+                    rowId: _p + "menulistbiasa downloader",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "📔 Edukasi Menu".toUpperCase(),
-                    rowId: _p + "menulist edukasi",
+                    rowId: _p + "menulistbiasa edukasi",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🪄 Fun Menu".toUpperCase(),
-                    rowId: _p + "menulist fun",
+                    rowId: _p + "menulistbiasa fun",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🎮 Game Menu".toUpperCase(),
-                    rowId: _p + "menulist game",
+                    rowId: _p + "menulistbiasa game",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "⚡ Genshin Menu".toUpperCase(),
-                    rowId: _p + "menulist genshin",
+                    rowId: _p + "menulistbiasa genshin",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "👨‍👩‍👦‍👦 Group Menu".toUpperCase(),
-                    rowId: _p + "menulist group",
+                    rowId: _p + "menulistbiasa group",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🖥️ Host Menu".toUpperCase(),
-                    rowId: _p + "menulist host",
+                    rowId: _p + "menulistbiasa host",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "ℹ️ Info Menu".toUpperCase(),
-                    rowId: _p + "menulist info",
+                    rowId: _p + "menulistbiasa info",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "📡 Internet Menu".toUpperCase(),
-                    rowId: _p + "menulist internet",
+                    rowId: _p + "menulistbiasa internet",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "💌 Jadian Menu".toUpperCase(),
-                    rowId: _p + "menulist jadian",
+                    rowId: _p + "menulistbiasa jadian",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🗝️ Jadibot Menu".toUpperCase(),
-                    rowId: _p + "menulist jadibot",
+                    rowId: _p + "menulistbiasa jadibot",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🐚 Kerang Menu".toUpperCase(),
-                    rowId: _p + "menulist kerang",
+                    rowId: _p + "menulistbiasa kerang",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "📮 Main Menu".toUpperCase(),
-                    rowId: _p + "menulist main",
+                    rowId: _p + "menulistbiasa main",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🎨 Maker Menu".toUpperCase(),
-                    rowId: _p + "menulist maker",
+                    rowId: _p + "menulistbiasa maker",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🎶 Music Menu".toUpperCase(),
-                    rowId: _p + "menulist music",
+                    rowId: _p + "menulistbiasa music",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "❌ Nocategory Menu".toUpperCase(),
-                    rowId: _p + "menulist nocategory",
+                    rowId: _p + "menulistbiasa nocategory",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🔞 Nsfw Menu".toUpperCase(),
-                    rowId: _p + "menulist nsfw",
+                    rowId: _p + "menulistbiasa nsfw",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "✏️ Nulis Menu".toUpperCase(),
-                    rowId: _p + "menulist nulis",
+                    rowId: _p + "menulistbiasa nulis",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🧑🏻‍💻 Owner Menu".toUpperCase(),
-                    rowId: _p + "menulist owner",
+                    rowId: _p + "menulistbiasa owner",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "💎 Premium Menu".toUpperCase(),
-                    rowId: _p + "menulist premium",
+                    rowId: _p + "menulistbiasa premium",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "📜 Primbon Menu".toUpperCase(),
-                    rowId: _p + "menulist primbon",
+                    rowId: _p + "menulistbiasa primbon",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "💬 Quotes Menu".toUpperCase(),
-                    rowId: _p + "menulist quotes",
+                    rowId: _p + "menulistbiasa quotes",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🕋 Quran Menu".toUpperCase(),
-                    rowId: _p + "menulist quran",
+                    rowId: _p + "menulistbiasa quran",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🎊 Random Menu".toUpperCase(),
-                    rowId: _p + "menulist random",
+                    rowId: _p + "menulistbiasa random",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🕹️ RPG Menu".toUpperCase(),
-                    rowId: _p + "menulist rpg",
+                    rowId: _p + "menulistbiasa rpg",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🏮 Sticker Menu".toUpperCase(),
-                    rowId: _p + "menulist sticker",
+                    rowId: _p + "menulistbiasa sticker",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "🛠️ Tools Menu".toUpperCase(),
-                    rowId: _p + "menulist tools",
+                    rowId: _p + "menulistbiasa tools",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "📊 Vote Menu".toUpperCase(),
-                    rowId: _p + "menulist vote",
+                    rowId: _p + "menulistbiasa vote",
                     description: spas + spas2 + mojis + ktx
                 },
                 {
                     title: ++index + "." + spas + "✉️ XP Menu".toUpperCase(),
-                    rowId: _p + "menulist xp",
+                    rowId: _p + "menulistbiasa xp",
                     description: spas + spas2 + mojis + ktx
                 }
             ]
@@ -564,17 +564,17 @@ let handler = async (m, {
             title: spas + htki + " OTHER " + htka,
             rows: [{
                     title: "🏪 STORE",
-                    rowId: _p + "menulist store",
+                    rowId: _p + "menulistbiasa store",
                     description: "Menampilkan list store"
                 },
                 {
                     title: "🦠 VIRUS",
-                    rowId: _p + "menulist virus",
+                    rowId: _p + "menulistbiasa virus",
                     description: "Menampilkan list virus"
                 },
                 {
                     title: "❌ NO CATEGORY",
-                    rowId: _p + "menulist nocategory",
+                    rowId: _p + "menulistbiasa nocategory",
                     description: "Menu tanpa kategori"
                 }
             ]
@@ -717,62 +717,19 @@ ${clockStringP(usrs.premiumTime - new Date())}` : ""}
         const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => "./src/avatar_contact.png")
 
         //------------------< MENU >----------------
-        let pusat = ["ke1", "ke2", "ke3", "ke4", "ke5", "ke6"]
-        let pilih = pusat.getRandom()
-        if (pilih == "ke1") {
-            await conn.sendButton(m.chat, text.trim(), author, knimg, [
-                [emojis + " All Menu", _p + "allmenu"],
-                [emojis + " List Menu", _p + "menulist"]
-            ], fakes, fakefb)
-        }
-        if (pilih == "ke2") {
-            await conn.send2ButtonLoc(m.chat, knimg, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, fakefb)
-        }
-        if (pilih == "ke3") {
-            await conn.send2ButtonVid(m.chat, knimg, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, adReplyS)
-        }
-        if (pilih == "ke4") {
-            await conn.sendTemplateButtonLoc(m.chat, knimg, text.trim(), author, emojis + " List Menu", _p + "menulist", fakes, fakefb)
-        }
-        if (pilih == "ke5") {
-            await conn.relayMessage(m.chat, {
-                requestPaymentMessage: {
-                    currencyCodeIso4217: "USD",
-                    amount1000: fsizedoc,
-                    requestFrom: m.sender,
-                    noteMessage: {
-                        extendedTextMessage: {
-                            text: text.trim(),
-                            contextInfo: {
-                                mentionedJid: [m.sender],
-                                externalAdReply: {
-                                    showAdAttribution: true
-                                }
-                            }
-                        }
-                    }
-                }
-            }, {})
-        }
-        if (pilih == "ke6") {
-            await conn.send2ButtonDoc(m.chat, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, adReply)
-        }
-        
-        // Biasa
-        if (pilih) {
-        let biasa = "_Ketik *.menubiasa* jika menu tidak muncul_"
-        await conn.sendMessage(m.chat, { text: biasa }, { quoted: m })
-        }
+        await conn.reply(m.chat, text, m, {
+            mentions: [m.sender]
+        })
+
         // Sound
         var vn = "https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/bot.mp3"
         await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [100,0,100,0,100,0,100] }, { quoted: m })
-        
     } catch (e) {
-        conn.reply(m.chat, "Maaf, menu sedang error", m)
+        await conn.reply(m.chat, "Maaf, menu sedang error", m)
         throw e
     }
 }
-handler.command = /^(menulist)$/i
+handler.command = /^(menulistbiasa)$/i
 
 handler.exp = 3
 
