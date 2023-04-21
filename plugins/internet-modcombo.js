@@ -15,13 +15,13 @@ let handler = async (m, {
         text = m.quoted.text
     } else throw "Input Teks"
     try {
-            await m.reply(wait)
-            let res = await Search(text)
-            let resu = await Down(res)
-            let dones = await Result(resu)
-            let urls = "https://dlnew.gamestoremobi.com/" +dones+ "-Mod-ModCombo.Com.apk"
-            await conn.sendFile(m.chat, urls, dones, dones, m)
-            
+        await m.reply(wait)
+        let res = await Search(text)
+        let resu = await Down(res)
+        let dones = await Result(resu)
+        let urls = "https://dlnew.gamestoremobi.com/" + dones + "-Mod-ModCombo.Com.apk"
+        await conn.sendFile(m.chat, urls, dones, dones, m)
+
     } catch (e) {
         throw eror
     }
@@ -34,48 +34,48 @@ export default handler
 
 /* New Line */
 async function Search(input) {
-const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  
-  await page.goto('https://modcombo.com/id/?s=' + input);
-  
-  const links = await page.$$eval('a.blog.search', elements =>
-    elements.map(element => ({
-      href: element.href,
-      text: element.textContent,
-    }))
-  );
-  
-  return links[0].href;
-  
-  await browser.close();
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+
+    await page.goto('https://modcombo.com/id/?s=' + input);
+
+    const links = await page.$$eval('a.blog.search', elements =>
+        elements.map(element => ({
+            href: element.href,
+            text: element.textContent,
+        }))
+    );
+
+    return links[0].href;
+
+    await browser.close();
 }
 
 async function Down(input) {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  
-  await page.goto(input);
-  
-  const links = await page.$$eval('a.btn.btn-red.btn-icon.btn-download.br-50', elements =>
-    elements.map(element => ({
-      href: element.href,
-      text: element.textContent,
-    }))
-  );
-  
-  return links[0].href;
-  
-  await browser.close();
-  }
-  
-  async function Result(input) {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto('https://modcombo.com/id/download/beach-buggy-racing-10784'); // Ganti URL dengan URL halaman yang berisi elemen HTML yang ingin Anda ambil
-  const titleElement = await page.$('.bc-title'); // ganti dengan selector yang sesuai
-const titleText = await titleElement.evaluate(el => el.textContent.trim());
-const formattedTitle = titleText.split(' ').slice(0, -2).join('-');
-return formattedTitle;
-  await browser.close();
-  }
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+
+    await page.goto(input);
+
+    const links = await page.$$eval('a.btn.btn-red.btn-icon.btn-download.br-50', elements =>
+        elements.map(element => ({
+            href: element.href,
+            text: element.textContent,
+        }))
+    );
+
+    return links[0].href;
+
+    await browser.close();
+}
+
+async function Result(input) {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(input);
+    const titleElement = await page.$('.bc-title');
+    const titleText = await titleElement.evaluate(el => el.textContent.trim());
+    const formattedTitle = titleText.split(' ').slice(0, -2).join('-');
+    return formattedTitle;
+    await browser.close();
+}
