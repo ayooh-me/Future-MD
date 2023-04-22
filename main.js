@@ -1,15 +1,15 @@
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 import './config.js';
 
-import { createRequire } from "module" // Bring in the ability to create the 'require' method
-import path, { join } from 'path'
-import { fileURLToPath, pathToFileURL } from 'url'
-import { platform } from 'process'
+import { createRequire } from "module"; // Bring in the ability to create the 'require' method
+import path, { join } from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+import { platform } from 'process';
 global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }
 global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }
 global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
 
-import * as ws from 'ws'
+import * as ws from 'ws';
 import {
   readdirSync,
   rmSync,
@@ -18,24 +18,22 @@ import {
   existsSync,
   readFileSync,
   watch
-} from 'fs'
+} from 'fs';
 
-import yargs from 'yargs'
-import { spawn } from 'child_process'
-import lodash from 'lodash'
-import chalk from 'chalk'
-import syntaxerror from 'syntax-error'
-import { tmpdir } from 'os'
-import { format } from 'util'
-import { makeWASocket, protoType, serialize } from './lib/simple.js'
-import { LowSync } from 'lowdb'
-import { JSONFileSync } from 'lowdb/node'
-
+import yargs from 'yargs';
+import { spawn } from 'child_process';
+import lodash from 'lodash';
+import chalk from 'chalk';
+import syntaxerror from 'syntax-error';
+import { tmpdir } from 'os';
+import { format } from 'util';
+import { makeWASocket, protoType, serialize } from './lib/simple.js';
+import { Low, JSONFile } from 'lowdb';
 import {
   mongoDB,
   mongoDBV2
-} from './lib/mongoDB.js'
-import store from './lib/store-single.js'
+} from './lib/mongoDB.js';
+import store from './lib/store-single.js';
 const {
   //useSingleFileAuthState,
   DisconnectReason
@@ -57,7 +55,9 @@ const __dirname = global.__dirname(import.meta.url)
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 global.prefix = new RegExp('^[' + (opts['prefix'] || '‎xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
 
-global.db = new LowSync(new JSONFileSync('database.json'), {})
+// Read
+global.db = new Low(/https?:\/\//.test(opts['db'] || '') ? new cloudDBAdapter(opts['db']) : new JSONFile(`${opts._[0] ? opts._[0] + '_' : ''}database.json`))
+
 
 global.DATABASE = global.db // Backwards Compatibility
 global.loadDatabase = async function loadDatabase() {
