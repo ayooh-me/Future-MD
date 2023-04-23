@@ -15,10 +15,11 @@ let handler = async (m, {
         text = m.quoted.text
     } else throw "Input Teks"
     try {
-        await m.reply(wait)
+        await m.reply("_Mencari aplikasi..._")
         let res = await Search(text)
         let resu = await Down(res)
         let dones = await Result(resu)
+        await m.reply(wait)
         let urls = "https://dlnew.gamestoremobi.com/" + dones + "-Mod-ModCombo.Com.apk"
         await conn.sendFile(m.chat, urls, dones, dones, m)
 

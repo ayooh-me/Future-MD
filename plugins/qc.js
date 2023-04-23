@@ -1,7 +1,12 @@
 import { sticker } from '../lib/sticker.js'
 import axios from 'axios'
 
-let handler = async (m, { conn }) => {
+let handler = async (m, {
+    conn,
+    args,
+    usedPrefix,
+    command
+}) => {
 let text
     if (args.length >= 1) {
         text = args.slice(0).join(" ")
