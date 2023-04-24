@@ -6,17 +6,17 @@ let handler = async (m, { usedPrefix, command, text, args }) => {
 if (command == 'cekcodid') {
     if (!text) return conn.reply(m.chat, 'Harap Masukan ID COD', m)
 	 let res = await cekcodid(text)
-	 await conn.sendButton(m.chat, res, wm, logo, [[' Menu', '/menu']], m, fakefb)
+	 await conn.sendFile(m.chat, logo, "result", "*Result:*\n" + res.result, m)
     }
     if (command == 'cekffid') {
     if (!text) return conn.reply(m.chat, 'Harap Masukan ID FF', m)
 	 let res = await cekffid(text)
-	 await conn.sendButton(m.chat, res, wm, logo, [[' Menu', '/menu']], m, fakefb)
+	 await conn.sendFile(m.chat, logo, "result", "*Result:*\n" + res.result, m)
     }
     if (command == 'cekmlid') {
     if (!text) return conn.reply(m.chat, 'Harap Masukan ID ML', m)
 	 let res = await cekmlid(text)
-	 await conn.sendButton(m.chat, res, wm, logo, [[' Menu', '/menu']], m, fakefb)
+	 await conn.sendFile(m.chat, logo, "result", "*Result:*\n" + res.result, m)
     }
 }
 handler.help = ['cekcodid', 'cekffid', 'cekmlid'].map(v => v + ' <id>')

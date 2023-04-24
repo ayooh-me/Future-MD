@@ -82,7 +82,7 @@ handler.command = /^ss(get|web|f)?$/i
 
 export default handler
 
-export async function ssweb(url = "", full = false, type = "desktop") {
+ async function ssweb(url = "", full = false, type = "desktop") {
     type = type.toLowerCase()
     if (!["desktop", "tablet", "phone"].includes(type)) type = "desktop"
     let form = new URLSearchParams()
@@ -106,7 +106,7 @@ export async function ssweb(url = "", full = false, type = "desktop") {
     return Buffer.from(buffer.data)
 }
 
-export async function ssweb2(url) {
+ async function ssweb2(url) {
     let data = await axios.post("https://www.urlbox.io/api/render", {
         url
     })
