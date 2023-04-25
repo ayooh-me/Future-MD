@@ -12,7 +12,7 @@ let handler = async (m, { conn, isOwner, usedPrefix, command, args }) => {
 	try {
 	m.reply(wait)
 	 await Draw(text).then((img) => {
-                conn.sendFile(m.chat, img, "result", "Result openjourney: *" + text.toUpperCase() + "*", m)
+                conn.sendFile(m.chat, img, text, "*[ Result ]*\n" + text, m)
             })
       } catch (e) {
       throw eror

@@ -141,7 +141,6 @@ throw await clean(JSON.stringify(teks, null, 4))
 }
 
 if (args[0] == "jadwaltv") {
-if (!one) throw kueri
 let teks = await jadwaltv()
 throw await clean(JSON.stringify(teks, null, 4))
 }
@@ -159,7 +158,6 @@ throw await clean(JSON.stringify(teks, null, 4))
 }
 
 if (args[0] == "memeku") {
-if (!one) throw kueri
 let teks = await memeku()
 throw await clean(JSON.stringify(teks, null, 4))
 }
@@ -219,7 +217,6 @@ throw await clean(JSON.stringify(teks, null, 4))
 }
 
 if (args[0] == "tiktoktren") {
-if (!one) throw kueri
 let teks = await tiktoktren()
 throw await clean(JSON.stringify(teks, null, 4))
 }
@@ -231,7 +228,6 @@ throw await clean(JSON.stringify(teks, null, 4))
 }
 
 if (args[0] == "turnbackhoax") {
-if (!one) throw kueri
 let teks = await turnbackhoax()
 throw await clean(JSON.stringify(teks, null, 4))
 }

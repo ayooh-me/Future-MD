@@ -14,8 +14,8 @@ try {
     let randm = res.images
     let resul = randm.getRandom()
     
-    m.reply(wait)
-    conn.sendFile(m.chat, resul.src, 'result', '*Prompt:* ' + resul.prompt, m)
+    await m.reply(wait)
+    await conn.sendFile(m.chat, resul.src, text, "*[ Result ]*\n" + resul.prompt, m)
     } catch (e) {
     throw eror
     }

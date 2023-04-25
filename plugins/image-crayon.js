@@ -15,7 +15,7 @@ let handler = async (m, {
        const base64Data = base64Image.replace(/^data:image\/webp;base64,/, "");
        const buffer = Buffer.from(base64Data, "base64");
             await conn.sendMessage(m.chat, {
-                image: buffer, caption: "[ RESULT ]"
+                image: buffer, caption: "*[ Result ]*\n" + text
             }, {
                 quoted: m
             })
