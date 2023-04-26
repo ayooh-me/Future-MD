@@ -1,26 +1,18 @@
-import fetch from "node-fetch";
-import uploadImage from "../lib/uploadImage.js";
-let handler = async (m, { conn, usedPrefix, command }) => {
-conn.unblur_high = conn.unblur_high ? conn.unblur_high : {}
-if (m.sender in conn.unblur_high) throw "Masih ada tugas remini!"
-let q = m.quoted ? m.quoted : m
-let mime = (q.msg || q).mimetype || q.mediaType || ""
-if (!mime) throw `Reply media ${usedPrefix + command}`
-if (!/image\/(jpe?g|png)/.test(mime)) throw `Mime (${mime}) tidak support`
-else conn.unblur_high[m.sender] = true
-await m.reply(wait)
-let img = await q.download?.()
-let upld = await uploadImage(img)
-let img2
-try {
-img2 = await fetch(`https://api.itsrose.site/image/unblur?url=${upld}&apikey=Rs-Zeltoria`)
-let image = await img2.arrayBuffer()
-await conn.sendFile(m.chat, image, null, '', m)
-} catch (e) {
-await m.reply(eror);
-} finally {
-delete conn.unblur_high[m.sender]
-}}
+import fetch from "node-fetch"
+import uploadImage from "../lib/uploadImage.js"
+import { ArtEnhance } from "../lib/art-enhance.js"
+import fs from "fs"
+
+let handler = async (m, { conn }) => {
+	let q = m.quoted ? m.quoted : m
+	let mime = (q.msg || q).mimetype || ''
+	if (/image/.test(mime)) {
+		await m.reply(wait)
+		let media = await q.download()
+		let sauce = await ArtEnhance(await uploadImage(media), "3c1615980dcf693b282c4b0fb608b28a")
+		await conn.sendFile(m.chat, sauce, null, '', m)
+	} else throw 'Reply imagenya'
+}
 handler.help = ["remini"]
 handler.tags = ["tools"]
 handler.command = ["remini"]
