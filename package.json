@@ -81,6 +81,7 @@
         "link-preview-js": "*",
         "lodash": "^4.17.21",
         "lowdb": "^3.0.0",
+        "mal-scraper": "*",
         "midjourney-client": "*",
         "mime-types": "*",
         "moment-timezone": "*",
