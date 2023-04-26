@@ -98,6 +98,7 @@
         "qrcode-terminal": "^0.12.0",
         "qs" : "*",
         "readline": "*",
+        "replicate": "*",
         "request" : "*",
         "sagiri" : "*",
         "similarity": "*",
