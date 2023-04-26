@@ -41,11 +41,11 @@ let handler = async (m, {
 "Thumbs"
 ]
 var sty = style.map((v) => v.toLowerCase())
-var sep = text.split("|")
+var sep = text.split(/[^\w\s]/g)
 var sa = sep[0]
 if (sa > 26) throw "lebih"
 var du = sep[1]
-if (!(sa && du)) throw "input .dicebar 9|felix"
+if (!(sa && du)) throw "input .dicebear 9|felix"
 m.reply(wait)
        var fakec = "https://api.dicebear.com/6.x/" + sty[sa] + "/png?seed=" + encodeURIComponent(du)
         var out = await wibusoft.tools.makeSticker(fakec, {
@@ -56,14 +56,14 @@ m.reply(wait)
 })
         
         try {
-        m.reply(out)
+        await m.reply(out)
         } catch (e) {
         throw eror
         }
         
 }
-handler.help = ['dicebar']
+handler.help = ['dicebear']
 handler.tags = ['sticker']
-handler.command = /^(dicebar)$/i
+handler.command = /^(dicebear)$/i
 
 export default handler

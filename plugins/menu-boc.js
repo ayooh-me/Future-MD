@@ -1,540 +1,593 @@
-import { aiovideodl,
-aksaraToLatin,
-alquran,
-antaranews,
-artimimpi,
-artinama,
-asahotak,
-asmaulhusna,
-bioskop,
-bioskopNow,
-bucin,
-bucinjson,
-caklontong,
-chord,
-cnbindonesia,
-createHash,
-dare,
-darejson,
-didyoumean,
-facebookdl,
-facebookdlv2,
-facebookdlv3,
-family100,
-fromBase64ToString,
-gempa,
-gempaNow,
-getZodiac,
-googleImage,
-googleIt,
-groupWA,
-instagramdl,
-instagramdlv2,
-instagramdlv3,
-instagramdlv4,
-instagramStalk,
-instagramStory,
-instagramStoryv2,
-jadwalsholat,
-jadwalTV,
-jadwalTVNow,
-kbbi,
-kompas,
-latinToAksara,
-liputan6,
-listJadwalSholat,
-listJadwalTV,
-lyrics,
-lyricsv2,
-mediafiredl,
-merdeka,
-nameFreeFire,
-nomorhoki,
-pinterest,
-randomBytes,
-randomUUID,
-savefrom,
-sfilemobi,
-sfilemobiSearch,
-siapakahaku,
-snapsave,
-statusBedrock,
-statusJava,
-stickerLine,
-stickerTelegram,
-suaracom,
-susunkata,
-tebakbendera,
-tebakgambar,
-tebakkabupaten,
-tebakkata,
-tebakkimia,
-tebaklirik,
-tebaktebakan,
-tekateki,
-textpro,
-textproList,
-tiktokdl,
-tiktokdlv2,
-tiktokdlv3,
-tiktokfyp,
-toBase64,
-truth,
-truthjson,
-tsunami,
-twitterdl,
-twitterdlv2,
-wallpaper,
-wallpaperv2,
-wallpaperv3,
-wikipedia,
-youtubedl,
-youtubedlv2,
-youtubedlv3,
-youtubeSearch,
-zippyshare } from '@bochilteam/scraper'
+import {
+    aiovideodl,
+    aksaraToLatin,
+    alquran,
+    antaranews,
+    artimimpi,
+    artinama,
+    asahotak,
+    asmaulhusna,
+    bioskop,
+    bioskopNow,
+    bucin,
+    bucinjson,
+    caklontong,
+    chord,
+    cnbindonesia,
+    createHash,
+    dare,
+    darejson,
+    didyoumean,
+    facebookdl,
+    facebookdlv2,
+    facebookdlv3,
+    family100,
+    fromBase64ToString,
+    gempa,
+    gempaNow,
+    getZodiac,
+    googleImage,
+    googleIt,
+    groupWA,
+    instagramdl,
+    instagramdlv2,
+    instagramdlv3,
+    instagramdlv4,
+    instagramStalk,
+    instagramStory,
+    instagramStoryv2,
+    jadwalsholat,
+    jadwalTV,
+    jadwalTVNow,
+    kbbi,
+    kompas,
+    latinToAksara,
+    liputan6,
+    listJadwalSholat,
+    listJadwalTV,
+    lyrics,
+    lyricsv2,
+    mediafiredl,
+    merdeka,
+    nameFreeFire,
+    nomorhoki,
+    pinterest,
+    randomBytes,
+    randomUUID,
+    savefrom,
+    sfilemobi,
+    sfilemobiSearch,
+    siapakahaku,
+    snapsave,
+    statusBedrock,
+    statusJava,
+    stickerLine,
+    stickerTelegram,
+    suaracom,
+    susunkata,
+    tebakbendera,
+    tebakgambar,
+    tebakkabupaten,
+    tebakkata,
+    tebakkimia,
+    tebaklirik,
+    tebaktebakan,
+    tekateki,
+    textpro,
+    textproList,
+    tiktokdl,
+    tiktokdlv2,
+    tiktokdlv3,
+    tiktokfyp,
+    toBase64,
+    truth,
+    truthjson,
+    tsunami,
+    twitterdl,
+    twitterdlv2,
+    wallpaper,
+    wallpaperv2,
+    wallpaperv3,
+    wikipedia,
+    youtubedl,
+    youtubedlv2,
+    youtubedlv3,
+    youtubeSearch,
+    zippyshare
+} from "@bochilteam/scraper"
 
-let handler = async(m, { conn, groupMetadata, usedPrefix, text, args, isPrems, isOwner, command }) => {
-let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-let name = await conn.getName(who)
-                            
-let urut = text.split`|`
-  let one = urut[1]
-  let two = urut[2]
-  let three = urut[3]
-  
-let template = (args[0] || '').toLowerCase()
-if (!args[0] || !one) {
-let caption = `*Contoh Penggunaan Single*
-${usedPrefix + command} cecan
+let handler = async (m, {
+    command,
+    usedPrefix,
+    conn,
+    text,
+    args
+}) => {
+    let ends = [
+        "aiovideodl",
+        "aksaraToLatin",
+        "alquran",
+        "antaranews",
+        "artimimpi",
+        "artinama",
+        "asahotak",
+        "asmaulhusna",
+        "bioskop",
+        "bioskopNow",
+        "bucin",
+        "bucinjson",
+        "caklontong",
+        "chord",
+        "cnbindonesia",
+        "createHash",
+        "dare",
+        "darejson",
+        "didyoumean",
+        "facebookdl",
+        "facebookdlv2",
+        "facebookdlv3",
+        "family100",
+        "fromBase64ToString",
+        "gempa",
+        "gempaNow",
+        "getZodiac",
+        "googleImage",
+        "googleIt",
+        "groupWA",
+        "instagramdl",
+        "instagramdlv2",
+        "instagramdlv3",
+        "instagramdlv4",
+        "instagramStalk",
+        "instagramStory",
+        "instagramStoryv2",
+        "jadwalsholat",
+        "jadwalTV",
+        "jadwalTVNow",
+        "kbbi",
+        "kompas",
+        "latinToAksara",
+        "liputan6",
+        "listJadwalSholat",
+        "listJadwalTV",
+        "lyrics",
+        "lyricsv2",
+        "mediafiredl",
+        "merdeka",
+        "nameFreeFire",
+        "nomorhoki",
+        "pinterest",
+        "randomBytes",
+        "randomUUID",
+        "savefrom",
+        "sfilemobi",
+        "sfilemobiSearch",
+        "siapakahaku",
+        "snapsave",
+        "statusBedrock",
+        "statusJava",
+        "stickerLine",
+        "stickerTelegram",
+        "suaracom",
+        "susunkata",
+        "tebakbendera",
+        "tebakgambar",
+        "tebakkabupaten",
+        "tebakkata",
+        "tebakkimia",
+        "tebaklirik",
+        "tebaktebakan",
+        "tekateki",
+        "textpro",
+        "textproList",
+        "tiktokdl",
+        "tiktokdlv2",
+        "tiktokdlv3",
+        "tiktokfyp",
+        "toBase64",
+        "truth",
+        "truthjson",
+        "tsunami",
+        "twitterdl",
+        "twitterdlv2",
+        "wallpaper",
+        "wallpaperv2",
+        "wallpaperv3",
+        "wikipedia",
+        "youtubedl",
+        "youtubedlv2",
+        "youtubedlv3",
+        "youtubeSearch",
+        "zippyshare"
+    ]
+    let [modes, kodes] = text.split(/[^\w\s]/g)
+    if (!ends.includes(modes)) return m.reply("*Example:*\n.boc dare|0\n\n*Pilih type yg ada*\n" + ends.map((v, index) => "  ○ " + v).join("\n"))
 
-*Contoh Penggunaan Multi*
-${usedPrefix + command} pinterest |wibu
+    
+        if (modes == "aiovideodl") {
+            let res = await aiovideodl(kodes)
+            throw res
+        }
+        if (modes == "aksaraToLatin") {
+            let res = await aksaraToLatin(kodes)
+            throw res
+        }
+        if (modes == "alquran") {
+            let res = await alquran(kodes)
+            throw res
+        }
+        if (modes == "antaranews") {
+            let res = await antaranews(kodes)
+            throw res
+        }
+        if (modes == "artimimpi") {
+            let res = await artimimpi(kodes)
+            throw res
+        }
+        if (modes == "artinama") {
+            let res = await artinama(kodes)
+            throw res
+        }
+        if (modes == "asahotak") {
+            let res = await asahotak(kodes)
+            throw res
+        }
+        if (modes == "asmaulhusna") {
+            let res = await asmaulhusna(kodes)
+            throw res
+        }
+        if (modes == "bioskop") {
+            let res = await bioskop(kodes)
+            throw res
+        }
+        if (modes == "bioskopNow") {
+            let res = await bioskopNow(kodes)
+            throw res
+        }
+        if (modes == "bucin") {
+            let res = await bucin(kodes)
+            throw res
+        }
+        if (modes == "bucinjson") {
+            let res = await bucinjson(kodes)
+            throw res
+        }
+        if (modes == "caklontong") {
+            let res = await caklontong(kodes)
+            throw res
+        }
+        if (modes == "chord") {
+            let res = await chord(kodes)
+            throw res
+        }
+        if (modes == "cnbindonesia") {
+            let res = await cnbindonesia(kodes)
+            throw res
+        }
+        if (modes == "createHash") {
+            let res = await createHash(kodes)
+            throw res
+        }
+        if (modes == "dare") {
+            let res = await dare(kodes)
+            throw res
+        }
+        if (modes == "darejson") {
+            let res = await darejson(kodes)
+            throw res
+        }
+        if (modes == "didyoumean") {
+            let res = await didyoumean(kodes)
+            throw res
+        }
+        if (modes == "facebookdl") {
+            let res = await facebookdl(kodes)
+            throw res
+        }
+        if (modes == "facebookdlv2") {
+            let res = await facebookdlv2(kodes)
+            throw res
+        }
+        if (modes == "facebookdlv3") {
+            let res = await facebookdlv3(kodes)
+            throw res
+        }
+        if (modes == "family100") {
+            let res = await family100(kodes)
+            throw res
+        }
+        if (modes == "fromBase64ToString") {
+            let res = await fromBase64ToString(kodes)
+            throw res
+        }
+        if (modes == "gempa") {
+            let res = await gempa(kodes)
+            throw res
+        }
+        if (modes == "gempaNow") {
+            let res = await gempaNow(kodes)
+            throw res
+        }
+        if (modes == "getZodiac") {
+            let res = await getZodiac(kodes)
+            throw res
+        }
+        if (modes == "googleImage") {
+            let res = await googleImage(kodes)
+            throw res
+        }
+        if (modes == "googleIt") {
+            let res = await googleIt(kodes)
+            throw res
+        }
+        if (modes == "groupWA") {
+            let res = await groupWA(kodes)
+            throw res
+        }
+        if (modes == "instagramStalk") {
+            let res = await instagramStalk(kodes)
+            throw res
+        }
+        if (modes == "instagramStory") {
+            let res = await instagramStory(kodes)
+            throw res
+        }
+        if (modes == "instagramStoryv2") {
+            let res = await instagramStoryv2(kodes)
+            throw res
+        }
+        if (modes == "instagramdl") {
+            let res = await instagramdl(kodes)
+            throw res
+        }
+        if (modes == "instagramdlv2") {
+            let res = await instagramdlv2(kodes)
+            throw res
+        }
+        if (modes == "instagramdlv3") {
+            let res = await instagramdlv3(kodes)
+            throw res
+        }
+        if (modes == "instagramdlv4") {
+            let res = await instagramdlv4(kodes)
+            throw res
+        }
+        if (modes == "jadwalTV") {
+            let res = await jadwalTV(kodes)
+            throw res
+        }
+        if (modes == "jadwalTVNow") {
+            let res = await jadwalTVNow(kodes)
+            throw res
+        }
+        if (modes == "jadwalsholat") {
+            let res = await jadwalsholat(kodes)
+            throw res
+        }
+        if (modes == "kbbi") {
+            let res = await kbbi(kodes)
+            throw res
+        }
+        if (modes == "kompas") {
+            let res = await kompas(kodes)
+            throw res
+        }
+        if (modes == "latinToAksara") {
+            let res = await latinToAksara(kodes)
+            throw res
+        }
+        if (modes == "liputan6") {
+            let res = await liputan6(kodes)
+            throw res
+        }
+        if (modes == "listJadwalSholat") {
+            let res = await listJadwalSholat(kodes)
+            throw res
+        }
+        if (modes == "listJadwalTV") {
+            let res = await listJadwalTV(kodes)
+            throw res
+        }
+        if (modes == "lyrics") {
+            let res = await lyrics(kodes)
+            throw res
+        }
+        if (modes == "lyricsv2") {
+            let res = await lyricsv2(kodes)
+            throw res
+        }
+        if (modes == "mediafiredl") {
+            let res = await mediafiredl(kodes)
+            throw res
+        }
+        if (modes == "merdeka") {
+            let res = await merdeka(kodes)
+            throw res
+        }
+        if (modes == "nameFreeFire") {
+            let res = await nameFreeFire(kodes)
+            throw res
+        }
+        if (modes == "nomorhoki") {
+            let res = await nomorhoki(kodes)
+            throw res
+        }
+        if (modes == "pinterest") {
+            let res = await pinterest(kodes)
+            throw res
+        }
+        if (modes == "randomBytes") {
+            let res = await randomBytes(kodes)
+            throw res
+        }
+        if (modes == "randomUUID") {
+            let res = await randomUUID(kodes)
+            throw res
+        }
+        if (modes == "savefrom") {
+            let res = await savefrom(kodes)
+            throw res
+        }
+        if (modes == "sfilemobi") {
+            let res = await sfilemobi(kodes)
+            throw res
+        }
+        if (modes == "sfilemobiSearch") {
+            let res = await sfilemobiSearch(kodes)
+            throw res
+        }
+        if (modes == "siapakahaku") {
+            let res = await siapakahaku(kodes)
+            throw res
+        }
+        if (modes == "snapsave") {
+            let res = await snapsave(kodes)
+            throw res
+        }
+        if (modes == "statusBedrock") {
+            let res = await statusBedrock(kodes)
+            throw res
+        }
+        if (modes == "statusJava") {
+            let res = await statusJava(kodes)
+            throw res
+        }
+        if (modes == "stickerLine") {
+            let res = await stickerLine(kodes)
+            throw res
+        }
+        if (modes == "stickerTelegram") {
+            let res = await stickerTelegram(kodes)
+            throw res
+        }
+        if (modes == "suaracom") {
+            let res = await suaracom(kodes)
+            throw res
+        }
+        if (modes == "susunkata") {
+            let res = await susunkata(kodes)
+            throw res
+        }
+        if (modes == "tebakbendera") {
+            let res = await tebakbendera(kodes)
+            throw res
+        }
+        if (modes == "tebakgambar") {
+            let res = await tebakgambar(kodes)
+            throw res
+        }
+        if (modes == "tebakkabupaten") {
+            let res = await tebakkabupaten(kodes)
+            throw res
+        }
+        if (modes == "tebakkata") {
+            let res = await tebakkata(kodes)
+            throw res
+        }
+        if (modes == "tebakkimia") {
+            let res = await tebakkimia(kodes)
+            throw res
+        }
+        if (modes == "tebaklirik") {
+            let res = await tebaklirik(kodes)
+            throw res
+        }
+        if (modes == "tebaktebakan") {
+            let res = await tebaktebakan(kodes)
+            throw res
+        }
+        if (modes == "tekateki") {
+            let res = await tekateki(kodes)
+            throw res
+        }
+        if (modes == "textpro") {
+            let res = await textpro(kodes)
+            throw res
+        }
+        if (modes == "textproList") {
+            let res = await textproList(kodes)
+            throw res
+        }
+        if (modes == "tiktokdl") {
+            let res = await tiktokdl(kodes)
+            throw res
+        }
+        if (modes == "tiktokdlv2") {
+            let res = await tiktokdlv2(kodes)
+            throw res
+        }
+        if (modes == "tiktokdlv3") {
+            let res = await tiktokdlv3(kodes)
+            throw res
+        }
+        if (modes == "tiktokfyp") {
+            let res = await tiktokfyp(kodes)
+            throw res
+        }
+        if (modes == "toBase64") {
+            let res = await toBase64(kodes)
+            throw res
+        }
+        if (modes == "truth") {
+            let res = await truth(kodes)
+            throw res
+        }
+        if (modes == "truthjson") {
+            let res = await truthjson(kodes)
+            throw res
+        }
+        if (modes == "tsunami") {
+            let res = await tsunami(kodes)
+            throw res
+        }
+        if (modes == "twitterdl") {
+            let res = await twitterdl(kodes)
+            throw res
+        }
+        if (modes == "twitterdlv2") {
+            let res = await twitterdlv2(kodes)
+            throw res
+        }
+        if (modes == "wallpaper") {
+            let res = await wallpaper(kodes)
+            throw res
+        }
+        if (modes == "wallpaperv2") {
+            let res = await wallpaperv2(kodes)
+            throw res
+        }
+        if (modes == "wallpaperv3") {
+            let res = await wallpaperv3(kodes)
+            throw res
+        }
+        if (modes == "wikipedia") {
+            let res = await wikipedia(kodes)
+            throw res
+        }
+        if (modes == "youtubeSearch") {
+            let res = await youtubeSearch(kodes)
+            throw res
+        }
+        if (modes == "youtubedl") {
+            let res = await youtubedl(kodes)
+            throw res
+        }
+        if (modes == "youtubedlv2") {
+            let res = await youtubedlv2(kodes)
+            throw res
+        }
+        if (modes == "youtubedlv3") {
+            let res = await youtubedlv3(kodes)
+            throw res
+        }
+        if (modes == "zippyshare") {
+            let res = await zippyshare(kodes)
+            throw res
+        }
 
-*List:*
+}
+handler.help = ["boc type query"]
+handler.tags = ["internet"]
+handler.command = /^(boc)$/i
 
-`
-await conn.sendButtonVid(m.chat, logo, caption, wm, 'Back', '.menulist', fakes, adReply)
-            }
-            
-try {
-if (command) {
-switch (template) {
-case 'aiovideodl':
-let res0 = await aiovideodl(one ? one : null)
-throw res0
-break
-case 'aksaraToLatin':
-let res1 = await aksaraToLatin(one ? one : null)
-throw res1
-break
-case 'alquran':
-let res2 = await alquran(one ? one : null)
-throw res2
-break
-case 'antaranews':
-let res3 = await antaranews(one ? one : null)
-throw res3
-break
-case 'artimimpi':
-let res4 = await artimimpi(one ? one : null)
-throw res4
-break
-case 'artinama':
-let res5 = await artinama(one ? one : null)
-throw res5
-break
-case 'asahotak':
-let res6 = await asahotak(one ? one : null)
-throw res6
-break
-case 'asmaulhusna':
-let res7 = await asmaulhusna(one ? one : null)
-throw res7
-break
-case 'bioskop':
-let res8 = await bioskop(one ? one : null)
-throw res8
-break
-case 'bioskopNow':
-let res9 = await bioskopNow(one ? one : null)
-throw res9
-break
-case 'bucin':
-let res10 = await bucin(one ? one : null)
-throw res10
-break
-case 'bucinjson':
-let res11 = await bucinjson(one ? one : null)
-throw res11
-break
-case 'caklontong':
-let res12 = await caklontong(one ? one : null)
-throw res12
-break
-case 'chord':
-let res13 = await chord(one ? one : null)
-throw res13
-break
-case 'cnbindonesia':
-let res14 = await cnbindonesia(one ? one : null)
-throw res14
-break
-case 'createHash':
-let res15 = await createHash(one ? one : null)
-throw res15
-break
-case 'dare':
-let res16 = await dare(one ? one : null)
-throw res16
-break
-case 'darejson':
-let res17 = await darejson(one ? one : null)
-throw res17
-break
-case 'didyoumean':
-let res18 = await didyoumean(one ? one : null)
-throw res18
-break
-case 'facebookdl':
-let res19 = await facebookdl(one ? one : null)
-throw res19
-break
-case 'facebookdlv2':
-let res20 = await facebookdlv2(one ? one : null)
-throw res20
-break
-case 'facebookdlv3':
-let res21 = await facebookdlv3(one ? one : null)
-throw res21
-break
-case 'family100':
-let res22 = await family100(one ? one : null)
-throw res22
-break
-case 'fromBase64ToString':
-let res23 = await fromBase64ToString(one ? one : null)
-throw res23
-break
-case 'gempa':
-let res24 = await gempa(one ? one : null)
-throw res24
-break
-case 'gempaNow':
-let res25 = await gempaNow(one ? one : null)
-throw res25
-break
-case 'getZodiac':
-let res26 = await getZodiac(one ? one : null)
-throw res26
-break
-case 'googleImage':
-let res27 = await googleImage(one ? one : null)
-throw res27
-break
-case 'googleIt':
-let res28 = await googleIt(one ? one : null)
-throw res28
-break
-case 'groupWA':
-let res29 = await groupWA(one ? one : null)
-throw res29
-break
-case 'instagramdl':
-let res30 = await instagramdl(one ? one : null)
-throw res30
-break
-case 'instagramdlv2':
-let res31 = await instagramdlv2(one ? one : null)
-throw res31
-break
-case 'instagramdlv3':
-let res32 = await instagramdlv3(one ? one : null)
-throw res32
-break
-case 'instagramdlv4':
-let res33 = await instagramdlv4(one ? one : null)
-throw res33
-break
-case 'instagramStalk':
-let res34 = await instagramStalk(one ? one : null)
-throw res34
-break
-case 'instagramStory':
-let res35 = await instagramStory(one ? one : null)
-throw res35
-break
-case 'instagramStoryv2':
-let res36 = await instagramStoryv2(one ? one : null)
-throw res36
-break
-case 'jadwalsholat':
-let res37 = await jadwalsholat(one ? one : null)
-throw res37
-break
-case 'jadwalTV':
-let res38 = await jadwalTV(one ? one : null)
-throw res38
-break
-case 'jadwalTVNow':
-let res39 = await jadwalTVNow(one ? one : null)
-throw res39
-break
-case 'kbbi':
-let res40 = await kbbi(one ? one : null)
-throw res40
-break
-case 'kompas':
-let res41 = await kompas(one ? one : null)
-throw res41
-break
-case 'latinToAksara':
-let res42 = await latinToAksara(one ? one : null)
-throw res42
-break
-case 'liputan6':
-let res43 = await liputan6(one ? one : null)
-throw res43
-break
-case 'listJadwalSholat':
-let res44 = await listJadwalSholat(one ? one : null)
-throw res44
-break
-case 'listJadwalTV':
-let res45 = await listJadwalTV(one ? one : null)
-throw res45
-break
-case 'lyrics':
-let res46 = await lyrics(one ? one : null)
-throw res46
-break
-case 'lyricsv2':
-let res47 = await lyricsv2(one ? one : null)
-throw res47
-break
-case 'mediafiredl':
-let res48 = await mediafiredl(one ? one : null)
-    let { url, url2, filename, ext, aploud, filesize, filesizeH } = res48
-    let cipri = `
-*Name:* ${filename}
-*Size:* ${filesizeH}
-*Extension:* ${ext}
-*Uploaded:* ${aploud}
-`.trim()
-    m.reply(cipri)
-    await conn.sendFile(m.chat, url, filename, '', m, null, { mimetype: ext, asDocument: true })
-break
-case 'merdeka':
-let res49 = await merdeka(one ? one : null)
-throw res49
-break
-case 'minecraftProtocol':
-let res50 = await minecraftProtocol(one ? one : null)
-throw res50
-break
-case 'nameFreeFire':
-let res51 = await nameFreeFire(one ? one : null)
-throw res51
-break
-case 'nomorhoki':
-let res52 = await nomorhoki(one ? one : null)
-throw res52
-break
-case 'pinterest':
-let res53 = await pinterest(one ? one : null)
-throw res53
-break
-case 'randomBytes':
-let res54 = await randomBytes(one ? one : null)
-throw res54
-break
-case 'randomUUID':
-let res55 = await randomUUID(one ? one : null)
-throw res55
-break
-/*
-case 'readVarInt':
-let res56 = await readVarInt(one ? one : null)
-throw res56
-break
-*/
-case 'savefrom':
-let res57 = await savefrom(one ? one : null)
-throw res57
-break
-case 'sfilemobi':
-let res58 = await sfilemobi(one ? one : null)
-throw res58
-break
-case 'sfilemobiSearch':
-let res59 = await sfilemobiSearch(one ? one : null)
-throw res59
-break
-case 'siapakahaku':
-let res60 = await siapakahaku(one ? one : null)
-throw res60
-break
-case 'snapsave':
-let res61 = await snapsave(one ? one : null)
-throw res61
-break
-case 'statusBedrock':
-let res62 = await statusBedrock(one ? one : null)
-throw res62
-break
-case 'statusJava':
-let res63 = await statusJava(one ? one : null)
-throw res63
-break
-case 'stickerLine':
-let res64 = await stickerLine(one ? one : null)
-throw res64
-break
-case 'stickerTelegram':
-let res65 = await stickerTelegram(one ? one : null)
-throw res65
-break
-case 'suaracom':
-let res66 = await suaracom(one ? one : null)
-throw res66
-break
-case 'susunkata':
-let res67 = await susunkata(one ? one : null)
-throw res67
-break
-case 'tebakbendera':
-let res68 = await tebakbendera(one ? one : null)
-throw res68
-break
-case 'tebakgambar':
-let res69 = await tebakgambar(one ? one : null)
-throw res69
-break
-case 'tebakkabupaten':
-let res70 = await tebakkabupaten(one ? one : null)
-throw res70
-break
-case 'tebakkata':
-let res71 = await tebakkata(one ? one : null)
-throw res71
-break
-case 'tebakkimia':
-let res72 = await tebakkimia(one ? one : null)
-throw res72
-break
-case 'tebaklirik':
-let res73 = await tebaklirik(one ? one : null)
-throw res73
-break
-case 'tebaktebakan':
-let res74 = await tebaktebakan(one ? one : null)
-throw res74
-break
-case 'tekateki':
-let res75 = await tekateki(one ? one : null)
-throw res75
-break
-case 'textpro':
-let res76 = await textpro(one ? one : null)
-throw res76
-break
-case 'textproList':
-let res77 = await textproList(one ? one : null)
-throw res77
-break
-case 'tiktokdl':
-const { author: { nickname }, video, description } = await tiktokdl(one ? one : null).catch(async _ => await tiktokdlv3(one ? one : null))
-    let urls = video.no_watermark || video.no_watermark2 || video.no_watermark_raw 
-    if (!urls) throw 'Can\'t download video!'
-    conn.sendFile(m.chat, urls, 'tiktok.mp4', author, m)
-break
-case 'tiktokdlv2':
-let res79 = await tiktokdlv2(one ? one : null)
-throw res79
-break
-case 'tiktokdlv3':
-let res80 = await tiktokdlv3(one ? one : null)
-throw res80
-break
-case 'tiktokfyp':
-let res81 = await tiktokfyp(one ? one : null)
-throw res81
-break
-case 'toBase64':
-let res82 = await toBase64(one ? one : null)
-throw res82
-break
-case 'truth':
-let res83 = await truth(one ? one : null)
-throw res83
-break
-case 'truthjson':
-let res84 = await truthjson(one ? one : null)
-throw res84
-break
-case 'tsunami':
-let res85 = await tsunami(one ? one : null)
-throw res85
-break
-case 'twitterdl':
-let res86 = await twitterdl(one ? one : null)
-throw res86
-break
-case 'twitterdlv2':
-let res87 = await twitterdlv2(one ? one : null)
-throw res87
-break
-case 'wallpaper':
-let res88 = await wallpaper(one ? one : null)
-throw res88
-break
-case 'wallpaperv2':
-let res89 = await wallpaperv2(one ? one : null)
-throw res89
-break
-case 'wallpaperv3':
-let res90 = await wallpaperv3(one ? one : null)
-throw res90
-break
-case 'wikipedia':
-let res91 = await wikipedia(one ? one : null)
-throw res91
-break
-/*
-case 'writeVarInt':
-let res92 = await writeVarInt(one ? one : null)
-throw res92
-break
-*/
-case 'youtubedl':
-let res93 = await youtubedl(one ? one : null)
-throw res93
-break
-case 'youtubedlv2':
-let res94 = await youtubedlv2(one ? one : null)
-throw res94
-break
-case 'youtubedlv3':
-let res96 = await youtubedlv3(one ? one : null)
-throw res96
-break
-case 'youtubeSearch':
-let res97 = await youtubeSearch(one ? one : null)
-throw res97
-break
-case 'zippyshare':
-let res98 = await zippyshare(one ? one : null)
-throw res98
-break
-            
-}
-}
-} catch (e) {
-throw eror
-}
-}
-handler.help = ['boc <command> <teks>']
-handler.tags = ['tools'] 
-handler.command = /^boc$/i
 export default handler
-

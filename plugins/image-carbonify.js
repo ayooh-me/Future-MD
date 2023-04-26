@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer"
+import fetch from "node-fetch"
 let handler = async (m, {
     conn,
     isOwner,
@@ -6,20 +7,29 @@ let handler = async (m, {
     command,
     args
 }) => {
-    let query = "Input Code:\n.carbon console.log('hello world')"
+    let query = "Input Code:\n.carbon console.log('hello world ')"
     let text
     if (args.length >= 1) {
         text = args.slice(0).join(" ")
     } else if (m.quoted && m.quoted.text) {
         text = m.quoted.text
     } else throw query
-
+    await m.reply(wait)
     try {
-        m.reply(wait)
         let result = await Carbonify(text)
-        await conn.sendFile(m.chat, result, '', "*Request by:*\n" + m.name, m)
+        await conn.sendFile(m.chat, result, "", "*V1 by:*\n" + m.name, m)
     } catch (e) {
-        throw eror
+        try {
+            let result = await CarbonifyV2(text)
+            await conn.sendFile(m.chat, result, "", "*V2 by:*\n" + m.name, m)
+        } catch (e) {
+            try {
+                let result = await CarbonifyV3(text)
+                await conn.sendFile(m.chat, result, "", "*V3 by:*\n" + m.name, m)
+            } catch (e) {
+                throw eror
+            }
+        }
     }
 }
 handler.help = ["carbon"]
@@ -67,7 +77,11 @@ async function Carbonify(teks) {
     }]
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.setViewport({width: 800, height: 800, deviceScaleFactor: 2});
+    await page.setViewport({
+        width: 800,
+        height: 800,
+        deviceScaleFactor: 2
+    });
     let index = 1;
     for (const snippet of snippets) {
         console.log(`Carbonifying snippet ${index} of ${snippets.length}`);
@@ -87,4 +101,36 @@ async function Carbonify(teks) {
         index++;
     }
     await browser.close();
+}
+
+async function CarbonifyV3(input) {
+    let Blobs = await fetch("https://carbon-api.vercel.app/api", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "code": input
+            })
+        })
+        .then(response => response.blob())
+    let arrayBuffer = await Blobs.arrayBuffer();
+    let buffer = Buffer.from(arrayBuffer);
+    return buffer
+}
+
+async function CarbonifyV2(input) {
+    let Blobs = await fetch("https://carbonara.solopov.dev/api/cook", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "code": input
+            })
+        })
+        .then(response => response.blob())
+    let arrayBuffer = await Blobs.arrayBuffer();
+    let buffer = Buffer.from(arrayBuffer);
+    return buffer
 }

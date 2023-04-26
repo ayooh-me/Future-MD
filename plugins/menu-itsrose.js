@@ -47,49 +47,49 @@ if (command) {
 switch (template) {
         
             case 'anime':
-        let ab = await fetch(`http://api.itsrose.site/anime/${one}?${two}&apikey=FrierenDv`)
+        let ab = await fetch(`http://api.itsrose.site/anime/${one}?${two}&apikey=Rs-Zeltoria`)
         let ac = await ab.json()
         m.reply(ac)
             break
             case 'downloader':
-        let dl = await fetch(`http://api.itsrose.site/downloader/${one}?${two}&apikey=FrierenDv`)
+        let dl = await fetch(`http://api.itsrose.site/downloader/${one}?${two}&apikey=Rs-Zeltoria`)
         let dp = await dl.json()
         m.reply(dp)
             break
             case 'dewasa':
-        let dw = await fetch(`http://api.itsrose.site/dewasa/${one}?${two}&apikey=FrierenDv`)
+        let dw = await fetch(`http://api.itsrose.site/dewasa/${one}?${two}&apikey=Rs-Zeltoria`)
         let qs = await dw.json()
         m.reply(qs)
             break
             case 'manga':
-        let mng = await fetch(`http://api.itsrose.site/manga/${one}?${two}&apikey=FrierenDv`)
+        let mng = await fetch(`http://api.itsrose.site/manga/${one}?${two}&apikey=Rs-Zeltoria`)
         let mmg = await mng.json()
         m.reply(mmg)
             break
             case 'image':
-        let bb = `http://api.itsrose.site/image/${one}?${two}&apikey=FrierenDv`
+        let bb = `http://api.itsrose.site/image/${one}?${two}&apikey=Rs-Zeltoria`
         conn.sendButtonImg(m.chat, bb, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             case 'photooxy':
-        let ox = `http://api.itsrose.site/photooxy/${one}?${two}&apikey=FrierenDv`
+        let ox = `http://api.itsrose.site/photooxy/${one}?${two}&apikey=Rs-Zeltoria`
         conn.sendButtonImg(m.chat, ox, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             case 'random':
-        let rd = `http://api.itsrose.site/random/${one}?${two}&apikey=FrierenDv`
+        let rd = `http://api.itsrose.site/random/${one}?${two}&apikey=Rs-Zeltoria`
         conn.sendButtonVid(m.chat, rd, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             case 'searching':
-        let se = await fetch(`http://api.itsrose.site/searching/${one}?${two}&apikey=FrierenDv`)
+        let se = await fetch(`http://api.itsrose.site/searching/${one}?${two}&apikey=Rs-Zeltoria`)
         let seqa = await se.json()
         m.reply(seqa)
             break
             case 'others':
-        let oth = await fetch(`http://api.itsrose.site/others/${one}?${two}&apikey=FrierenDv`)
+        let oth = await fetch(`http://api.itsrose.site/others/${one}?${two}&apikey=Rs-Zeltoria`)
         let oup = await oth.json()
         m.reply(oup)
             break
             case 'textpro':
-        let tpr = `http://api.itsrose.site/textpro/${one}?${two}&apikey=FrierenDv`
+        let tpr = `http://api.itsrose.site/textpro/${one}?${two}&apikey=Rs-Zeltoria`
         conn.sendButtonImg(m.chat, tpr, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
 }
