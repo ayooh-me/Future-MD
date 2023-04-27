@@ -71,6 +71,8 @@
         "genshin" : "*",
         "genshin-db" : "*",
         "google-play-scraper": "*",
+        "hmtai": "*",
+        "hmfull": "*",
         "https": "*",
         "human-readable": "*",
         "hxz-api": "*",
