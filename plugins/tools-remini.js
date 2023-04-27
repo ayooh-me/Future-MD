@@ -9,7 +9,7 @@ let handler = async (m, { conn }) => {
 	if (/image/.test(mime)) {
 		await m.reply(wait)
 		let media = await q.download()
-		let sauce = await ArtEnhance(await uploadImage(media), "3c1615980dcf693b282c4b0fb608b28a")
+		let sauce = await ArtEnhance(await uploadImage(media), "3a4886dd3230e523600d3b555f651dc82aba3a4e")
 		await conn.sendFile(m.chat, sauce, null, '', m)
 	} else throw 'Reply imagenya'
 }
