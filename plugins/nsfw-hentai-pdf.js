@@ -1,72 +1,137 @@
 
-import fs from 'fs'
-import request from 'request'
-import fetch from 'node-fetch'
-import topdf from 'image-to-pdf'
-import nhentai from 'nhentai-node-api'
+import PDFDocument from "pdfkit";
+import request from "request";
+import fs from "fs";
+import fetch from "node-fetch";
+import cheerio from "cheerio";
 
-let handler = async (m, { conn, args }) => {
-	if (!args[0]) return m.reply('Cari apa?')
-	if (isNaN(args[0])) return m.reply('Pake angka')
-	await m.reply('Loading...')
-	let count = 0
-	let ResultPdf = []
-	let doujin = await nhentai.getDoujin(args[0])
-	let title = doujin.title.default
-	let details = doujin.details
-	let parodies = details.parodies.map(v => v.name)
-	let characters = details.characters.map(v => v.name)
-	let tags = details.tags.map(v => v.name)
-	let artists = details.artists.map(v => v.name)
-	let groups = details.groups.map(v => v.name)
-	let categories = details.categories.map(v => v.name)
-	let array_page = doujin.pages
-
-	await conn.sendFile(m.chat, array_page[0], '', `*${title}*\n_${doujin.title.native || ''}_\nLanguage: ${doujin.language}\nParodies: ${parodies.join(', ')}\nGroups: ${groups.join(', ')}\nArtists: ${artists.join(', ')}\nTags: ${tags.join(', ')}\nCategories: ${categories.join(', ')}\nPages: ${array_page.length}\nFavorited: ${doujin.favorites}\nLink: ${doujin.link.replace('nhentai.net/g', 'cin.pw/v')}`, m)
-
-	for (let index = 0; index < array_page.length; index++) {
-		if (!fs.existsSync('./images')) fs.mkdirSync('./images')
-		let image_name = './images/' + title + index + '.jpg'
-		await new Promise((resolve) => request(array_page[index]).pipe(fs.createWriteStream(image_name)).on('finish', resolve))
-		console.log(array_page[index])
-		ResultPdf.push(image_name)
-		count++
-	}
-
-	await new Promise((resolve) =>
-		topdf(ResultPdf, 'A4')
-		.pipe(fs.createWriteStream('./images/' + title + '.pdf'))
-		.on('finish', resolve)
-	)
-
-	for (let i = 0; i < array_page.length; i++) {
-		fs.unlinkSync('./images/' + title + i + '.jpg')
-	}
+let handler = async (m, { conn, command, usedPrefix, args, text }) => {
 	
-	let size = await fs.statSync(`./images/${title}.pdf`).size
-	if (size < 45000000) {
-		m.reply('Uploading...')
-		let thumbnail = await (await fetch(doujin.cover)).arrayBuffer()
-		await conn.sendFile(m.chat, fs.readFileSync(`./images/${title}.pdf`), `${title}.pdf`, '', m, false, { asDocument: true, thumbnail: thumbnail })
-		.then(() => fs.unlinkSync(`./images/${title}.pdf`))
-	} else {
-		m.reply('Uploading to anonfiles because file size to large')
-		let options = {
-			method: 'POST',
-			url: 'https://api.anonfiles.com/upload',
-			formData: {
-				file: fs.createReadStream(`./images/${title}.pdf`),
-			},
-		}
+	if (command == "ehsearch") {
+	if (!text) return m.reply("Cari apa?\n *" + usedPrefix + command + "* sakura")
+	await m.reply(wait)
+	let res = await EhSearch(text)
+	let list = res.map((item, index) => `*${htki} 📺 H E N T A I 🔎 ${htka}*
 
-		request(options, function(err, res, body) {
-			if (err) throw err
-			fs.unlinkSync(`./images/${title}.pdf`)
-			m.reply('Link download to file: ' + JSON.parse(body).data.file.url.full)
-		})
+*Title:* ${item.title}
+*Url:* ${item.url}
+`).join("\n")
+	await m.reply(list)
+	await m.reply("Untuk mengambil data, ketik *" + usedPrefix + command + "* url diatas")
+	}
+	if (command == "ehgmdata") {
+	if (!text) return m.reply("Cari apa?\n *" + usedPrefix + command + "* url")
+	await m.reply(wait)
+	let res = await EhGmdata(text)
+	let list = res.map((item, index) => `*${htki} 📺 H E N T A I 🔎 ${htka}*
+
+*Title:* ${item.title}
+*Thumb:* ${item.thumb}
+*GID:* ${item.gid}
+*Token:* ${item.token}
+*Key:* ${item.archiver_key}
+`).join("\n")
+	await m.reply(list)
+	await m.reply("Untuk mengambil link torrent, ketik *" + usedPrefix + command + "* GID TOKEN")
+	}
+	if (command == "ehtorrent") {
+	if (!(args[0] && args[1])) return m.reply("Cari apa?\n .ehsearch sakura")
+	await m.reply(wait)
+	let res = await EhGallery(args[0], args[1])
+	let list = res.map((item, index) => `*${htki} 📺 H E N T A I 🔎 ${htka}*
+
+*Title:* ${item.title}
+*Url:* ${item.url}
+`).join("\n")
+	await m.reply(list)
+	await m.reply("Download uttorrent di playstore, dan input url diatas")
 	}
 }
-handler.help = ['nhentaipdf <code>']
-handler.tags = ['nsfw']
-handler.command = /^nh(pdf|entaipdf)$/i
+handler.help = ["ehsearch <input>"]
+handler.tags = ["nsfw"]
+handler.command = /^eh(torrent|gmdata|search)$/i
 export default handler
+
+async function generatePDF(ObjArr) {
+  const data = ObjArr;
+
+  function addImageToPDF(doc, url) {
+    return new Promise((resolve, reject) => {
+      request.get(url)
+        .on("error", err => {
+          reject(err);
+        })
+        .on("response", response => {
+          if (response.statusCode !== 200) {
+            reject(new Error(`Failed to download image: ${response.statusMessage}`));
+          }
+          else {
+            resolve();
+          }
+        })
+        .pipe(doc.image(url));
+    });
+  }
+
+  const doc = new PDFDocument();
+
+  for (const item of data) {
+    doc.addPage();
+    await addImageToPDF(doc, item.image);
+  }
+
+  doc.pipe(fs.createWriteStream("./images/images.pdf"));
+  doc.end();
+}
+
+async function EhSearch(input, page = "") {
+    const res = await fetch("https://e-hentai.org/?page=" + page + "&f_search=" + input);
+    const html = await res.text();
+    const $ = cheerio.load(html);
+    const results = [];
+    $("a").each((i, link) => {
+      const title = $(link).text();
+      const url = $(link).attr("href");
+      if (url.includes("/g/")) { // check if URL contains "/g/"
+        results.push({title, url});
+      }
+    });
+    return results;
+}
+
+async function EhGmdata(input) {
+const infk = input
+const url = infk.replace(/^.*hentai.org/, "https://e-hentai.org");
+const pram = url.split("/");
+
+const response = await fetch("https://e-hentai.org/api.php", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    method: "gdata",
+    gidlist: [[pram[4] * 1, pram[5]]],
+    namespace: 1,
+  }),
+});
+
+const json = await response.json();
+return json.gmetadata
+}
+
+async function EhGallery(id, token) {
+  const res = await fetch("https://e-hentai.org/gallerytorrents.php?gid=" + id + "&t=" + token);
+  const html = await res.text();
+  const $ = cheerio.load(html);
+  const results = [];
+  $("td > a").each((i, link) => {
+    const title = $(link).text();
+    const url = $(link).attr("href");
+    if (url.endsWith(".torrent")) { // check if URL contains "/g/"
+      results.push({title, url});
+    }
+  });
+  return results;
+}
+
