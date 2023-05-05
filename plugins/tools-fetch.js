@@ -9,7 +9,7 @@ if (!text) throw '*Masukkan Link*\n*Ex:* https://s.id'
 	let { href: url, origin } = new URL(text)
 	let res = await fetch(url, { headers: { 'referer': origin }})
 	if (res.headers.get('content-length') > 100 * 1024 * 1024 * 1024) throw `Content-Length: ${res.headers.get('content-length')}`
-	if (!/text|json/.test(res.headers.get('content-type'))) return conn.sendFile(m.chat, url, ucapan, author, fakes, null, adReply)
+	if (!/text|json/.test(res.headers.get('content-type'))) return conn.sendFile(m.chat, url, ucapan, author, m)
 	let txt = await res.buffer()
 	try {
 		txt = format(JSON.parse(txt + ''))
@@ -22,7 +22,7 @@ if (!text) throw '*Masukkan Link*\n*Ex:* https://s.id'
 	let { href: url, origin } = new URL('https://' + text)
 	let res = await fetch(url, { headers: { 'referer': origin }})
 	if (res.headers.get('content-length') > 100 * 1024 * 1024 * 1024) throw `Content-Length: ${res.headers.get('content-length')}`
-	if (!/text|json/.test(res.headers.get('content-type'))) return conn.sendFile(m.chat, url, ucapan, author, fakes, null, adReply)
+	if (!/text|json/.test(res.headers.get('content-type'))) return conn.sendFile(m.chat, url, ucapan, author, m)
 	let txt = await res.buffer()
 	try {
 		txt = format(JSON.parse(txt + ''))

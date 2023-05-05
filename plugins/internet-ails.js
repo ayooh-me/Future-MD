@@ -30,7 +30,7 @@ handler.command = /^ails$/i
 export default handler
 
 /* New Line */
-const API = "https://ai.ls/api/generate";
+const API = "https://chat.amiruldev.my.id/api/generate";
 const KEY = "Na3dx_(?qx32l}ep?#:8:mo44;7W\\2W.:nxm";
 
 function message(msg) {
