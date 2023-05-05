@@ -1382,20 +1382,10 @@ export async function participantsUpdate({
                         let byeeb = await Leave(pp, thumbnailUrl.getRandom(), names)
                         let welran = [wela, welb].getRandom()
                         let byeran = [byeea, byeeb].getRandom()
-
-                        let pilih = ["ke1", "ke2", "ke3", "ke4"].getRandom()
-                        if (pilih == "ke1") {
-                            await conn.send2ButtonDoc(id, text, action == "add" ? wmwel : wmlea, action == "add" ? emojis + " Selamat Datang" : emojis + " Sampai Jumpa", action === "add" ? "tes" : "Huuu", action == "add" ? emojis + " Menu List" : emojis + " Byee \n\n" + katarandom.getRandom() + "\n\n", action === "add" ? "/menulist" : "Huuu", fakes, adReply)
-                        }
-                        if (pilih == "ke2") {
-                            await conn.send2ButtonLoc(id, action == "add" ? welran : byeran, text, action == "add" ? wmwel : wmlea, action == "add" ? emojis + " Selamat Datang" : emojis + " Sampai Jumpa", action === "add" ? "tes" : "Huuu", action == "add" ? emojis + " Menu List" : emojis + " Byee \n\n" + katarandom.getRandom() + "\n\n", action === "add" ? "/menulist" : "Huuu", fakes, fakefb)
-                        }
-                        if (pilih == "ke3") {
-                            await conn.send2ButtonVid(id, action == "add" ? welran : byeran, text, action == "add" ? wmwel : wmlea, action == "add" ? emojis + " Selamat Datang" : emojis + " Sampai Jumpa", action === "add" ? "tes" : "Huuu", action == "add" ? emojis + " Menu List" : emojis + " Byee \n\n" + katarandom.getRandom() + "\n\n", action === "add" ? "/menulist" : "Huuu", fakes, adReply)
-                        }
-                        if (pilih == "ke4") {
-                            await conn.sendTemplateButtonLoc(id, action == "add" ? welran : byeran, text, action == "add" ? wmwel : wmlea, action == "add" ? emojis + " Selamat Datang" : emojis + " Sampai Jumpa", action === "add" ? "tes" : "Huuu", fakes, fakefb)
-                        }
+                        await this.sendButton(id, text, action == "add" ? wmwel : wmlea, action == "add" ? welran : byeran, [
+                            [action == "add" ? emojis + " Selamat Datang" : emojis + " Sampai Jumpa"],
+                            [action === "add" ? "tes" : "Huuu", action == "add" ? emojis + " Menu List" : emojis + " Byee \n\n" + katarandom.getRandom() + "\n\n", action === "add" ? "/menulist" : "Huuu"]
+                        ], fakes)
                         /* */
                     }
                 }
@@ -1406,7 +1396,12 @@ export async function participantsUpdate({
         case "demote":
             if (!text) text = (chat.sDemote || this.sdemote || conn.sdemote || "@user *is no longer Admin*")
             text = text.replace("@user", "@" + participants[0].split("@")[0])
-            if (chat.detect) this.send2ButtonDoc(id, text, author, "🔖 Matikan Fitur", ".disable detect", "ℹ️ Menu", ".menu", fakes, adReplyS)
+            if (chat.detect) this.sendMessage(id, {
+                text: text.trim(),
+                mentions: [participants[0]]
+            }, {
+                quoted: fakes
+            })
             break
 
     }
@@ -1433,7 +1428,12 @@ export async function groupsUpdate(groupsUpdate) {
         if (groupUpdate.restrict == true) text = (chats.sRestrictOn || this.sRestrictOn || conn.sRestrictOn || "*Group has been all participants!*")
         if (groupUpdate.restrict == false) text = (chats.sRestrictOff || this.sRestrictOff || conn.sRestrictOff || "*Group has been only admin!*")
         if (!text) continue
-        this.send2ButtonDoc(id, text.trim(), author, "🔖 Matikan Fitur", ".disable detect", "ℹ️ Menu", ".menu", fakes, adReplyS)
+        this.sendMessage(id, {
+            text: text.trim(),
+            mentions: []
+        }, {
+            quoted: fakes
+        })
     }
 }
 
@@ -1455,12 +1455,12 @@ export async function deleteUpdate(message) {
         let chat = global.db.data.chats[msg.chat] || {}
         if (chat.antiDelete)
             return
-        this.send2ButtonDoc(msg.key.remoteJid, `Terdeteksi *@${participant.split`@`[0]}* telah menghapus pesan.
-Untuk mematikan fitur ini, ketik
-*.off antidelete*
-
-Untuk menghapus pesan yang dikirim BOT, reply pesan dengan perintah
-*.delete*`, author, "🔖 Matikan Fitur", ".disable antidelete", "ℹ️ Menu", ".menu", msg, adReplyS)
+        this.sendMessage(msg.key.remoteJid, {
+            text: `Terdeteksi *@${participant.split`@`[0]}* telah menghapus pesan.\nUntuk mematikan fitur ini, ketik\n*.off antidelete*\n\nUntuk menghapus pesan yang dikirim BOT, reply pesan dengan perintah\n*.delete*`,
+            mentions: [participant]
+        }, {
+            quoted: msg
+        })
         this.copyNForward(msg.chat, msg, false).catch(e => console.log(e, msg))
     } catch (e) {
         console.error(e)
@@ -1498,7 +1498,12 @@ ${nmsr} RPG tidak aktif, Silahkan hubungi Team Bot Discussion Untuk mengaktifkan
         restrict: `*${htki} ᴘᴇʀʜᴀᴛɪᴀɴ ${htka}*\n
 ${nmsr} Fitur ini di *disable* !`
     } [type]
-    if (msg) return conn.send2ButtonDoc(m.chat, msg, author, "🔖 Ok", "Huuu", "ℹ️ Menu", ".menu", fakes, adReplyS)
+    if (msg) return conn.sendButton(m.chat, msg, author, null, [
+        ["🔖 Ok", "Huuu"],
+        ["ℹ️ Menu", ".menu"]
+    ], m, {
+        mentions: conn.parseMention(msg)
+    })
 }
 
 let file = global.__filename(import.meta.url, true)

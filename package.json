@@ -44,8 +44,10 @@
         "@bochilteam/scraper": "*",
         "@ibaraki-douji/pixivts": "*",
         "@vitalets/google-translate-api" : "^8.0.0",
+        "@shineiichijo/marika": "*",
         "acrcloud": "*",
         "amethyste-api": "*",
+        "aptoide-scraper": "*",
         "awesome-phonenumber": "*",
         "axios": "*",
         "booru" : "*",
@@ -71,6 +73,7 @@
         "genshin" : "*",
         "genshin-db" : "*",
         "google-play-scraper": "*",
+        "hispamemes": "*",
         "hmtai": "*",
         "hmfull": "*",
         "https": "*",
@@ -118,7 +121,8 @@
         "url-regex-safe": "*",
         "wa-sticker-formatter": "*",
         "wibusoft" : "*",
-        "yargs": "*", 
+        "yargs": "*",
+        "yt-search": "*",
         "zs-extract": "*"
     }
 }
