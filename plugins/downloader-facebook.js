@@ -1,89 +1,106 @@
 import fetch from "node-fetch"
-import wibusoft from "wibusoft"
+import {
+    facebook
+} from "@xct007/frieren-scraper"
 
+// others version will added soon.
 let handler = async (m, {
     conn,
     args,
+    text,
     usedPrefix,
     command
 }) => {
-    if (!args[0]) throw "Input URL"
-    let results = await wibusoft.downloader.facebookDownload(args[0])
-    if (!results.result.sd == "undefined") {
-        let dapet = ["hd", "sd", "audio"]
-        let listSections = []
-        Object.keys(dapet).map((v, index) => {
-            listSections.push([index + " " + cmenub + " FACEBOOK ", [
-                [dapet[v].toUpperCase() + " Video 🎥", usedPrefix + command + " " + args[0] + " " + dapet[v], ""]
-            ]])
-        })
-        if (!args[1]) return conn.sendList(m.chat, htki + " 📺 FB DOWN 🔎 " + htka, `⚡ Silakan pilih menu di tombol di bawah...\n*Teks yang anda kirim:* ${args[0]}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, "☂️ FB Disini ☂️", listSections, m)
-        if (!dapet.includes(args[1])) throw "sd, hd or audio"
+    let imgr = flaaa.getRandom()
 
-        let caption = `*[ F A C E B O O K ]*
+    let ends = [
+        "V1",
+        "V2"
+    ]
 
-*Title:* ${results.result.title}
-*Time:* ${results.result.time}
+    let [links, version, quality] = text.split(" ")
+    if (!links) throw "Input URL"
+    let dapet = ["V1", "V2"]
+    let buttons = []
+    Object.keys(dapet).map((v, index) => {
+        buttons.push(
+            [dapet[v].toUpperCase() + " Video 🎥", usedPrefix + command + " " + links + " " + dapet[v]]
+        )
+    })
+    if (!(version)) return conn.sendButton(m.chat, htki + " 📺 FB DOWN 🔎 " + htka + `\n⚡ Silakan pilih menu di tombol di bawah...\n*Teks yang anda kirim:* ${links}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, imgr + command, buttons, m)
+
+
+    if (ends.includes(version)) {
+        if (version == "V1") {
+            try {
+                let results = await facebook.v1(links)
+                let dapet = ["hd", "sd"]
+                let buttons = []
+                Object.keys(dapet).map((v, index) => {
+                    buttons.push(
+                        [dapet[v].toUpperCase() + " Video 🎥", usedPrefix + command + " " + links + " " + version + " " + dapet[v]]
+                    )
+                })
+                if (!(quality)) return conn.sendButton(m.chat, htki + " 📺 FB DOWN 🔎 " + htka + `\n⚡ Silakan pilih menu di tombol di bawah...\n*Teks yang anda kirim:* ${links}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, imgr + command, buttons, m)
+
+                let caption = `*[ F A C E B O O K ]*
+
+*Title:* ${results.title}
+*HD:* ${results.isHdAvailable}
 	`
 
-        let out
-        if (args[1] == "hd") {
-            out = results.result.hd
-        }
-        if (args[1] == "sd") {
-            out = results.result.sd
-        }
-        if (args[1] == "audio") {
-            out = results.result.audio
-        }
+                let out
+                if (quality == "hd") {
+                    out = results.urls[0].hd ? results.urls[0].hd : (results.urls[1].sd ? results.urls[1].sd : giflogo)
+                }
+                if (quality == "sd") {
+                    out = results.urls[1].sd ? results.urls[1].sd : (results.urls[0].hd ? results.urls[0].hd : giflogo)
+                }
 
-        m.reply(wait)
-        if (args[1] == "audio") {
-        await conn.sendFile(m.chat, out, 'audio.mp3', '', m, null, adReplyS)
-        } else {
-        await conn.sendFile(m.chat, out, "", caption, m)
+                await m.reply(wait)
+                await conn.sendFile(m.chat, out, "", caption, m)
+            } catch (e) {
+                await m.reply(eror)
+            }
         }
-        
-       } else {
-        try {
-        let dapet = ["hd", "sd"]
-        let listSections = []
-        Object.keys(dapet).map((v, index) => {
-            listSections.push([index + " " + cmenub + " FACEBOOK ", [
-                [dapet[v].toUpperCase() + " Video 🎥", usedPrefix + command + " " + args[0] + " " + dapet[v], ""]
-            ]])
-        })
-        if (!args[1]) return conn.sendList(m.chat, htki + " 📺 FB DOWN V2 🔎 " + htka, `⚡ Silakan pilih menu di tombol di bawah...\n*Teks yang anda kirim:* ${args[0]}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, "☂️ FB Disini ☂️", listSections, m)
-        if (!dapet.includes(args[1])) throw "sd or hd"
+        if (version == "V2") {
+            try {
+                let results = await (await fetch(global.API("xcdr", "/api/download/fb2", {
+                    url: links,
+                    apikey: "Lann"
+                }, ""))).json()
+                let dapet = ["hd", "sd"]
+                let buttons = []
+                Object.keys(dapet).map((v, index) => {
+                    buttons.push(
+                        [dapet[v].toUpperCase() + " Video 🎥", usedPrefix + command + " " + links + " " + version + " " + dapet[v]]
+                    )
+                })
+                if (!(quality)) return conn.sendButton(m.chat, htki + " 📺 FB DOWN 🔎 " + htka + `\n⚡ Silakan pilih menu di tombol di bawah...\n*Teks yang anda kirim:* ${links}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, imgr + command, buttons, m)
 
-        let res = await (await fetch(global.API("xcdr", "/api/download/fb2", {
-            url: args[0],
-            apikey: "Lann"
-        }, ""))).json()
-        if (!res) throw "Cant download the post"
+                let caption = `*[ F A C E B O O K ]*
 
-        let caption = `*[ F A C E B O O K ]*
-
-*Title:* ${res.result.title}
-*Duration:* ${res.result.duration}
+*Title:* ${results.result.title}
+*Duration:* ${results.result.duration}
 	
-*Process:* _${res.processed}_`
+*Process:* ${results.processed}`
 
-        let out
-        if (args[1] == "hd") {
-            out = res.result.links.hd
+                let out
+                if (quality == "hd") {
+                    out = results.result.links.hd ? results.result.links.hd : (results.result.links.sd ? results.result.links.sd : giflogo)
+                }
+                if (quality == "sd") {
+                    out = results.result.links.sd ? results.result.links.sd : (results.result.links.hd ? results.result.links.hd : giflogo)
+                }
+
+                await m.reply(wait)
+                await conn.sendFile(m.chat, out, "", caption, m)
+            } catch (e) {
+                await m.reply(eror)
+            }
         }
-        if (args[1] == "sd") {
-            out = res.result.links.sd
-        }
-
-        m.reply(wait)
-        await conn.sendFile(m.chat, out, "", caption, m)
-
-    } catch (e) {
-    throw eror
     }
-  }
+
 }
 handler.help = ["facebook"]
 handler.tags = ["downloader"]

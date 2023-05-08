@@ -11,22 +11,18 @@ let handler = async (m, {
     command
 }) => {
     let name = await conn.getName(m.sender)
-
     if (!text) throw "Cari apa?"
-    
     let ytsr = 'https://www.youtube.com/watch?v='
     if (command == "ytsbiasa") {
     try {
     let data = await searchVideos(text)
-    let list = data.map((item, index) => `*${htki} 📺 Youtube Search 🔎 ${htka}*
-
+    let list = data.map((item, index) => `
 🔖 *Title:* ${item.title.runs[0].text}
 📤 *Thumb:* ${item.thumbnail}
 ⏰ *Duration:* ${item.duration.simpleText}
-
 🔗 *Url:* ${ytsr + item.id}
 `).join("\n")
-    await m.reply(list)
+    await m.reply(`*${htki} 📺 Youtube Search 🔎 ${htka}*\n${list}`)
     } catch (e) {
     await m.reply(eror)
     }

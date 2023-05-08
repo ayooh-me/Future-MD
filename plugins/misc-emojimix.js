@@ -18,7 +18,8 @@ let handler = async (m, {
     let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
     let pp = await conn.profilePictureUrl(who).catch(_ => hwaifu.getRandom())
     let name = await conn.getName(who)
-    let [a, b, c] = text.split(/[xzXZ/i!#\$%\+£¢€¥\^°=¶∆×÷π√✓©®:;\?&\.\\\-]+/)
+    let [a, b, c] = text.split(/[xzXZ/i!#\$%\+£¢€¥\^°=¶∆×÷π√✓|©®:;\?&\.\\\-]+/)
+    
     let arrs = ["wsf", "wbs"]
     let emo = "😎"
     let examples = "Input wsf or wbs\n*example:*\n" + usedPrefix + command + " " + emo + usedPrefix + emo + usedPrefix + arrs.getRandom()

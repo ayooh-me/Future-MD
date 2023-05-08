@@ -10,6 +10,7 @@ let handler = async (m, {
     usedPrefix,
     command
 }) => {
+let imgr = flaaa.getRandom()
     let spas = "                "
     let type = (args[0] || '').toLowerCase()
     let urut = text.split`|`
@@ -23,9 +24,9 @@ let handler = async (m, {
     ]
     let listSections = []
     Object.keys(data).map((v, index) => {
-        listSections.push(["Num. " + ++index, [
-            ["Method " + data[v].toUpperCase(), usedPrefix + command + " " + data[v] + " |" + text, ""]
-        ]])
+        listSections.push(
+            ["Method " + data[v].toUpperCase(), usedPrefix + command + " " + data[v] + " |" + text]
+        )
     })
     switch (type) {
         case 'tikdl':
@@ -132,7 +133,7 @@ ${spas}*[ A U D I O ]*
             break
 
         default:
-            return conn.sendList(m.chat, htki + " TIKTOK DOWN " + htka, "⚡ Silakan pilih metode yang anda mau.", author, "[ Download ]", listSections, m)
+            return conn.sendButton(m.chat, htki + " TIKTOK DOWN " + htka + "\n⚡ Silakan pilih metode yang anda mau.", author, imgr + command, listSections, m)
     }
 }
 handler.help = ["tiktok"]
