@@ -27,7 +27,7 @@ let handler = async (m, {
             [dapet[v].toUpperCase() + " Video 🎥", usedPrefix + command + " " + links + " " + dapet[v]]
         )
     })
-    if (!(version)) return conn.sendButton(m.chat, htki + " 📺 FB DOWN 🔎 " + htka + `\n⚡ Silakan pilih menu di tombol di bawah...\n*Teks yang anda kirim:* ${links}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, imgr + command, buttons, m)
+    if (!(version)) return conn.sendButton(m.chat, htki + " 📺 IG DOWN 🔎 " + htka + `\n⚡ Silakan pilih menu di tombol di bawah...\n*Teks yang anda kirim:* ${links}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, imgr + command, buttons, m)
 
 
     if (ends.includes(version)) {

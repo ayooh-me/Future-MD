@@ -3,219 +3,144 @@ import axios from 'axios';
 import request from 'request';
 import got from 'got';
 
-let handler = async (m, { text, args, usedPrefix, command }) => {
-let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-let pp = await conn.profilePictureUrl(who).catch(_ => hwaifu.getRandom())
-let name = await conn.getName(who)
+let handler = async (m, {
+    command,
+    usedPrefix,
+    conn,
+    text,
+    args
+}) => {
+    let lister = [
+        "Jodoh",
+"artiNama",
+"genius",
+"googleImage",
+"googleIt",
+"haribaik",
+"harilarangan",
+"kecocokannama",
+"mediafiredl",
+"ramalanjodoh",
+"rejekiweton",
+"tafsirMimpi",
+"tanggaljadi",
+"tiktokdl",
+"watakartis",
+"wikipedia",
+"youtubeSearch"
+    ]
 
-if (!args[0]) {
-let hasil = ['yts',
-'artiNama',
-'Jodoh',
-'Search',
-'alphacoders',
-'animeDetail',
-'downloadEps',
-'gen',
-'gi',
-'go',
-'haribaik',
-'harilarangan',
-'kecocokannama',
-'mf',
-'ramalanjodoh',
-'rejekiweton',
-'tafsirMimpi',
-'tanggaljadi',
-'tik',
-'wallpapercave',
-'wallpaperflare',
-'wallpaperscraft',
-'watakartis'
-]
-	let row = Object.keys(hasil).map((v, index) => ({
-		title: 'Scraper ' + hasil[v],
-		description: '\nNo. ' + index,
-		rowId: usedPrefix + 'scrap1 ' + hasil[v] + ' |naruto'
-	}))
-	let button = {
-		buttonText: `☂️ Scraper Disini ☂️`,
-		description: `⚡ Silakan pilih Scraper di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`,
-		footerText: wm
-	}
-	return await conn.sendListM(m.chat, button, row, m)
-	}
-let blum = 'Fitur Ini Belum ditambahkan'
-let kueri =  'Masukkan Query\nEx. ' + usedPrefix + command + ' anime |naruto'
-let urut = text.split`|`
-  let one = urut[1]
-  let two = urut[2]
-  let three = urut[3]
+    let [feature, inputs, inputs_, inputs__, inputs___] = text.split(/[^\w\s]/g)
+    if (!lister.includes(feature)) return m.reply("*Example:*\n.fs youtube.search.hello\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join("\n"))
 
-  if (args[0] == 'yts') {
-  let res = await youtubeSearch(one)
-  let dapet = res.result.video
-    let listSections = []
-	Object.values(dapet).map((v, index) => {
-	listSections.push([index + ' ' + cmenub + ' ' + v.title, [
-          ['Video 🎥', usedPrefix + 'ytv ' + v.url + ' yes', '\n⌚ *Duration:* ' + v.durationH + '\n⏲️ *Uploaded:* ' + v.publishedTime + '\n👁️ *Views:* ' + v.view + '\n📎 *Url:* ' + v.url],
-          ['Audio 🎧', usedPrefix + 'yta ' + v.url + ' yes', '\n⌚ *Duration:* ' + v.durationH + '\n⏲️ *Uploaded:* ' + v.publishedTime + '\n👁️ *Views:* ' + v.view + '\n📎 *Url:* ' + v.url]
-        ]])
-	})
-	return conn.sendList(m.chat, htki + ' 📺 YT Search 🔎 ' + htka, `⚡ Silakan pilih YouTube Search di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, `☂️ YouTube Search Disini ☂️`, listSections, m)
-  }
-  if (args[0] == 'tik') {
-  let res = await tiktokdl(one)
-  let dapet = res.result.download
-    let listSections = []
-	listSections.push([index + ' ' + cmenub + ' ' + v.title, [
-          ['NO WM', usedPrefix + 'get ' + dapet.nowm, author],
-          ['WM', usedPrefix + 'get ' + dapet.wm, author],
-          ['MUSIC', usedPrefix + 'get ' + dapet.music, author]
-        ]])
-	return conn.sendList(m.chat, htki + ' 📺 TIK 🔎 ' + htka, `${dapet.music_info}⚡ Silakan pilih Tik di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, `☂️ YouTube Search Disini ☂️`, listSections, m)
-  }
-  if (args[0] == 'mf') {
-  let res = await mediafiredl(one)
-  let cap = `Name: ${res.result.filename}\nUrl: ${res.result.url}\nType: ${res.result.filetype}\nExt: ${res.result.ext}\nUp: ${res.result.aploud}\nSize: ${res.result.filesizeH}`
-  m.reply(cap)
-  }
-  if (args[0] == 'go') {
-  let res = await googleImage(one)
-  let ky = res.result
-  let listSections = []
-	Object.keys(ky).map((v, index) => {
-	listSections.push(["Result [ " + ++index + ' ]', [
-          [ky[v].slice(10, 20), usedPrefix + "get " + ky[v], "➥"]
-        ]])
-	})
-	return conn.sendList(m.chat, htki + " 📺 RESULT 🔎 " + htka, `⚡ Silakan pilih result di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, "☂️ I M A G E S ☂️", listSections, m)
-  }
-  if (args[0] == 'gen') {
-  let res = await genius(one)
-  let cap = `*${res.result.song.artist_names}*\n${res.result.song.full_title}\n\n*Lirik:*\n${res.result.lyrics}`
-  m.reply(cap)
-  }
-  if (args[0] == 'wik') {
-  let res = await wikipedia(one)
-  let cap = `*${res.result.judul}*\n\n${res.result.isi}`
-  m.reply(cap)
-  }
-  if (args[0] == 'gi') {
-  let res = await googleIt(one)
-  throw await clean(JSON.stringify(res, null, 4)).result.articles[0]
-  }
-  
-  //BATAS
-  if (args[0] == 'Search') {
-  let res = await Search(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'animeDetail') {
-  let res = await animeDetail(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'downloadEps') {
-  let res = await downloadEps(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  //BATAS
-  if (args[0] == 'alphacoders') {
-  let res = await alphacoders(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'wallpaperflare') {
-  let res = await wallpaperflare(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'wallpaperscraft') {
-  let res = await wallpaperscraft(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'wallpapercave') {
-  let res = await wallpapercave(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  //BATAS
-    if (args[0] == 'artiNama') {
-  let res = await artiNama(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'tafsirMimpi') {
-  let res = await tafsirMimpi(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'Jodoh') {
-  let res = await Jodoh(one, two)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'tanggaljadi') {
-  let res = await tanggaljadi(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'watakartis') {
-  let res = await watakartis(one, two)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'ramalanjodoh') {
-  let res = await ramalanjodoh(one, two, three, four)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'rejekiweton') {
-  let res = await rejekiweton(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'kecocokannama') {
-  let res = await kecocokannama(one, two)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'haribaik') {
-  let res = await haribaik(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'harilarangan') {
-  let res = await harilarangan(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  //BATAS
-  if (args[0] == 'xnxxdl') {
-  let res = await xnxxdl(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  if (args[0] == 'xnxxsearch') {
-  let res = await xnxxsearch(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  //BATAS
-  if (args[0] == 'wibu') {
-  let res = await wibu(one)
-  throw await clean(JSON.stringify(res, null, 4))
-  }
-  
-  
+    if (lister.includes(feature)) {
+        if (feature == "Jodoh") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await Jodoh(inputs, inputs_)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "artiNama") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await artiNama(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "genius") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await genius(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "googleImage") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await googleImage(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "googleIt") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await googleIt(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "haribaik") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await haribaik(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "harilarangan") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await harilarangan(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "kecocokannama") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await kecocokannama(inputs, inputs_)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "mediafiredl") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await mediafiredl(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "ramalanjodoh") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await ramalanjodoh(inputs, inputs_, inputs__, inputs___)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "rejekiweton") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await rejekiweton(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "tafsirMimpi") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await tafsirMimpi(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "tanggaljadi") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await tanggaljadi(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "tiktokdl") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await tiktokdl(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "watakartis") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await watakartis(inputs, inputs_)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "wikipedia") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await wikipedia(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+        if (feature == "youtubeSearch") {
+            if (!inputs) return m.reply("Input Query!")
+            await m.reply(wait)
+            let outs = await youtubeSearch(inputs)
+            throw await clean(JSON.stringify(outs, null, 4))
+        }
+	}
 }
-handler.tags = ["tools"]
-handler.help = ["scrap1 <args> |query"]
-handler.command = ["scrap1"]
+handler.help = ["scrap1 type query"]
+handler.tags = ["internet"]
+handler.command = /^(scrap1)$/i
 export default handler
 
 async function youtubeSearch(query) {

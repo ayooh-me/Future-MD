@@ -1,8 +1,7 @@
-import {
-    youtubeSearch
-} from '@bochilteam/scraper'
 import fetch from "node-fetch"
-
+import {
+    youtube
+} from "social_media_downloader"
 let handler = async (m, {
     conn,
     command,
@@ -11,12 +10,11 @@ let handler = async (m, {
 }) => {
     await conn.sendMessage(m.chat, {
         react: {
-            text: '⏳',
+            text: "⏳",
             key: m.key,
         }
     })
     if (!text) throw `Use example ${usedPrefix}${command} Dj Gama Naufal`
-    if (command == "playbiasa") {
     try {
     let cari = await searchVideos(text)
     let {
@@ -24,62 +22,33 @@ let handler = async (m, {
         duration,
         thumbnail
     } = cari[0]
-    let url = 'https://www.youtube.com/watch?v='
+    let url = "https://www.youtube.com/watch?v="
     let caption = `
 *${htki} PLAY ${htka}*
 ⏰ *Duration:* ${duration.simpleText}
 🔗 *Url:* ${url + id}
   `.trim()
-    await conn.sendButton(m.chat, caption, author, thumbnail, [
-    ['🎶 Audio', usedPrefix + 'yta ' + url + id + ' yes'],
-        ['🎥 Video', usedPrefix + 'ytv ' + url + id + ' yes']
-    ], m)
+  let p = await youtube(url + id)
+            let dapet = p.result
+    await conn.sendFile(m.chat, dapet[0].url, ".mp3", "", fakes, null, { fileLength: fsizedoc, seconds: fsizedoc, mimetype: "audio/mp4", contextInfo: {
+          externalAdReply :{
+    body: "Play : ",
+    containsAutoReply: true,
+    mediaType: 2, 
+    mediaUrl: url + id,
+    showAdAttribution: true,
+    sourceUrl: url + id,
+    thumbnailUrl: thumbnail,
+    renderLargerThumbnail: true,
+    title: "Request by: " + m.name,
+     }}
+  })
     } catch (e) {
     await m.reply(eror)
     }
-    } else {
-    try {
-    let vid = (await youtubeSearch(text)).video[0]
-    if (!vid) throw 'Video/Audio Tidak ditemukan'
-    let {
-        title,
-        description,
-        thumbnail,
-        videoId,
-        durationH,
-        viewH,
-        publishedTime
-    } = vid
-    let url = 'https://www.youtube.com/watch?v=' + videoId
-    let caption = `
-*${htki} PLAY ${htka}*
-
-🔖 *Title:* ${title}
-📤 *Published:* ${publishedTime}
-⏰ *Duration:* ${durationH}
-👁️ *Views:* ${viewH}
-
-🔗 *Url:* ${url}
-📔 *Description:* ${description}
-  `.trim()
-    let listSections = []
-    listSections.push(['[ PILIH OPSI YANG KAMU MAU ]', [
-        ['🎶 Audio', usedPrefix + 'yta ' + url + ' yes'],
-        ['🎥 Video', usedPrefix + 'ytv ' + url + ' yes'],
-        ['🔎 Youtube Search', usedPrefix + 'yts ' + url]
-    ]])
-
-    await conn.sendList(m.chat, '', caption, author, '📣 GO TO YOUTUBE', listSections, m)
-    await m.reply("ketik *.playbiasa* jika list tidak muncul")
-    } catch (e) {
-    await m.reply(eror)
-    await m.reply("ketik *.playbiasa* jika list tidak muncul")
-    }
-    }
-    
 }
-handler.help = ['play'].map(v => v + ' <pencarian>')
-handler.tags = ['downloader']
+handler.help = ["play"].map(v => v + " <pencarian>")
+handler.tags = ["downloader"]
 handler.command = /^(play((biasa|yt))?|ytplay)$/i
 handler.limit = true
 export default handler

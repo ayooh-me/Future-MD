@@ -23,9 +23,9 @@ let handler = async (m, {
     ]
     let listSections = []
     Object.keys(data).map((v, index) => {
-        listSections.push(["Num. " + ++index, [
-            ["Method " + data[v].toUpperCase(), usedPrefix + command + " " + data[v] + " |" + text, ""]
-        ]])
+        listSections.push(
+            ["Method " + data[v].toUpperCase(), usedPrefix + command + " " + data[v] + " |" + text]
+        )
     })
     switch (type) {
         case "bochilteam":
@@ -90,7 +90,7 @@ if (scrap[0].link) {
             break
 
         default:
-            return conn.sendList(m.chat, htki + " MEDIAFIRE DOWN " + htka, "⚡ Silakan pilih metode yang anda mau.", author, "[ Download ]", listSections, m)
+            return conn.sendButton(m.chat, htki + " MEDIAFIRE DOWN " + htka + "\n⚡ Silakan pilih metode yang anda mau.", author, logo, listSections, m)
     }
 }
 handler.help = ["mediafire"]

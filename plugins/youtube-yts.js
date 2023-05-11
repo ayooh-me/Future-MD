@@ -1,6 +1,3 @@
-import {
-    youtubeSearch
-} from "@bochilteam/scraper"
 import fetch from "node-fetch"
 
 let handler = async (m, {
@@ -10,13 +7,13 @@ let handler = async (m, {
     args,
     command
 }) => {
-    let name = await conn.getName(m.sender)
     if (!text) throw "Cari apa?"
-    let ytsr = 'https://www.youtube.com/watch?v='
-    if (command == "ytsbiasa") {
+    let ytsr = "https://www.youtube.com/watch?v="
     try {
     let data = await searchVideos(text)
+    await m.reply(wait)
     let list = data.map((item, index) => `
+${htki} ${index+1} ${htka}
 🔖 *Title:* ${item.title.runs[0].text}
 📤 *Thumb:* ${item.thumbnail}
 ⏰ *Duration:* ${item.duration.simpleText}
@@ -25,26 +22,6 @@ let handler = async (m, {
     await m.reply(`*${htki} 📺 Youtube Search 🔎 ${htka}*\n${list}`)
     } catch (e) {
     await m.reply(eror)
-    }
-    
-    } else {
-    try {
-    let cari = await youtubeSearch(text)
-    let dapet = cari.video
-    let listSections = []
-    Object.values(dapet).map((v, index) => {
-        listSections.push([index + " " + cmenub + " " + v.title, [
-            ["Video 🎥", usedPrefix + "ytv " + v.url + " yes", "\n⌚ Duration: " + v.durationH + "\n⏲️ Uploaded: " + v.publishedTime + "\n👁️ Views: " + v.view + "\n📎 Url: " + v.url],
-            ["Audio 🎧", usedPrefix + "yta " + v.url + " yes", "\n⌚ Duration: " + v.durationH + "\n⏲️ Uploaded: " + v.publishedTime + "\n👁️ Views: " + v.view + "\n📎 Url: " + v.url]
-        ]])
-    })
-    await conn.sendList(m.chat, htki + " 📺 YT Search 🔎 " + htka, `⚡ Silakan pilih YouTube Search di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, `☂️ YouTube Search Disini ☂️`, listSections, m)
-    await m.reply("ketik *.ytsbiasa* jika list tidak muncul")
-    } catch (e) {
-    await m.reply(eror)
-    await m.reply("ketik *.ytsbiasa* jika list tidak muncul")
-    }
-    
     }
 }
 handler.help = ["", "earch"].map(v => "yts" + v + " <pencarian>")

@@ -12,10 +12,10 @@ let handler = async (m, {
 }) => {
 let imgr = flaaa.getRandom()
     let spas = "                "
-    let type = (args[0] || '').toLowerCase()
+    let type = (args[0] || "").toLowerCase()
     let urut = text.split`|`
     let one = urut[1]
-    if (!text) throw 'Masukkan link tiktok\nApa yang kamu cari?'
+    if (!text) throw "Masukkan link tiktok\nApa yang kamu cari?"
 
     let data = [
         "tikdl",
@@ -29,7 +29,7 @@ let imgr = flaaa.getRandom()
         )
     })
     switch (type) {
-        case 'tikdl':
+        case "tikdl":
             try {
                 m.reply(wait)
                 let Tikdl = await (await fetch("https://api.tikdl.caliphdev.codes/video?url=" + one)).json()
@@ -59,16 +59,13 @@ ${spas}*[ A U D I O ]*
 *Author:* ${T.music.author}
 *Duration:* ${T.music.durationFormatted}
 `
-                await conn.sendButton(m.chat, TikdlCap, author, T.video.watermark, [
-                    ["🎥 Video [NO WM]", usedPrefix + command + " getvideo |" + T.video.noWatermark],
-                    ["🎶 Music", usedPrefix + command + " getmusic |" + T.music.play_url]
-                ], m, adReplyS)
+                await conn.sendFile(m.chat, T.video.watermark, "", TikdlCap, m)
             } catch (e) {
                 throw eror
             }
             break
 
-        case 'scraper':
+        case "scraper":
             try {
                 m.reply(wait)
                 let Scrap = await Tiktokdl(one)
@@ -78,16 +75,13 @@ ${spas}*[ A U D I O ]*
 *📛Author:* ${S.author.nickname}
 *📒Title:* ${S.desc}
 `
-                await conn.sendButton(m.chat, ScrapCap, author, S.download.wm, [
-                    ["🎥 Video [NO WM]", usedPrefix + command + " getvideo |" + S.download.nowm],
-                    ["🎶 Music", usedPrefix + command + " getmusic |" + S.download.music]
-                ], m, adReplyS)
+                await conn.sendFile(m.chat, S.download.wm, "", ScrapCap, m)
             } catch (e) {
                 throw eror
             }
             break
 
-        case 'godown':
+        case "godown":
             try {
                 m.reply(wait)
                 const god = await axios.get("https://godownloader.com/api/tiktok-no-watermark-free?url=" + one + "&key=godownloader.com");
@@ -95,16 +89,13 @@ ${spas}*[ A U D I O ]*
 
 *Desc:* ${god.data.desc}
 `
-                await conn.sendButton(m.chat, GoCap, author, god.data.video_watermark, [
-                    ["🎥 Video [NO WM]", usedPrefix + command + " getvideo |" + god.data.video_no_watermark],
-                    ["🎶 Music", usedPrefix + command + " getmusic |" + god.data.music_url]
-                ], m, adReplyS)
+                await conn.sendFile(m.chat, god.data.video_watermark, "", GoCap, m)
             } catch (e) {
                 throw eror
             }
             break
 
-        case 'getmusic':
+        case "getmusic":
             try {
                 m.reply(wait)
                 await conn.sendMessage(m.chat, {
@@ -123,10 +114,10 @@ ${spas}*[ A U D I O ]*
                 throw eror
             }
             break
-        case 'getvideo':
+        case "getvideo":
             try {
                 m.reply(wait)
-                await conn.sendFile(m.chat, one, 'tiktok.mp4', `${spas}*[ T I K T O K]*\nNo Watermark\nMade by: ${author}`, m)
+                await conn.sendFile(m.chat, one, "tiktok.mp4", `${spas}*[ T I K T O K]*\nNo Watermark\nMade by: ${author}`, m)
             } catch (e) {
                 throw eror
             }
