@@ -8,41 +8,294 @@ let handler = async (m, {
 }) => {
     let spas = "                "
     let lister = [
-        "search",
-"chapterlist",
-"chapterinfo",
-"verses",
-"file"
+        "a",
+"aa",
+"b",
+"bb",
+"c",
+"cc",
+"d",
+"dd",
+"e",
+"ee",
+"f",
+"ff",
+"g",
+"gg",
+"h",
+"hh",
+"i",
+"ii",
+"j",
+"jj",
+"k",
+"kk",
+"l",
+"ll",
+"m",
+"mm",
+"n",
+"nn",
+"o",
+"p",
+"q",
+"r",
+"s",
+"t",
+"u",
+"v",
+"w",
+"x",
+"y",
+"z"
     ]
-    let [feature, querys] = text.split(/[^\w\s]/g)
+    let [feature, querys, equerys] = text.split(/[^\w\s]/g)
     if (!lister.includes(feature)) return m.reply("*Example:*\n.quransearch api\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join("\n"))
     if (lister.includes(feature)) {
             if (!querys) return m.reply("Input Query!")
             await m.reply(wait)
             
-            if (feature == "search") {
-            let data = await searchQuran(querys)
+            if (feature == "a") {
+            let data = await aQuran()
             let capt = await formatData(data)
-            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*\n${capt}`, m)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
             }
-            if (feature == "chapterlist") {
-            let data = await chapterList()
-            let capt = await formatData([data])
-            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*\n${capt}`, m)
-            }
-            if (feature == "chapterinfo") {
-            let data = await chapterInfo()
-            let capt = await formatData([data])
-            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*\n${capt}`, m)
-            }
-            if (feature == "verses") {
-            let data = await getVerses(querys)
+            if (feature == "aa") {
+            let data = await aaQuran(querys, equerys)
             let capt = await formatData(data)
-            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*\n${capt}`, m)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
             }
-            if (feature == "file") {
-            await conn.sendFile(m.chat, querys, 'Boom nya kak!', '', m, false, { asDocument: true })
+            if (feature == "b") {
+            let data = await bQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
             }
+            if (feature == "bb") {
+            let data = await bbQuran(querys, equerys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "c") {
+            let data = await cQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "cc") {
+            let data = await ccQuran(querys, equerys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "d") {
+            let data = await dQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "dd") {
+            let data = await ddQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "e") {
+            let data = await eQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "ee") {
+            let data = await eeQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "f") {
+            let data = await fQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "ff") {
+            let data = await ffQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "g") {
+            let data = await gQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "gg") {
+            let data = await ggQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "h") {
+            let data = await hQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "hh") {
+            let data = await hhQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "i") {
+            let data = await iQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "ii") {
+            let data = await iiQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "j") {
+            let data = await jQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "jj") {
+            let data = await jjQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "k") {
+            let data = await kQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "kk") {
+            let data = await kkQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "l") {
+            let data = await lQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "ll") {
+            let data = await llQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "m") {
+            let data = await mQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "mm") {
+            let data = await mmQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "n") {
+            let data = await nQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "nn") {
+            let data = await nnQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "o") {
+            let data = await oQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "p") {
+            let data = await pQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "q") {
+            let data = await qQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "r") {
+            let data = await rQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "s") {
+            let data = await sQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "t") {
+            let data = await tQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "u") {
+            let data = await uQuran()
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "v") {
+            let data = await vQuran(querys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "w") {
+            let data = await wQuran(querys, equerys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "x") {
+            let data = await xQuran(querys, equerys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "y") {
+            let data = await yQuran(querys, equerys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            if (feature == "z") {
+            let data = await zQuran(querys, equerys)
+            let capt = await formatData(data)
+            await conn.reply(m.chat, `*${htki} 📺 quransearch Search 🔎 ${htka}*
+${capt}`, m)
+            }
+            
     }
 }
 handler.help = ["quransearch"]
