@@ -1,4 +1,4 @@
-import axios from "axios"
+import got from "got"
 import cheerio from "cheerio"
 import { mediafiredl } from "@bochilteam/scraper"
 import fetch from "node-fetch"
@@ -100,8 +100,8 @@ handler.limit = true
 export default handler
 
 async function mediafireDl(url) {
-const res = await axios.get(url) 
-const $ = cheerio.load(res.data)
+const res = await got(url) 
+const $ = cheerio.load(res.body)
 const results = []
 const link = $('a#downloadButton').attr('href')
 const size = $('a#downloadButton').text().replace('Download', '').replace('(', '').replace(')', '').replace('\n', '').replace('\n', '').replace('                         ', '')

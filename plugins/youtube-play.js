@@ -1,103 +1,152 @@
-import fetch from "node-fetch"
 import {
-    youtube
-} from "social_media_downloader"
-let handler = async (m, {
+    youtubedl,
+    youtubedlv2
+} from "@bochilteam/scraper"
+import search from "yt-search"
+import {
+    generateWAMessageFromContent
+} from "@adiwajshing/baileys"
+
+var handler = async (m, {
     conn,
     command,
     text,
     usedPrefix
 }) => {
-    await conn.sendMessage(m.chat, {
-        react: {
-            text: "⏳",
-            key: m.key,
-        }
-    })
-    if (!text) throw `Use example ${usedPrefix}${command} Dj Gama Naufal`
+    if (!text) throw `Use example ${usedPrefix}${command} naruto blue bird`
     try {
-    let cari = await searchVideos(text)
-    let {
-        id,
-        duration,
-        thumbnail
-    } = cari[0]
-    let url = "https://www.youtube.com/watch?v="
-    let caption = `
-*${htki} PLAY ${htka}*
-⏰ *Duration:* ${duration.simpleText}
-🔗 *Url:* ${url + id}
-  `.trim()
-  let p = await youtube(url + id)
-            let dapet = p.result
-    await conn.sendFile(m.chat, dapet[0].url, ".mp3", "", fakes, null, { fileLength: fsizedoc, seconds: fsizedoc, mimetype: "audio/mp4", contextInfo: {
-          externalAdReply :{
-    body: "Play : ",
-    containsAutoReply: true,
-    mediaType: 2, 
-    mediaUrl: url + id,
-    showAdAttribution: true,
-    sourceUrl: url + id,
-    thumbnailUrl: thumbnail,
-    renderLargerThumbnail: true,
-    title: "Request by: " + m.name,
-     }}
-  })
+        let vid = await searchAndFilterVideos(text)
+        if (!vid) throw "Video Not Found, Try Another Title"
+        let {
+            title,
+            thumbnail,
+            timestamp,
+            views,
+            ago,
+            url
+        } = vid
+        let dla = "Downloading audio please wait"
+        let dls = "Downloading audio succes"
+
+        let captvid = `
+*Title:* ${title}
+*Duration:* ${timestamp}
+*Views:* ${views}
+*Upload:* ${ago}
+*Link:* ${url}
+
+${wait}
+`
+        let ytthumb = await (await conn.getFile(thumbnail)).data
+        let msg = await generateWAMessageFromContent(m.chat, {
+            extendedTextMessage: {
+                text: captvid,
+                jpegThumbnail: ytthumb,
+                contextInfo: {
+                    mentionedJid: [m.sender],
+                    externalAdReply: {
+                        body: dla,
+                        containsAutoReply: true,
+                        mediaType: 1,
+                        mediaUrl: url,
+                        renderLargerThumbnail: true,
+                        showAdAttribution: true,
+                        sourceId: "WudySoft",
+                        sourceType: "PDF",
+                        previewType: "PDF",
+                        sourceUrl: url,
+                        thumbnail: ytthumb,
+                        thumbnailUrl: thumbnail,
+                        title: htki + " Y O U T U B E " + htka
+                    }
+                }
+            }
+        }, {
+            quoted: m
+        })
+        await conn.relayMessage(m.chat, msg.message, {})
+        const yt = await youtubedlv2(url).catch(async _ => await youtubedl(url))
+        if (command == "playmp4") {
+            let link = await yt.video["144p"].download() || await yt.video["240p"].download() || await yt.video["360p"].download() || await yt.video["480p"].download() || await yt.video["720p"].download() || await yt.video["1080p"].download()
+            let doc = {
+                video: {
+                    url: link
+                },
+                mimetype: "video/mp4",
+                caption: title,
+                contextInfo: {
+                    externalAdReply: {
+                        showAdAttribution: true,
+                        mediaType: 2,
+                        mediaUrl: url,
+                        title: title,
+                        body: dls,
+                        sourceUrl: url,
+                        thumbnail: ytthumb
+                    }
+                }
+            }
+
+            await conn.sendMessage(m.chat, doc, {
+                quoted: m
+            })
+        } else {
+            const link = await yt.audio["128kbps"].download()
+            let doc = {
+                audio: {
+                    url: link
+                },
+                mimetype: "audio/mp4",
+                fileName: title,
+                contextInfo: {
+                    externalAdReply: {
+                        showAdAttribution: true,
+                        mediaType: 2,
+                        mediaUrl: url,
+                        title: title,
+                        body: dls,
+                        sourceUrl: url,
+                        thumbnail: ytthumb
+                    }
+                }
+            }
+
+            await conn.sendMessage(m.chat, doc, {
+                quoted: m
+            })
+        }
     } catch (e) {
-    await m.reply(eror)
+        await m.reply(eror)
     }
+
 }
 handler.help = ["play"].map(v => v + " <pencarian>")
 handler.tags = ["downloader"]
-handler.command = /^(play((biasa|yt))?|ytplay)$/i
+handler.command = /^(play((mp3|mp4|yt))?|ytplay)$/i
 handler.limit = true
 export default handler
 
-async function searchVideos(query) {
-  const userAgent =
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36";
-  
-  const search_query = encodeURIComponent(query).replace(/%20/g, "+");
-  
-  const url = `https://www.youtube.com/results?search_query=${search_query}`;
-  const response = await fetch(url, { headers: { "User-Agent": userAgent } });
-  const result = await response.text();
-  
-  const initialData = "var ytInitialData = {";
-  const initialDataIndex = result.indexOf(initialData);
-  const dataStart = initialDataIndex + initialData.length - 1;
-  const dataEnd = result.indexOf("};", initialDataIndex) + 1;
-  const json = result.slice(dataStart, dataEnd);
-  
-  try {
-    const parsedJson = JSON.parse(json);
-    const videos = parsedJson.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents[0].itemSectionRenderer.contents.filter(
-      (v) => !!v.videoRenderer || !!v.playlistRenderer
-    );
-  
-    const results = videos.map((video) => {
-      if (video.videoRenderer) {
-        const duration = video.videoRenderer.lengthText;
-        return {
-          type: "track",
-          duration,
-          id: video.videoRenderer.videoId,
-          title: video.videoRenderer.title,
-          thumbnail: video.videoRenderer.thumbnail.thumbnails[0]?.url || null,
-        };
-      } else {
-        return {
-          type: "playlist",
-          id: video.playlistRenderer.playlistId,
-          title: video.playlistRenderer.title,
-          trackCount: video.playlistRenderer.videoCount,
-          thumbnail: video.playlistRenderer.thumbnails[0]?.thumbnails[0]?.url || null,
-        };
-      }
-    });
-  
-    return results;
-  } catch (e) {
-    return [];
-  }
+async function searchAndFilterVideos(query, maxResults = 100, similarityThreshold = 0.5) {
+    try {
+        const res = await search(query);
+        const videos = res.videos
+            .slice(0, maxResults)
+            .filter(video => {
+                const titleWords = video.title.toLowerCase().split(" ");
+                const queryWords = query.toLowerCase().split(" ");
+                const matchCount = titleWords.filter(word => queryWords.includes(word)).length;
+                return matchCount / titleWords.length >= similarityThreshold;
+            });
+
+        if (videos.length > 0) {
+            return videos[0];
+        } else if (res.videos.length > 0) {
+            return res.videos[0];
+        } else {
+            return {};
+        }
+    } catch (e) {
+        console.error(e);
+        return {};
+    }
 }

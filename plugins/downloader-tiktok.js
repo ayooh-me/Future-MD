@@ -2,6 +2,7 @@ import axios from "axios"
 import fetch from "node-fetch"
 import cheerio from "cheerio"
 import got from "got"
+import fg from "api-dylux"
 
 let handler = async (m, {
     conn,
@@ -20,7 +21,8 @@ let imgr = flaaa.getRandom()
     let data = [
         "tikdl",
         "scraper",
-        "godown"
+        "godown",
+        "fgmods"
     ]
     let listSections = []
     Object.keys(data).map((v, index) => {
@@ -90,6 +92,23 @@ ${spas}*[ A U D I O ]*
 *Desc:* ${god.data.desc}
 `
                 await conn.sendFile(m.chat, god.data.video_watermark, "", GoCap, m)
+            } catch (e) {
+                throw eror
+            }
+            break
+            
+            case "fgmods":
+            try {
+                m.reply(wait)
+                let Fg = await fg.tiktok(one)
+    let FgCap = `${spas}*[ T I K T O K ]*
+
+*Nickname:* ${Fg.nickname}
+*Unique ID:* ${Fg.unique_id}
+*Download Count:* ${Fg.download_count}
+*Duration:* ${Fg.duration}
+*Description:* ${Fg.description}`
+                await conn.sendFile(m.chat, Fg.play || Fg.hdplay , "", FgCap, m)
             } catch (e) {
                 throw eror
             }

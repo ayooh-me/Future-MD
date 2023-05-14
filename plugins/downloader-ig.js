@@ -1,4 +1,6 @@
 import fetch from "node-fetch"
+import got from "got"
+import cheerio from "cheerio"
 import {
     instagram
 } from "@xct007/frieren-scraper"
@@ -15,7 +17,8 @@ let handler = async (m, {
 
     let ends = [
         "V1",
-        "V2"
+        "V2",
+        "V3",
     ]
 
     let [links, version] = text.split(" ")
@@ -56,6 +59,18 @@ let handler = async (m, {
                 await m.reply(eror)
             }
         }
+        if (version == "V3") {
+            try {
+                let results = await igDownload(links)
+
+                let caption = `*[ I N S T A G R A M ]*`
+                let out = results
+                await m.reply(wait)
+                await conn.sendFile(m.chat, out, "", caption, m)
+            } catch (e) {
+                await m.reply(eror)
+            }
+        }
     }
 
 }
@@ -64,3 +79,12 @@ handler.tags = ['downloader']
 handler.command = /^(ig(dl)?|instagram(dl)?)$/i
 
 export default handler
+
+async function igDownload(url) {
+return await got(url)
+  .then(response => {
+    const $ = cheerio.load(response.body);
+    const metaTags = $('meta[property="og:video:secure_url"]').attr('content');
+    return metaTags;
+  })
+  }

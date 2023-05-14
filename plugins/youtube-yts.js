@@ -1,79 +1,64 @@
-import fetch from "node-fetch"
-
+import yts from "yt-search"
+import {
+    generateWAMessageFromContent
+} from "@adiwajshing/baileys"
 let handler = async (m, {
     conn,
-    usedPrefix,
-    text,
-    args,
-    command
+    text
 }) => {
-    if (!text) throw "Cari apa?"
-    let ytsr = "https://www.youtube.com/watch?v="
-    try {
-    let data = await searchVideos(text)
-    await m.reply(wait)
-    let list = data.map((item, index) => `
-${htki} ${index+1} ${htka}
-🔖 *Title:* ${item.title.runs[0].text}
-📤 *Thumb:* ${item.thumbnail}
-⏰ *Duration:* ${item.duration.simpleText}
-🔗 *Url:* ${ytsr + item.id}
-`).join("\n")
-    await m.reply(`*${htki} 📺 Youtube Search 🔎 ${htka}*\n${list}`)
-    } catch (e) {
-    await m.reply(eror)
-    }
+    if (!text) throw "✳️ What do you want me to search for on YouTube?"
+    let results = await yts(text)
+    let tes = results.all
+    let teks = results.all.map(v => {
+        switch (v.type) {
+            case "video":
+                return `
+🔖 ${v.title}
+🔗 *Link* : ${v.url}
+⏰ *Duration* : ${v.timestamp}
+📤 *Publiced :* ${v.ago}
+👀 *Views:* ${v.views}
+
+   `.trim()
+            case "canal":
+                return `
+🔖 *${v.name}* (${v.url})
+⚡ ${v.subCountLabel} (${v.subCount}) Suscribe
+📽️ ${v.videoCount} videos
+`.trim()
+        }
+    }).filter(v => v).join("\n\n________________________\n\n")
+    
+        let ytthumb = await (await conn.getFile(tes[0].thumbnail)).data
+        let msg = await generateWAMessageFromContent(m.chat, {
+            extendedTextMessage: {
+                text: teks,
+                jpegThumbnail: ytthumb,
+                contextInfo: {
+                    mentionedJid: [m.sender],
+                    externalAdReply: {
+                        body: "S E A R C H",
+                        containsAutoReply: true,
+                        mediaType: 1,
+                        mediaUrl: tes[0].url,
+                        renderLargerThumbnail: true,
+                        showAdAttribution: true,
+                        sourceId: "WudySoft",
+                        sourceType: "PDF",
+                        previewType: "PDF",
+                        sourceUrl: tes[0].url,
+                        thumbnail: ytthumb,
+                        thumbnailUrl: tes[0].thumbnail,
+                        title: htki + " Y O U T U B E " + htka
+                    }
+                }
+            }
+        }, {
+            quoted: m
+        })
+        await conn.relayMessage(m.chat, msg.message, {})
 }
 handler.help = ["", "earch"].map(v => "yts" + v + " <pencarian>")
 handler.tags = ["tools"]
 handler.command = /^y(outubesearch|ts((biasa)?|earch))$/i
 export default handler
-
-async function searchVideos(query) {
-  const userAgent =
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36";
-  
-  const search_query = encodeURIComponent(query).replace(/%20/g, "+");
-  
-  const url = `https://www.youtube.com/results?search_query=${search_query}`;
-  const response = await fetch(url, { headers: { "User-Agent": userAgent } });
-  const result = await response.text();
-  
-  const initialData = "var ytInitialData = {";
-  const initialDataIndex = result.indexOf(initialData);
-  const dataStart = initialDataIndex + initialData.length - 1;
-  const dataEnd = result.indexOf("};", initialDataIndex) + 1;
-  const json = result.slice(dataStart, dataEnd);
-  
-  try {
-    const parsedJson = JSON.parse(json);
-    const videos = parsedJson.contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents[0].itemSectionRenderer.contents.filter(
-      (v) => !!v.videoRenderer || !!v.playlistRenderer
-    );
-  
-    const results = videos.map((video) => {
-      if (video.videoRenderer) {
-        const duration = video.videoRenderer.lengthText;
-        return {
-          type: "track",
-          duration,
-          id: video.videoRenderer.videoId,
-          title: video.videoRenderer.title,
-          thumbnail: video.videoRenderer.thumbnail.thumbnails[0]?.url || null,
-        };
-      } else {
-        return {
-          type: "playlist",
-          id: video.playlistRenderer.playlistId,
-          title: video.playlistRenderer.title,
-          trackCount: video.playlistRenderer.videoCount,
-          thumbnail: video.playlistRenderer.thumbnails[0]?.thumbnails[0]?.url || null,
-        };
-      }
-    });
-  
-    return results;
-  } catch (e) {
-    return [];
-  }
-}

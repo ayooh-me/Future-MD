@@ -304,23 +304,25 @@ handler.command = /^(quransearch)$/i
 export default handler
 
 function formatData(data) {
-  let output = ''
-  data.forEach((item, index) => {
-    output += `*[ Result ${index + 1} ]*\n`
+  let output = '';
+  let dataArray = Array.isArray(data) ? data : [data];
+  
+  dataArray.forEach((item, index) => {
+    output += `*[ Result ${index + 1} ]*\n`;
     Object.keys(item).forEach(key => {
-      output += ` *${key}:* `
-      if (typeof item[key] === 'object') {
+      output += ` *${key}:* `;
+      if (typeof item[key] === 'object' && item[key] !== null) {
         Object.keys(item[key]).forEach(subKey => {
-          output += `\n *${subKey}:* ${item[key][subKey]}`
-        })
+          output += `\n *${subKey}:* ${item[key][subKey]}`;
+        });
       } else {
-        output += ` ${item[key]}\n`
+        output += ` ${item[key]}\n`;
       }
-    })
-  })
-  return output
-}
+    });
+  });
 
+  return output;
+}
 
 
 async function aQuran() {

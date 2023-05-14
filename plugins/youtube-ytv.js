@@ -1,93 +1,114 @@
-let limit = 80
-import fetch from 'node-fetch'
-import axios from 'axios'
+import fg from "api-dylux"
 import {
-    youtubeSearch,
     youtubedl,
-    youtubedlv2,
-    youtubedlv3
-} from '@bochilteam/scraper';
+    youtubedlv2
+} from "@bochilteam/scraper"
+let limit = 80
 let handler = async (m, {
     conn,
-    groupMetadata,
-    usedPrefix,
-    text,
     args,
-    command,
     isPrems,
-    isOwner
+    isOwner,
+    usedPrefix,
+    command
 }) => {
-    await conn.sendMessage(m.chat, {
-        react: {
-            text: '⏳',
-            key: m.key,
-        }
-    })
-    let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-    let pp = await conn.profilePictureUrl(who)
-    .catch(_ => hwaifu.getRandom())
-    let name = await conn.getName(who)
-    if (!args || !args[0]) throw '[ Masukkan Url Youtube! ]'
+    if (!args || !args[0]) throw `✳️ Example :\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`
+    if (!args[0].match(/youtu/gi)) throw `❎ Verify that the YouTube link`
+
     try {
-        let chat = global.db.data.chats[m.chat]
-        const isY = /y(es)/gi.test(args[1])
-        const {
-            thumbnail,
-            video: _video,
-            title
-        } = await youtubedl(args[0])
-        .catch(async _ => await youtubedlv2(args[0]))
-        .catch(async _ => await youtubedlv3(args[0]))
-        const limitedSize = (isPrems || isOwner ? 99 : limit) * 1024
-        let video, source, res, link, lastError, isLimit
-        for (let i in _video) {
-            try {
-                video = _video[i]
-                isLimit = limitedSize < video.fileSize
-                if (isLimit) continue
-                link = await video.download()
-                if (link) res = await fetch(link)
-                isLimit = res?.headers.get('content-length') && parseInt(res.headers.get('content-length')) < limitedSize
-                if (isLimit) continue
-                if (res) source = await res.arrayBuffer()
-                if (source instanceof ArrayBuffer) break
-            } catch (e) {
-                video = source = link = null
-                lastError = e
-            }
-        }
-        if ((!(source instanceof ArrayBuffer) || !link || !res.ok) && !isLimit) throw 'Error: ' + (lastError || 'Can\'t download video')
-        if (!isY && !isLimit) await conn.sendFile(m.chat, thumbnail, 'thumbnail.jpg', `
-*[ YOUTUBE VIDEO ]*
+        let q = args[1] || "360p"
+        let v = args[0]
+        const yt = await youtubedl(v).catch(async () => await youtubedlv2(v))
+        const dl_url = await yt.video[q].download()
+        const title = await yt.title
+        const size = await yt.video[q].fileSizeH
+        await m.reply(wait)
 
-🔖 *Title:* ${title}
-📤 *Filesize:* ${video.fileSizeH}
-
-*L O A D I N G. . .*
-`.trim(), m)
-        if (!isLimit) await conn.sendFile(m.chat, source, title + '.mp4', `
-*[ YOUTUBE VIDEO ]*
-
-🔖 *Title:* ${title}
-📤 *Filesize:* ${video.fileSizeH}
-`.trim(), m)
+        if (size.split("MB")[0] >= limit) return m.reply(` ≡  *Youtube Downloader*\n\n▢ *⚖️Size* : ${size}\n▢ *🎞️quality* : ${q}\n\n▢ _The file exceeds the download limit_ *+${limit} MB*`)
+        let captvid = `
+ ≡  *Youtube Downloader*
   
-    } catch (e) {
-        let res = await axios('https://violetics.pw/api/downloader/youtube?apikey=beta&url=' + text)
-        let json = res.data
-        let dapet = json.result.url
-        let row = Object.values(dapet).map((v, index) => ({
-            title: htjava + '📌 Quality: ' + v.subname,
-            description: '\n⌚ Host: ' + json.result.hosting + '\n⏲️ Title: ' + json.result.meta.title + '\n📎 URL: ' + v.url + '\n📌 Source: ' + json.result.meta.source + '\n📌 Duration: ' + json.result.meta.duration,
-            rowId: usedPrefix + 'get ' + v.url
-        }))
-        let button = {
-            buttonText: `☂️ ${command} Search Disini ☂️`,
-            description: `⚡ Hai ${name}, Silakan pilih ${command} Search di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`,
-            footerText: wm
+▢ *📌Títle* : ${title}
+▢ *📟 Ext* : mp4
+▢ *🎞️Quality* : ${q}
+▢ *⚖️Size* : ${size}
+`.trim()
+let dls = "Downloading audio succes"
+let doc = {
+                video: {
+                    url: dl_url
+                },
+                mimetype: "video/mp4",
+                caption: captvid,
+                contextInfo: {
+                    externalAdReply: {
+                        showAdAttribution: true,
+                        mediaType: 2,
+                        mediaUrl: v,
+                        title: title,
+                        body: dls,
+                        sourceUrl: v,
+                        thumbnail: await (await conn.getFile(yt.thumbnail)).data
+                    }
+                }
+            }
+
+            await conn.sendMessage(m.chat, doc, {
+                quoted: m
+            })
+        await m.reply("Done!")
+
+    } catch {
+        try {
+            const {
+                title,
+                result,
+                quality,
+                size,
+                duration,
+                thumb,
+                channel
+            } = await fg.ytv(args[0])
+            await m.reply(wait)
+            if (size.split("MB")[0] >= limit) return m.reply(` ≡  *Youtube Downloader*\n\n▢ *⚖️Size* : ${size}\n▢ *🎞️Quality* : ${quality}\n\n▢ _The file exceeds the download limit_ *+${limit} MB*`)
+            let captvid = `
+ ≡  *Youtube Downloader*
+  
+▢ *📌Títle* : ${title}
+▢ *📟 Ext* : mp4
+▢ *🎞️Quality* : ${quality}
+▢ *⚖️Size* : ${size}
+▢ *⏰Duration* : ${duration}
+`.trim()
+let dls = "Downloading audio succes"
+let doc = {
+                video: {
+                    url: result
+                },
+                mimetype: "video/mp4",
+                caption: captvid,
+                contextInfo: {
+                    externalAdReply: {
+                        showAdAttribution: true,
+                        mediaType: 2,
+                        mediaUrl: v,
+                        title: title,
+                        body: dls,
+                        sourceUrl: v,
+                        thumbnail: await (await conn.getFile(thumb)).data
+                    }
+                }
+            }
+
+            await conn.sendMessage(m.chat, doc, {
+                quoted: m
+            })
+            await m.reply("Done!")
+        } catch (e) {
+            await m.reply(eror)
         }
-        return conn.sendListM(m.chat, button, row, m)
     }
+
 }
 handler.help = ['mp4', 'v', ''].map(v => 'yt' + v + ` <url> <without message>`)
 handler.tags = ['downloader']

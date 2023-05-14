@@ -1,24 +1,17 @@
 import fetch from "node-fetch";
 let handler = async (m, {
-    conn,
-    isOwner,
-    usedPrefix,
     command,
+    usedPrefix,
+    conn,
+    text,
     args
 }) => {
-    let query = "input text\nEx. .ttsv hello world\n<command> <tex>"
-    let text
-    if (args.length >= 1) {
-        text = args.slice(0).join(" ")
-    } else if (m.quoted && m.quoted.text) {
-        text = m.quoted.text
-    } else throw query
-    let urut = text.split`|`
-    let one = urut[0]
-    let two = urut[1]
-    let three = urut[2]
-    let lis = [
-        "Lotte",
+    let lister = [
+        "list",
+        "get"
+    ]
+let voicer = [
+                "Lotte",
         "Maxim",
         "Ayanda",
         "Salli",
@@ -106,19 +99,16 @@ let handler = async (m, {
         "Seoyeon",
         "Emma",
         "Stephen"
-    ];
-    if (command == "ttsv") {
-        let listSections = []
-        Object.keys(lis).map((v, index) => {
-            listSections.push(["Model [ " + ++index + " ]", [
-                [lis[v], usedPrefix + command + "get " + lis[v] + "|" + text, "➥"]
-            ]])
-        })
-        return conn.sendList(m.chat, htki + " 📺 Models 🔎 " + htka, `⚡ Silakan pilih Model di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, "☂️ M O D E L ☂️", listSections, m)
-    }
-    if (command == "ttsvget") {
-        try {
-            let res = await getAudioURLs(one, two)
+            ]
+    let [feature, inputs, inputs_, inputs__, inputs___] = text.split(/[^\w\s]/g)
+    if (!lister.includes(feature)) return m.reply("*Example:*\n.ttsv get.Emma.halo\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join('\n'))
+
+    if (lister.includes(feature)) {
+        if (feature == "get") {
+            if (!voicer.includes(inputs)) return m.reply("*Example:*\n.ttsv get.Emma.halo\n\n*Pilih type yg ada*\n" + voicer.map((v, index) => "  ○ " + v).join('\n'))
+            if (!inputs_) return m.reply("Input text")
+            try {
+            let res = await getAudioURLs(inputs, inputs_)
             await conn.sendMessage(m.chat, {
                 audio: {
                     url: res
@@ -134,19 +124,16 @@ let handler = async (m, {
         } catch (e) {
             await m.reply(eror)
         }
+        }
+        if (feature == "list") {
+            await m.reply("*Example:*\n.ttsv get.Emma.halo\n\n*Pilih type yg ada*\n" + voicer.map((v, index) => "  ○ " + v).join('\n'))
+        }
     }
-    if (command == "ttsvlist") {
-        let res = lis.map((v, index) => ++index + ". " + v).join("\n")
-        let nah = `${htki} *L I S T* ${htka}
-*Example* ${usedPrefix + command} Brian|halo
 
-${res}`
-        await m.reply(nah)
-    }
 }
-handler.help = ["ttsv"]
-handler.tags = ["misc"]
-handler.command = /^(ttsv|ttsvget|ttsvlist)$/i
+handler.help = ["ttsv type query"]
+handler.tags = ["internet"]
+handler.command = /^(ttsv)$/i
 export default handler
 
 // keys must be lowercase

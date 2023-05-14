@@ -118,19 +118,8 @@ let handler = async (m, {
     }
     if (command == "ttspget") {
         try {
-            let res = await elevenLabs(one, two)
-            await conn.sendMessage(m.chat, {
-            audio: {
-                url: res
-            },
-            seconds: fsizedoc,
-            ptt: true,
-            mimetype: "audio/mpeg",
-            fileName: "vn.mp3",
-            waveform: [100, 0, 100, 0, 100, 0, 100]
-        }, {
-            quoted: m
-        })
+            let res = `https://api.pawan.krd/tts?text=${encodeURIComponent(two)}&voice=${one}`
+            await conn.sendFile(m.chat, res, "", "", m)
         } catch (e) {
             await m.reply(eror)
         }
@@ -148,8 +137,3 @@ handler.help = ["ttsp"]
 handler.tags = ["misc"]
 handler.command = /^(ttsp|ttspget|ttsplist)$/i
 export default handler
-
-async function elevenLabs(voice, msg) {
-  const response = `https://api.pawan.krd/tts?text=${encodeURIComponent(msg)}&voice=${voice}`
-  return response;
-}

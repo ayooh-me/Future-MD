@@ -14,6 +14,7 @@ let stiker = false
     let q = m.quoted ? m.quoted : m
     let mime = (q.msg || q).mimetype || ''
     if (!m.quoted) throw `Balas stiker/audio yang ingin diubah menjadi video dengan perintah ${usedPrefix + command}`
+
     let img = await q.download?.()
     let stek = new Sticker(img, { pack: packname, author: author, type: StickerTypes.FULL })
     let buffer = await stek.toBuffer()
@@ -34,8 +35,7 @@ let stiker = false
       } catch (e) {
         throw eror
       }
-    return conn.sendButtonVid(m.chat, out, `*${htki} TOMP4 ${htka}*
-*NIH UDAH JADI*`, author, 'To mp3', '.tomp3', fakes, adReply)
+     await conn.sendFile(m.chat, out, 'tovid.mp4', '✅ sticker a video' , m)
 }
 //lo mau apa??
 handler.help = ['tovideo']
