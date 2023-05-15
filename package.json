@@ -83,6 +83,7 @@
         "hxz-api": "*",
         "image-to-pdf": "*",
         "instagram-url-direct" : "*",
+        "javascript-obfuscator": "*",
         "jimp": "*",
         "jsdom": "*",
         "knights-canvas" : "*",
