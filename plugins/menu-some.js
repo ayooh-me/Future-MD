@@ -63,58 +63,58 @@ try {
 if (command) {
 switch (template) {
 case 'animal':
-        let cb = await fetch(`https://some-random-api.ml/animal/${one}`)
+        let cb = await fetch(`https://some-random-api.com/animal/${one}`)
         let cc = await cb.json()
         return conn.sendButtonImg(m.chat, cc.image, cc.fact, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             
 case 'animu':
-            let db = await fetch(`https://some-random-api.ml/animu/${one}`)
+            let db = await fetch(`https://some-random-api.com/animu/${one}`)
         let dc = await db.json()
         return conn.sendButtonGif(m.chat, 'Nihh', wm, { url: dc.link }, btn, knimg)
             break
             case 'binary':
-        let eb = await fetch(`https://some-random-api.ml/others/binary?text=${one}`)
+        let eb = await fetch(`https://some-random-api.com/others/binary?text=${one}`)
         let ec = await eb.json()
         return m.reply(ec.binary)
             break
             case 'token':
-        let fb = await fetch(`https://some-random-api.ml/others/bottoken`)
+        let fb = await fetch(`https://some-random-api.com/others/bottoken`)
         let fc = await fb.json()
         return m.reply(fc.token)
             break
             case 'base64':
-        let gb = await fetch(`https://some-random-api.ml/others/base64?${one}=${two}`)
+        let gb = await fetch(`https://some-random-api.com/others/base64?${one}=${two}`)
         let gc = await gb.json()
         return m.reply(gc.base64)
             break
             
             case 'facts':
-        let hb = await fetch(`https://some-random-api.ml/facts/${one}`)
+        let hb = await fetch(`https://some-random-api.com/facts/${one}`)
         let hc = await hb.json()
         return m.reply(hc.fact)
             break
             
             case 'img':
-        let ib = await fetch(`https://some-random-api.ml/img/${one}`)
+        let ib = await fetch(`https://some-random-api.com/img/${one}`)
         let ic = await ib.json()
         return conn.sendButtonImg(m.chat, ic.link, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             
             case 'joke':
-        let jb = await fetch(`https://some-random-api.ml/others/joke`)
+        let jb = await fetch(`https://some-random-api.com/others/joke`)
         let jc = await jb.json()
         return m.reply(jc.joke)
             break
             
             case 'dict':
-        let dct = await fetch(`https://some-random-api.ml/others/dictionary?word=${one}`)
+        let dct = await fetch(`https://some-random-api.com/others/dictionary?word=${one}`)
         let dic = await dct.json()
         return m.reply(dic.definition)
             break
             
             case 'lyrics':
-        let kb = await fetch(`https://some-random-api.ml/others/lyrics?title=${one}`)
+        let kb = await fetch(`https://some-random-api.com/others/lyrics?title=${one}`)
         let kc = await kb.json()
         let kd = `${kc.title}
         ${kc.author}
@@ -141,7 +141,7 @@ case 'animu':
         } catch (e) {
         throw eror
         }
-        let fil = `https://some-random-api.ml/canvas/filter/${one}?avatar=${d_}`
+        let fil = `https://some-random-api.com/canvas/filter/${one}?avatar=${d_}`
         return conn.sendButtonImg(m.chat, fil, wm, 'Nih.jpg', 'Sticker', '.s', fakes, adReply)
             break
             case 'misc':
@@ -161,7 +161,7 @@ case 'animu':
         } catch (e) {
         throw eror
         }
-        let mis = `https://some-random-api.ml/canvas/misc/${one}?avatar=${d__}`
+        let mis = `https://some-random-api.com/canvas/misc/${one}?avatar=${d__}`
         return conn.sendButtonImg(m.chat, mis, wm, 'Nih.jpg', 'Sticker', '.s', fakes, adReply)
             break
             
@@ -182,7 +182,7 @@ case 'animu':
         } catch (e) {
         throw eror
         }
-        let ove = `https://some-random-api.ml/canvas/overlay/${one}?avatar=${d___}`
+        let ove = `https://some-random-api.com/canvas/overlay/${one}?avatar=${d___}`
         return conn.sendButtonImg(m.chat, ove, wm, 'Nih.jpg', 'Sticker', '.s', fakes, adReply)
             break
             

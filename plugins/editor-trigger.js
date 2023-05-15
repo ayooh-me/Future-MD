@@ -12,7 +12,7 @@ let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? c
 			let out = await uploadImage(img)
 			m.reply(wait)
 			
-			var some = global.API('https://some-random-api.ml', '/canvas/triggered', { avatar: out })
+			var some = global.API('https://some-random-api.com', '/canvas/triggered', { avatar: out })
 			if (some) {
 			var stikersome = await createSticker(false, some, packname, name, 60)
 			m.reply(stikersome)

@@ -18,7 +18,7 @@ ${effects.map(effect => `_> ${effect}_`).join('\n')}
     	try {
 			let img = await q.download?.()
 			let out = await uploadImage(img)
-			let apiUrl = global.API('https://some-random-api.ml/canvas/', encodeURIComponent(effect), {
+			let apiUrl = global.API('https://some-random-api.com/canvas/', encodeURIComponent(effect), {
     avatar: out
   })
 			let stiker = await createSticker(apiUrl, { pack: packname, author: author })

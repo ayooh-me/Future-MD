@@ -118,7 +118,7 @@ let handler = async (m, {
         	let buffer = await ameApi.generate(one, {
             "url" : two
         })
-        conn.sendFile(m.chat, buffer, '', '', m)
+        await conn.sendFile(m.chat, buffer, '', '', m)
         	}
 }
 handler.help = ["ame"]

@@ -23,7 +23,7 @@ ${usedPrefix + command} greyscale
   if (!/image\/(jpe?g|png)/.test(mime)) throw `Media tidak didukung!`
   let img = await q.download?.()
   let url = await uploadImage(img)
-  let apiUrl = API('https://some-random-api.ml/canvas/', encodeURIComponent(effect), {
+  let apiUrl = API('https://some-random-api.com/canvas/', encodeURIComponent(effect), {
     avatar: url
   })
   try {

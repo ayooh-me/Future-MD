@@ -103,6 +103,12 @@ async function Quotly(a, b, c, d) {
             "Content-Type": "application/json"
         }
     })
-    const buffer = Buffer.from(json.data.result.image, "base64")
+    const json2 = await axios.post("https://quote-api.up.railway.app/generate", obj, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    let results = json.data.result.image || json2.data.result.image
+    const buffer = Buffer.from(results, "base64")
     return buffer
 }

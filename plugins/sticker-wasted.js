@@ -10,7 +10,7 @@ let handler = async (m, { conn, text }) => {
   if (!/image\/(jpe?g|png)/.test(mime)) throw `Mime ${mime} tidak support`
   let img = await q.download?.()
   let url = await uploadImage(img)
-  let wasted = `https://some-random-api.ml/canvas/wasted?avatar=${url}`
+  let wasted = `https://some-random-api.com/canvas/wasted?avatar=${url}`
   let stiker = await sticker(null, wasted, packname, author)
   conn.sendFile(m.chat, stiker, 'wasted.webp', '', m)
  } catch (e) {

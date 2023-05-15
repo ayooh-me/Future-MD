@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
     	try {
-			let marah = global.API('https://some-random-api.ml', '/img/pikachu', {})
+			let marah = global.API('https://some-random-api.com', '/img/pikachu', {})
 			let fet = await(await fetch(marah)).json()
 			let stiker = await createSticker(fet.link, { pack: packname, author: author })
             await conn.sendFile(m.chat, stiker, 'atet.webp', '', m)

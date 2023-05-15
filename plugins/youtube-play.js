@@ -29,10 +29,10 @@ var handler = async (m, {
         let dls = "Downloading audio succes"
 
         let captvid = `
-*Title:* ${title}
-*Duration:* ${timestamp}
-*Views:* ${views}
-*Upload:* ${ago}
+*Title:* ${title ? title : 'tidak diketahui'}
+*Duration:* ${timestamp ? timestamp : 'tidak diketahui'}
+*Views:* ${views ? views : 'tidak diketahui'}
+*Upload:* ${ago ? ago : 'tidak diketahui'}
 *Link:* ${url}
 
 ${wait}
@@ -67,7 +67,7 @@ ${wait}
         await conn.relayMessage(m.chat, msg.message, {})
         const yt = await youtubedlv2(url).catch(async _ => await youtubedl(url))
         if (command == "playmp4") {
-            let link = await yt.video["144p"].download() || await yt.video["240p"].download() || await yt.video["360p"].download() || await yt.video["480p"].download() || await yt.video["720p"].download() || await yt.video["1080p"].download()
+            let link = await yt.video["144p"].download() || await yt.video["240p"].download() || await yt.video["360p"].download() || await yt.video["480p"].download() || await yt.video["720p"].download() || await yt.video["1080p"].download() || await yt.video["auto"].download()
             let doc = {
                 video: {
                     url: link
