@@ -8,7 +8,7 @@ setInterval(async () => {
   } catch (e) {
     console.log(e);
   }
-}, 60000);
+}, 2*60*1000) // 2 minutes 10*60*1000
 }
 export const disabled = false
 

@@ -181,93 +181,97 @@ let dapet = json.result
 }
 
 if (command == 'kissmanga') {
-let res = await fetch('https://violetics.pw/api/anime/kissmanga?apikey=beta&manga=' + text)
-let json = await res.json()
-if (json.isError == true) throw eror
-let dapet = json.result
-	let row = Object.values(dapet).map((v, index) => ({
-		title: index + ' ' + v.title,
-		description: '\nUrl: ' + v.url,
-		rowId: usedPrefix + 'ss ' + v.url
-	}))
-	let button = {
-		buttonText: `☂️ ${command} Search Disini ☂️`,
-		description: `⚡ Hai ${name}, Silakan pilih ${command} Search di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`,
-		footerText: wm
-	}
-	return conn.sendListM(m.chat, button, row, m)
+let res = await searchKissmanga(text)
+let teks = res.map((v, index) => {
+                return `*[ ${index + 1} ]*
+*Title* : ${v.title}
+*Chapter* : ${v.chapter}
+*Chapter Url* : ${v.chapterUrl}
+*Url* : ${v.url}
+*Status* : ${v.status}
+   `.trim()
+            }).filter(v => v).join("\n\n________________________\n\n")
+            await m.reply(teks)
 }
 
 if (command == 'klikmanga') {
-let res = await fetch('https://violetics.pw/api/anime/klikmanga?apikey=beta&manga=' + text)
-let json = await res.json()
-if (json.isError == true) throw eror
-let dapet = json.result
-	let row = Object.values(dapet).map((v, index) => ({
-		title: index + ' ' + v.title,
-		description: '\nUrl: ' + v.url + '\nThumb: ' + v.thumbnail + '\nStatus: ' + v.status + '\nAuthor: ' + v.author + '\nDescription: ' + v.description + '\nGenres: ' + v.genres + '\nDate: ' + v.date,
-		rowId: usedPrefix + 'ss ' + v.url
-	}))
-	let button = {
-		buttonText: `☂️ ${command} Search Disini ☂️`,
-		description: `⚡ Hai ${name}, Silakan pilih ${command} Search di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`,
-		footerText: wm
-	}
-	return conn.sendListM(m.chat, button, row, m)
+let res = await searchKlikmanga(text)
+let teks = res.map((v, index) => {
+                return `*[ ${index + 1} ]*
+*Image Url:* ${v.imageUrl}
+*Title:* ${v.title}
+*Alternate Titles:* ${v.alternateTitles}
+*Authors:* ${v.authors}
+*Illustrator:* ${v.illustrator}
+*Genres:* ${v.genres}
+*Status:* ${v.status}
+*Release Year:* ${v.releaseYear}
+*Latest Chapter:* ${v.latestChapter}
+*Url:* ${v.url}
+*Release Url:* ${v.releaseUrl}
+   `.trim()
+            }).filter(v => v).join("\n\n________________________\n\n")
+            await m.reply(teks)
 }
 
 if (command == 'komiku') {
-let res = await fetch('https://violetics.pw/api/anime/komiku?apikey=beta&manga=' + text)
-let json = await res.json()
-if (json.isError == true) throw eror
-let dapet = json.result
-	let row = Object.values(dapet).map((v, index) => ({
-		title: index + ' ' + v.title,
-		description: '\nUrl: ' + v.url + '\nThumb: ' + v.thumbnail + '\nChapter: ' + v.chapter + '\nDescription: ' + v.description,
-		rowId: usedPrefix + 'ss ' + v.url
-	}))
-	let button = {
-		buttonText: `☂️ ${command} Search Disini ☂️`,
-		description: `⚡ Hai ${name}, Silakan pilih ${command} Search di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`,
-		footerText: wm
-	}
-	return conn.sendListM(m.chat, button, row, m)
+let res = await searchKomiku(text)
+let teks = res.map((v, index) => {
+                return `*[ ${index + 1} ]*
+*Image Url:* ${v.imageSrc}
+*Title:* ${v.title}
+*Alternate Titles:* ${v.subtitle}
+*Update:* ${v.update}
+*Chapters:* ${v.chapters}
+*Link:* ${v.link}
+   `.trim()
+            }).filter(v => v).join("\n\n________________________\n\n")
+            await m.reply(teks)
 }
 
 if (command == 'mangadex') {
-let res = await fetch('https://violetics.pw/api/anime/mangadex?apikey=beta&manga=' + text)
-let json = await res.json()
-if (json.isError == true) throw eror
-let dapet = json.result
-	let row = Object.values(dapet).map((v, index) => ({
-		title: index + ' ' + v.title,
-		description: '\nUrl: ' + v.url + '\nThumb: ' + v.thumbnail + '\nRate: ' + v.rate + '\nFollowers: ' + v.followers + '\nViews: ' + v.views + '\nDescription: ' + v.description,
-		rowId: usedPrefix + 'ss ' + v.url
-	}))
-	let button = {
-		buttonText: `☂️ ${command} Search Disini ☂️`,
-		description: `⚡ Hai ${name}, Silakan pilih ${command} Search di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`,
-		footerText: wm
-	}
-	return conn.sendListM(m.chat, button, row, m)
+let res = await searchMangadex(text)
+let teks = res.map((v, index) => {
+
+// Mengonversi link-link menjadi array dan mengganti nilai null, undefined, atau objek key yang tidak ada dengan ''
+let input = JSON.stringify(v.links)
+let data = JSON.parse(input);
+let output = '';
+for (const key in data) {
+  output += '\n*' + key + ':*\n' + data[key] + '\n';
+}
+
+                return `*[ ${index + 1} ]*
+*Title:* ${v.title.en}
+*Alternate Titles:* ${v.altTitles.map(v => v.ja)}
+*Description:* ${v.description.id}
+*Status:* ${v.status}
+*State:* ${v.state}
+*Link:* ${output}
+*Year:* ${v.year}
+*Tags:* ${v.tags.map(v => v.attributes.name.en)}
+*Created:* ${v.createdAt}
+*Ppdated:* ${v.updatedAt}
+   `.trim()
+            }).filter(v => v).join("\n\n________________________\n\n")
+            await m.reply(teks)
 }
 
 if (command == 'manganato') {
-let res = await fetch('https://violetics.pw/api/anime/manganato?apikey=beta&manga=' + text)
-let json = await res.json()
-if (json.isError == true) throw eror
-let dapet = json.result
-	let row = Object.values(dapet).map((v, index) => ({
-		title: index + ' ' + v.title,
-		description: '\nUrl: ' + v.url + '\nThumb: ' + v.thumbnail + '\nRate: ' + v.rate + '\nAuthor: ' + v.author + '\nUpdated: ' + v.updated + '\nViews: ' + v.views,
-		rowId: usedPrefix + 'ss ' + v.url
-	}))
-	let button = {
-		buttonText: `☂️ ${command} Search Disini ☂️`,
-		description: `⚡ Hai ${name}, Silakan pilih ${command} Search di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`,
-		footerText: wm
-	}
-	return conn.sendListM(m.chat, button, row, m)
+let res = await searchManganato(text)
+let teks = res.map((v, index) => {
+                return `*[ ${index + 1} ]*
+*Title:* ${v.title}
+*Chapter:* ${v.chapter}
+*View:* ${v.viewCount}
+*Date:* ${v.date}
+*Author:* ${v.author}
+*Description:* ${v.description}
+*Url:* ${v.url}
+*Image:* ${v.image}
+   `.trim()
+            }).filter(v => v).join("\n\n________________________\n\n")
+            await m.reply(teks)
 }
 
 if (command == 'myanimelist') {
@@ -453,7 +457,7 @@ handler.tags = ['internet']
 export default handler
 
 async function searchAnoboy(query) {
-return await fetch('http://anoboy.web.id/search/' + encodeURIComponent(query))
+return await fetch('http://anoboy.web.id/search/' + query)
   .then(response => response.text())
   .then(body => {
     const $ = cheerio.load(body);
@@ -513,7 +517,7 @@ async function searchAnimebatch(url) {
 }
 
 async function searchAnimeindo(query) {
-return await got('https://185.224.82.193/search/' + encodeURIComponent(query) + '/')
+return await got('https://185.224.82.193/search/' + query + '/')
   .then((response) => response.body)
   .then((html) => {
     const $ = cheerio.load(html);
@@ -540,7 +544,7 @@ return await got('https://185.224.82.193/search/' + encodeURIComponent(query) + 
   }
   
   async function searchDrivenime(query) {
-  const url = 'https://drivenime.com/?s=' + encodeURIComponent(query) ; // Ubah URL sesuai kebutuhan
+  const url = 'https://drivenime.com/?s=' + query ; // Ubah URL sesuai kebutuhan
   const response = await fetch(url);
   const html = await response.text();
   const $ = cheerio.load(html);
@@ -564,7 +568,7 @@ return await got('https://185.224.82.193/search/' + encodeURIComponent(query) + 
 // Menggunakan Fetch API untuk melakukan HTTP GET request ke URL
 async function searchAnimeplanet(query) {
 	// URL yang akan di-scrape
-const url = 'https://www.anime-planet.com/anime/all?name=' + encodeURIComponent(query); // Ganti dengan URL yang sesuai
+const url = 'https://www.anime-planet.com/anime/all?name=' + query; // Ganti dengan URL yang sesuai
   try {
     const response = await fetch(url);
     const html = await response.text();
@@ -624,7 +628,7 @@ function extractSectionsFromHTML(html) {
 
 async function searchFanfox(query) {
   try {
-    const url = `https://m.fanfox.net/search?k=${encodeURIComponent(query)}`;
+    const url = `https://m.fanfox.net/search?k=${query}`;
     const response = await fetch(url);
     const body = await response.text();
     const $ = cheerio.load(body);
@@ -658,7 +662,7 @@ async function searchFanfox(query) {
 }
 
 async function searchGogoanime(query) {
-  const url = 'https://www3.gogoanimes.fi/search.html?keyword=' + encodeURIComponent(query);
+  const url = 'https://www3.gogoanimes.fi/search.html?keyword=' + query;
 
   try {
     const response = await fetch(url);
@@ -687,5 +691,148 @@ async function searchGogoanime(query) {
   } catch (error) {
     console.log('Terjadi kesalahan:', error);
     return []; // Mengembalikan array kosong jika terjadi kesalahan
+  }
+}
+
+async function searchKissmanga(query) {
+  const url = 'https://kissmanga.org/manga_list?q=' + query + '&action=search';
+
+  try {
+    const response = await fetch(url);
+    const body = await response.text();
+    const $ = cheerio.load(body);
+    const results = [];
+
+    $('.item_movies_in_cat').each((index, element) => {
+      const titleElement = $(element).find('.item_movies_link') || 'Tidak diketahui';
+      const title = titleElement.text().trim() || 'Tidak diketahui';
+      const url = titleElement.attr('href') || 'Tidak diketahui';
+      const chapterElement = $(element).find('a[href^="/chapter"]') || 'Tidak diketahui';
+      const chapter = chapterElement.text().trim() || 'Tidak diketahui';
+      const chapterUrl = chapterElement.attr('href') || 'Tidak diketahui';
+      const status = $(element).find('div:contains("Completed")').text().trim() || 'Tidak diketahui';
+
+      results.push({
+        title,
+        url,
+        chapter,
+        chapterUrl,
+        status
+      });
+    });
+
+    return results;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
+async function searchKlikmanga(query) {
+  const url = 'https://klikmanga.id/?s=' + query + '&post_type=wp-manga'; // Replace with the appropriate page URL
+
+  try {
+    const response = await fetch(url);
+    const html = await response.text();
+    const $ = cheerio.load(html);
+
+    const dataArray = []; // Create an empty array to store the objects
+
+    $('div.c-tabs-item').each((index, element) => {
+      const data = {
+        imageUrl: $(element).find('div.row.c-tabs-item__content > div.col-4.col-12.col-md-2 > div.tab-thumb > a > img').attr('data-src') || 'kosong',
+        title: $(element).find('div.tab-summary > div.post-title > h3 > a').text() || 'kosong',
+        alternateTitles: $(element).find('div.post-content_item.mg_alternative > div.summary-content').text() || 'kosong',
+        authors: $(element).find('div.post-content_item.mg_author > div.summary-content > a').toArray().map(author => $(author).text()) || ['kosong'],
+        illustrator: $(element).find('div.post-content_item.mg_artists > div.summary-content > a').text() || 'kosong',
+        genres: $(element).find('div.post-content_item.mg_genres > div.summary-content > a').toArray().map(genre => $(genre).text()) || ['kosong'],
+        status: $(element).find('div.post-content_item.mg_status > div.summary-content').text() || 'kosong',
+        releaseYear: $(element).find('div.post-content_item.mg_release > div.summary-content.release-year > a').text() || 'kosong',
+        latestChapter: $(element).find('div.tab-meta > div.meta-item.latest-chap > span.chapter > a').text() || 'kosong',
+        url: $(element).find('div.tab-thumb > a').attr('href') || 'kosong', // Get the image URL from the href attribute
+        releaseUrl: $(element).find('div.meta-item.post-on > span > a').attr('href') || 'kosong' // Get the release URL from the href attribute
+      };
+
+      dataArray.push(data); // Add the object to the array
+    });
+
+    return dataArray; // Return the array of objects
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+async function searchKomiku(query) {
+  const url = 'https://data.komiku.id/cari/?post_type=manga&s=' + query; // Ganti dengan URL pencarian yang sesuai
+
+  try {
+    const response = await fetch(url);
+    const html = await response.text();
+    const $ = cheerio.load(html);
+    const results = [];
+    
+    $('div.daftar > div.bge').each((index, element) => {
+      const imageSrc = $(element).find('.bgei img').attr('data-src');
+      const link = $(element).find('.bgei a').attr('href');
+      const title = $(element).find('.kan a h3').text().trim();
+      const subtitle = $(element).find('.kan .judul2').text().trim();
+      const update = $(element).find('.kan p').text().trim();
+
+      const chapters = [];
+      $(element).find('.kan .new1').each((idx, el) => {
+        const chapterTitle = $(el).find('a').attr('title');
+        const chapterNumber = $(el).find('span:last-child').text();
+        chapters.push({ title: chapterTitle, number: chapterNumber });
+      });
+
+      results.push({
+        imageSrc: imageSrc || 'Tidak diketahui',
+        link: link || 'Tidak diketahui',
+        title: title || 'Tidak diketahui',
+        subtitle: subtitle || 'Tidak diketahui',
+        update: update || 'Tidak diketahui',
+        chapters: chapters.length > 0 ? chapters.map(({ title, number }, index) => `\n${index + 1}.\n${title}\n${number}\n\n`).join('') : 'Tidak diketahui'
+      });
+    });
+
+    return results;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+async function searchMangadex(query) {
+  const QUERY_PARAMS = 'contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic&';
+  const res = await fetch(`https://api.mangadex.org/manga?title=${query}&${QUERY_PARAMS}`);
+  if (res.status !== 200)
+    throw new Error(`Failed to search for manga. Status ${res.status}`);
+  const { data } = await res.json();
+  return data.map(({ attributes }) => attributes);
+}
+
+async function searchManganato(query) {
+  const url = 'https://manganato.com/advanced_search?s=all&page=1&keyw=' + query
+
+  try {
+    const response = await fetch(url)
+    const data = await response.text()
+    const $ = cheerio.load(data)
+
+    const results = $('.content-genres-item').map((index, element) => ({
+      image: $(element).find('.genres-item-img img').attr('src') || 'tidak diketahui',
+      title: $(element).find('.genres-item-name').text().trim() || 'tidak diketahui',
+      chapter: $(element).find('.genres-item-chap').text().trim() || 'tidak diketahui',
+      viewCount: $(element).find('.genres-item-view').text().trim() || 'tidak diketahui',
+      date: $(element).find('.genres-item-time').text().trim() || 'tidak diketahui',
+      author: $(element).find('.genres-item-author').text().trim() || 'tidak diketahui',
+      description: $(element).find('.genres-item-description i').length > 0 ? 'Updating' : 'tidak diketahui',
+      url: $(element).find('.genres-item-img').attr('href') || 'tidak diketahui',
+    })).get()
+
+    return results
+  } catch (error) {
+    console.log(error)
   }
 }
