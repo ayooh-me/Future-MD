@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 import axios from 'axios'
 import cheerio from 'cheerio'
 
-let handler = async (m, { text, args, usedPrefix, command }) => {
+let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
 let pp = await conn.profilePictureUrl(who).catch(_ => hwaifu.getRandom())
 let name = await conn.getName(who)
@@ -12,8 +12,8 @@ if (command == 'apakah2') {
 *Pertanyaan:* ${command} ${text}
 *Jawaban:* ${['Iya keknya', 'Y saja', 'Gtau', 'Gk', 'No', 'Ynkts', '...', 'Tanya yg lain', 'Bisajadi'].getRandom()}
   `.trim(), null, m.mentionedJid ? {
-  mentions: m.mentionedJid
-} : {})
+        mentions: conn.parseMention(m.text)
+    } : {})
 }
 if (command == 'turu') {
 let keban = global.db.data.chats[m.chat].isBanned

@@ -32,9 +32,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
 • cringe
 • blush`)
         let images = `https://api.lolhuman.xyz/api/random/${text}?apikey=${global.lolkey}`
-        await conn.sendButton(m.chat, `Nih ${text}`, wm, images, [
-                ['Next', `${usedPrefix}${command}`]
-            ], m)
+        await conn.sendFile(m.chat, images, "", `Nih kak ${m.name}`, m)
 }
 handler.help = ['randem'].map(v => v + ' <efek>')
 handler.tags = ['tools']

@@ -120,7 +120,7 @@ return conn.sendButton(m.chat, '❗ ᴏᴘᴛɪᴏɴs ɴsғᴡ ᴅɪᴄʜᴀᴛ 
 try {
         let ani = await fetch('https://fantox-apis.vercel.app/' + text)
         let mek = await ani.json()
-        return conn.sendButtonImg(m.chat, mek.url, author, 'Nih.jpg', '🔄 Next 🔄', usedPrefix + command + " " + text, fakes, adReply)
+        await conn.sendFile(m.chat, mek.url, "", `Nih kak ${m.name}`, m)
         } catch {
         throw eror
         }

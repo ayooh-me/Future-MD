@@ -48,7 +48,7 @@ let handler = async (m, {
 
 `).join("\n")
 
-        conn.sendFile(m.chat, res.results[0].image.original_url, "result", list + list1 + list2, m)
+        conn.sendFile(m.chat, res.results[0].image.original_url, "result", "\n" + list + "\n" + list1 + "\n" + list2, m)
     } catch (e) {
         throw eror
     }

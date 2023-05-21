@@ -1,5 +1,5 @@
 import fetch from "node-fetch"
-let handler = async (m, { text, command, args }) => {
+let handler = async (m, { conn, text, command, args }) => {
   if (!args[0]) throw `Use example:\n*.${command} halo*\n\nAnd Using:\n*.${command} |halo*`
   
   let urut = text.split`|`
@@ -9,11 +9,15 @@ let handler = async (m, { text, command, args }) => {
   let res = await api.json()
   let reis = await fetch("https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=id&dt=t&q=" + res.cnt)
   let resu = await reis.json()
-  m.reply(resu[0][0][0])
+  m.reply(resu[0][0][0], null, m.mentionedJid ? {
+        mentions: conn.parseMention(m.text)
+    } : {})
   } else {
   let api = await fetch("https://api.simsimi.net/v2/?text=" + text + "&lc=id")
   let res = await api.json()
-  m.reply(res.success)
+  m.reply(res.success, null, m.mentionedJid ? {
+        mentions: conn.parseMention(m.text)
+    } : {})
   }
   
 }

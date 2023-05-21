@@ -139,7 +139,7 @@ return conn.sendButton(m.chat, '❗ ᴏᴘᴛɪᴏɴs ɴsғᴡ ᴅɪᴄʜᴀᴛ 
 try {
         let ani = await fetch('https://raw.githubusercontent.com/AyGemuy/RESTAPI/master/data/' + text + '.json')
         let mek = await ani.json()
-        return conn.sendButtonImg(m.chat, mek.getRandom(), author, 'Nih.jpg', '🔄 Next 🔄', `/${command}`, fakes, adReply)
+        await conn.sendFile(m.chat, mek.getRandom(), "", `Nih kak ${m.name}`, m)
         } catch {
         throw eror
         }

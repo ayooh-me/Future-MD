@@ -30,11 +30,10 @@ let listSections = []
 	return conn.sendList(m.chat, htki + ' 📺 [ IMAGE ] 🔎 ' + htka, 'SEARCH', author, 'P I L I H', listSections, m)
 	}
 if (command == 'imageget') {
-    await conn.sendButton(m.chat, `
+if (!isImageLink(text)) return m.reply("Input link gambar!")
+    await conn.sendFile(m.chat, text, "", `
 *── 「 IMAGE 」 ──*
-`.trim(), wm, text, [
-      ['Next', usedPrefix + 'image ' + text]
-    ], m)
+`, m)
 }
 
 } catch {
@@ -47,3 +46,8 @@ handler.command = ['image', 'imageget']
 handler.tags = ['random']
 
 export default handler
+
+function isImageLink(input) {
+  const regex = /\.(jpeg|jpg|gif|png|bmp|svg)$/i;
+  return regex.test(input);
+}
