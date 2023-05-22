@@ -13,7 +13,6 @@ let handler = async (m, {
         "list",
         "chord"
     ]
-    let regex = /^https:\/\/www\.chordtela\.com\/(?:chord\/[a-zA-Z0-9-]+|20[0-9]{2}\/[0-9]{2}\/[a-zA-Z0-9-]+\.html)$/
 
     let [feature, inputs, inputs_, inputs__, inputs___] = text.split("|")
     if (!lister.includes(feature)) return m.reply("*Example:*\n.chordtela search|adel\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join('\n'))
@@ -58,7 +57,7 @@ let handler = async (m, {
         }
 
         if (feature == "chord") {
-            if (!regex.test(inputs)) return m.reply("Input query link\nExample: .chordtela chord|https://www.chordtela.com/2016/06/adele-rolling-in-deep.html")
+            if (!validateURL(inputs)) return m.reply("Input query link\nExample: .chordtela chord|https://www.chordtela.com/2016/06/adele-rolling-in-deep.html")
             await m.reply(wait)
             try {
                 let teks = await getChord(inputs)
@@ -176,4 +175,9 @@ async function getChord(url) {
     })
 
     return result.main
+}
+
+function validateURL(url) {
+  const regex = /^https:\/\/www\.chordtela\.com\/(?:chord\/[a-zA-Z0-9-]+|20[0-9]{2}\/[0-9]{2}\/[a-zA-Z0-9-]+\.html)$/;
+  return regex.test(url)
 }
