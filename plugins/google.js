@@ -6,7 +6,7 @@ let handler = async (m, { conn, text }) => {
 	if (!text) throw "Input Query"
 	try {
 	let data = await googleIt(text)
-	let msg = data.articles.map((v, index) => `*${htki + " " + ++index + " " + htka}*\n*${v.title}*\n*${v.url}*\n${v.description}`).join("\n\n")
+	let msg = data.articles.map((v, index) => `${htki + " " + ++index + " " + htka}\n*${v.title}*\n  *○ Link:* ${v.url}\n  *○ Snippet:* ${v.description}`).join("\n\n")
 	if (!msg.length) throw `Query "${text}" Not Found`
 	await conn.sendFile(m.chat, flaaa.getRandom() + "Google", "result", msg, m)
 	} catch (e) {
@@ -15,7 +15,7 @@ let handler = async (m, { conn, text }) => {
 			var url = "http://api.serpstack.com/search?access_key=" + API_KEY + "&type=web&query=" + query 
 			let a = await (await fetch(url)).json()
 			let b = a.organic_results
-			let c = b.map((v, index) => `*${htki + " " + ++index + " " + htka}*\n*${v.title}*\n*${v.url}*\n${v.snippet}`).join("\n\n")
+			let c = b.map((v, index) => `${htki + " " + ++index + " " + htka}\n*${v.title}*\n  *○ Link:* ${v.url}\n  *○ Snippet:* ${v.snippet}`).join("\n\n")
 			await conn.sendFile(m.chat, flaaa.getRandom() + "Google", "result", c, m)
 	
 	}

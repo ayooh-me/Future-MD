@@ -9,7 +9,7 @@ let handler = async (m, { conn, command, text }) => {
 		txt = Object.keys(data).map(v => `*${v.capitalize()}:* ${data[v]}`).join('\n'),
 		pp = await conn.profilePictureUrl(data.id, 'image').catch(console.error)
 	if (pp) return conn.sendMessage(m.chat, { image: { url: pp }, caption: txt }, { quoted: m })
-	m.reply(txt)
+	await m.reply(txt)
 	}
 	if (command == 'inspect2') {
 	let res = await conn.query({
@@ -35,7 +35,7 @@ ${res.desc}` : '*Tidak ada Deskripsi*'}
 `.trim()
   let pp = await conn.getProfilePicture(res.id).catch(console.error)
   if (pp) conn.sendFile(m.chat, pp, 'pp.jpg', null, m)
-  m.reply(caption, false, {
+  await m.reply(caption, false, {
     contextInfo: {
       mentionedJid: conn.parseMention(caption)
     }

@@ -28,7 +28,7 @@ export default handler
 function ToAnime(efek, img) {
     try {
     if (efek == "zahwazein") {
-        return "https://api.zahwazein.xyz/photoeditor/jadianime?url=" + img + "&apikey=LuOlangNgentot"
+        return "https://api.zahwazein.xyz/photoeditor/jadianime?url=" + img + "&apikey=zenzkey_1ec92f71d3bb"
         } else if (efek == "caliph") {
         return "https://api.caliph.biz.id/api/animeai?img=" + img + "&apikey=caliphkey"
         }

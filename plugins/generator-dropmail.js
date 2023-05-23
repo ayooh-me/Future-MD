@@ -6,12 +6,22 @@ let handler = async (m, {
     command,
     text
 }) => {
-    if (command == "dropmailget") {
-        if (!text) return m.reply("Input id only!")
+        if (text) {
         try {
             let eml = await get_mails(text)
             await m.reply(wait)
-            await m.reply("*INBOX:*\n" + eml[0] + "\n\n" + "*TOTAL:*\n" + eml[1] + "\n\n_Ketik *.dropmail* Untuk membuat email baru_")
+            let teks = eml[0].map((v, index) => {
+                    return `*EMAIL [ ${index + 1} ]*
+*Dari* : ${v.fromAddr}
+*Untuk* : ${v.toAddr}
+
+*Pesan* : ${v.text}
+*Size* : ${v.rawSize}
+*Header* : ${v.headerSubject}
+*Download* : ${v.downloadUrl}
+   `.trim()
+                }).filter(v => v).join("\n\n________________________\n\n")
+            await m.reply(teks || "*KOSONG*" + "\n\n_Ketik *.dropmail* Untuk membuat email baru_")
         } catch (e) {
             await m.reply(eror)
         }
@@ -19,7 +29,7 @@ let handler = async (m, {
         try {
             let eml = await random_mail()
             await m.reply(wait)
-            await m.reply("*EMAIL:*\n" + eml[0] + "\n\n" + "*ID:*\n" + eml[1] + "\n\n_Ketik *.dropmailget* Untuk mengecek inbox_")
+            await m.reply("*EMAIL:*\n" + eml[0] + "\n\n" + "*ID:*\n" + eml[1] + "\n\n_Ketik *.dropmail* *ID* Untuk mengecek inbox_")
         } catch (e) {
             await m.reply(eror)
         }
@@ -27,7 +37,7 @@ let handler = async (m, {
 }
 handler.help = ["dropmail"]
 handler.tags = ["misc"]
-handler.command = /^dropmail(get)?$/i
+handler.command = /^(dropmail)$/i
 export default handler
 
 async function random_mail() {

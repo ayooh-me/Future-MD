@@ -23,8 +23,8 @@ let handler = async (m, { args, usedPrefix, command }) => {
 `
 m.reply(caption)
 }
-handler.help = ["translate"].map(v => v + " <bahasa> <teks>")
-handler.tags = ["tools"]
-handler.command = /^(tr(anslate)?)$/i
+handler.help = ['translate2'].map(v => v + ' <lang> <teks>')
+handler.tags = ['tools']
+handler.command = /^(t(erjemahkan|ransl(ate|et))2|t(erjemah|r)2|apanih2)$/i
 
 export default handler

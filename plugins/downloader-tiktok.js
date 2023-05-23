@@ -5,36 +5,30 @@ import got from "got"
 import fg from "api-dylux"
 
 let handler = async (m, {
+    command,
+    usedPrefix,
     conn,
     text,
-    args,
-    usedPrefix,
-    command
+    args
 }) => {
-let imgr = flaaa.getRandom()
-    let spas = "                "
-    let type = (args[0] || "").toLowerCase()
-    let urut = text.split`|`
-    let one = urut[1]
-    if (!text) throw "Masukkan link tiktok\nApa yang kamu cari?"
 
-    let data = [
-        "tikdl",
-        "scraper",
-        "godown",
-        "fgmods"
+    let lister = [
+        "v1",
+        "v2",
+        "v3",
+        "v4"
+
     ]
-    let listSections = []
-    Object.keys(data).map((v, index) => {
-        listSections.push(
-            ["Method " + data[v].toUpperCase(), usedPrefix + command + " " + data[v] + " |" + text]
-        )
-    })
-    switch (type) {
-        case "tikdl":
-            try {
-                m.reply(wait)
-                let Tikdl = await (await fetch("https://api.tikdl.caliphdev.codes/video?url=" + one)).json()
+let spas = "                "
+    let [feature, inputs, inputs_, inputs__, inputs___] = text.split(" ")
+    if (!lister.includes(feature.toLowerCase())) return m.reply("*Example:*\n.tiktok v2 link\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v.toUpperCase()).join("\n"))
+
+    if (lister.includes(feature)) {
+        if (feature == "v1") {
+            if (!inputs) return m.reply("Input query link")
+            m.reply(wait)
+                try {
+                let Tikdl = await (await fetch("https://api.tikdl.caliphdev.codes/video?url=" + inputs)).json()
                 let T = Tikdl.result
                 let TikdlCap = `${spas}*[ T I K T O K ]*
 
@@ -65,12 +59,12 @@ ${spas}*[ A U D I O ]*
             } catch (e) {
                 throw eror
             }
-            break
-
-        case "scraper":
-            try {
-                m.reply(wait)
-                let Scrap = await Tiktokdl(one)
+        }
+        if (feature == "v2") {
+            if (!inputs) return m.reply("Input query link")
+            m.reply(wait)
+                try {
+                let Scrap = await Tiktokdl(inputs)
                 let S = Scrap.result
                 let ScrapCap = `${spas}*「 T I K T O K 」*
 
@@ -81,12 +75,13 @@ ${spas}*[ A U D I O ]*
             } catch (e) {
                 throw eror
             }
-            break
 
-        case "godown":
-            try {
-                m.reply(wait)
-                const god = await axios.get("https://godownloader.com/api/tiktok-no-watermark-free?url=" + one + "&key=godownloader.com");
+        }
+        if (feature == "v3") {
+            if (!inputs) return m.reply("Input query link")
+            m.reply(wait)
+                try {
+                const god = await axios.get("https://godownloader.com/api/tiktok-no-watermark-free?url=" + inputs + "&key=godownloader.com");
                 let GoCap = `${spas}*[ T I K T O K ]*
 
 *Desc:* ${god.data.desc}
@@ -95,12 +90,13 @@ ${spas}*[ A U D I O ]*
             } catch (e) {
                 throw eror
             }
-            break
-            
-            case "fgmods":
-            try {
-                m.reply(wait)
-                let Fg = await fg.tiktok(one)
+
+        }
+        if (feature == "v4") {
+            if (!inputs) return m.reply("Input query link")
+            m.reply(wait)
+                try {
+                let Fg = await fg.tiktok(inputs)
     let FgCap = `${spas}*[ T I K T O K ]*
 
 *Nickname:* ${Fg.nickname}
@@ -112,38 +108,9 @@ ${spas}*[ A U D I O ]*
             } catch (e) {
                 throw eror
             }
-            break
 
-        case "getmusic":
-            try {
-                m.reply(wait)
-                await conn.sendMessage(m.chat, {
-                    audio: {
-                        url: one
-                    },
-                    seconds: fsizedoc,
-                    ptt: true,
-                    mimetype: "audio/mpeg",
-                    fileName: "vn.mp3",
-                    waveform: [100, 0, 100, 0, 100, 0, 100]
-                }, {
-                    quoted: m
-                })
-            } catch (e) {
-                throw eror
-            }
-            break
-        case "getvideo":
-            try {
-                m.reply(wait)
-                await conn.sendFile(m.chat, one, "tiktok.mp4", `${spas}*[ T I K T O K]*\nNo Watermark\nMade by: ${author}`, m)
-            } catch (e) {
-                throw eror
-            }
-            break
+        }
 
-        default:
-            return conn.sendButton(m.chat, htki + " TIKTOK DOWN " + htka + "\n⚡ Silakan pilih metode yang anda mau.", author, imgr + command, listSections, m)
     }
 }
 handler.help = ["tiktok"]

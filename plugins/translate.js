@@ -9,7 +9,9 @@ let handler = async (m, { args, usedPrefix, command }) => {
 	} else throw `Ex: ${usedPrefix + command} id hello i am robot`
 	let reis = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=' + lang + '&dt=t&q=' + text)
 	let res = await reis.json()
-	if (!res) throw `Error : Bahasa"${lang}" Tidak Support`
+	let lister = Object.keys(await langList())
+	let supp = `Error : Bahasa"${lang}" Tidak Support`
+	if (!lister.includes(lang)) return m.reply(supp + "\n\n*Example:*\n." + command + " id hello\n\n*Pilih kode yg ada*\n" + lister.map((v, index) => `${index +1}. ${v}`).join('\n'))
 	const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
 	let Detect = regionNamesInEnglish.of(res[2].toUpperCase() ? res[2].toUpperCase() : 'US')
 	let ToLang = regionNamesInEnglish.of(lang.toUpperCase())
@@ -24,8 +26,13 @@ let handler = async (m, { args, usedPrefix, command }) => {
 `
 m.reply(caption)
 }
-handler.help = ['translate2'].map(v => v + ' <lang> <teks>')
+handler.help = ['translate'].map(v => v + ' <lang> <teks>')
 handler.tags = ['tools']
-handler.command = /^(t(erjemahkan|ransl(ate|et))2|t(erjemah|r)2|apanih2)$/i
-
+handler.command = /^(t(erjemahkan|ransl(ate|et))|t(erjemah|r)|apanih)$/i
 export default handler
+
+async function langList() {
+ let data = await fetch("https://translate.google.com/translate_a/l?client=webapp&sl=auto&tl=en&v=1.0&hl=en&pv=1&tk=&source=bh&ssel=0&tsel=0&kc=1&tk=626515.626515&q=")
+  .then((response) => response.json())
+  return data.tl;
+  }

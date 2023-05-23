@@ -501,87 +501,87 @@ if (command) {
 switch (template) {
         
             case 'animeweb':
-        let ab = await fetch(`http://api.zahwazein.xyz/animeweb/${args[0]}?query=${one}&apikey=LuOlangNgentot`)
+        let ab = await fetch(`http://api.zahwazein.xyz/animeweb/${args[0]}?query=${one}&apikey=zenzkey_1ec92f71d3bb`)
         let ac = await ab.json()
         m.reply(ac)
             break
             case 'sfw':
-        let bb = `http://api.zahwazein.xyz/api/anime/sfw/${args[0]}?apikey=LuOlangNgentot`
+        let bb = `http://api.zahwazein.xyz/api/anime/sfw/${args[0]}?apikey=zenzkey_1ec92f71d3bb`
         conn.sendButtonImg(m.chat, bb, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             case 'morensfw':
-        let cb = `http://api.zahwazein.xyz/api/anime/morensfw/${args[0]}?apikey=LuOlangNgentot`
+        let cb = `http://api.zahwazein.xyz/api/anime/morensfw/${args[0]}?apikey=zenzkey_1ec92f71d3bb`
         conn.sendButtonImg(m.chat, cb, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             case 'convert':
-        let db = await fetch(`http://api.zahwazein.xyz/convert/${one}?url=${two}&apikey=LuOlangNgentot`)
+        let db = await fetch(`http://api.zahwazein.xyz/convert/${one}?url=${two}&apikey=zenzkey_1ec92f71d3bb`)
         let dc = await db.json()
         m.reply(dc)
             break
             case 'creator':
-        let xs = `http://api.zahwazein.xyz/creator/${one}?text=${two}&apikey=LuOlangNgentot`
+        let xs = `http://api.zahwazein.xyz/creator/${one}?text=${two}&apikey=zenzkey_1ec92f71d3bb`
         conn.sendButtonImg(m.chat, xs, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             case 'downloader':
-        let eb = await fetch(`http://api.zahwazein.xyz/downloader/${one}?apikey=LuOlangNgentot&url=${two}`)
+        let eb = await fetch(`http://api.zahwazein.xyz/downloader/${one}?apikey=zenzkey_1ec92f71d3bb&url=${two}`)
         let ec = await eb.json()
     m.reply(ec)
             break
             case 'entertainment':
-        let enb = await fetch(`http://api.zahwazein.xyz/entertainment/${one}?query=${two}&apikey=LuOlangNgentot`)
+        let enb = await fetch(`http://api.zahwazein.xyz/entertainment/${one}?query=${two}&apikey=zenzkey_1ec92f71d3bb`)
         let enc = await enb.json()
     m.reply(enc)
             break
             case 'ephoto':
-        let eph = `http://api.zahwazein.xyz/ephoto/${one}?text=${two}&apikey=LuOlangNgentot`
+        let eph = `http://api.zahwazein.xyz/ephoto/${one}?text=${two}&apikey=zenzkey_1ec92f71d3bb`
         conn.sendButtonImg(m.chat, eph, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             case 'news':
-        let cdf = await fetch(`http://api.zahwazein.xyz/news/${one}?apikey=LuOlangNgentot`)
+        let cdf = await fetch(`http://api.zahwazein.xyz/news/${one}?apikey=zenzkey_1ec92f71d3bb`)
         let cgg = await cdf.json()
     m.reply(cgg)
             break
             
             case 'photoeditor':
-        let dff = await fetch(`http://api.zahwazein.xyz/photoeditor/${one}?url=${two}&apikey=LuOlangNgentot`)
+        let dff = await fetch(`http://api.zahwazein.xyz/photoeditor/${one}?url=${two}&apikey=zenzkey_1ec92f71d3bb`)
         let gff = await dff.json()
     m.reply(gff)
             break
             
             case 'randomanime':
-        let duy = `http://api.zahwazein.xyz/randomanime/${one}?apikey=LuOlangNgentot`
+        let duy = `http://api.zahwazein.xyz/randomanime/${one}?apikey=zenzkey_1ec92f71d3bb`
         conn.sendButtonImg(m.chat, duy, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             case 'randomimage':
-        let duc = `http://api.zahwazein.xyz/randomimage/${one}?apikey=LuOlangNgentot`
+        let duc = `http://api.zahwazein.xyz/randomimage/${one}?apikey=zenzkey_1ec92f71d3bb`
         conn.sendButtonImg(m.chat, duc, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             
             case 'randomtext':
-        let rtd = await fetch(`http://api.zahwazein.xyz/randomtext/${one}&apikey=LuOlangNgentot`)
+        let rtd = await fetch(`http://api.zahwazein.xyz/randomtext/${one}&apikey=zenzkey_1ec92f71d3bb`)
         let gtt = await rtd.json()
     m.reply(gtt)
             break
             
             case 'searching':
-        let srd = await fetch(`http://api.zahwazein.xyz/searching/${one}?query=${two}&apikey=LuOlangNgentot`)
+        let srd = await fetch(`http://api.zahwazein.xyz/searching/${one}?query=${two}&apikey=zenzkey_1ec92f71d3bb`)
         let srt = await srd.json()
     m.reply(srt)
             break
             
             case 'textpro':
-        let tp = `http://api.zahwazein.xyz/textpro/${one}?text=${two}&apikey=LuOlangNgentot`
+        let tp = `http://api.zahwazein.xyz/textpro/${one}?text=${two}&apikey=zenzkey_1ec92f71d3bb`
         conn.sendButtonImg(m.chat, tp, wm, 'Nih.jpg', 'To Sticker', '.s', fakes, adReply)
             break
             
             case 'togel':
-        let tgf = await fetch(`http://api.zahwazein.xyz/togel/${one}?apikey=LuOlangNgentot`)
+        let tgf = await fetch(`http://api.zahwazein.xyz/togel/${one}?apikey=zenzkey_1ec92f71d3bb`)
         let tgl = await tgf.json()
     m.reply(tgl)
             break
             
             case 'webzone':
-        let tbc = await fetch(`http://api.zahwazein.xyz/webzone/${one}?query=${two}&apikey=LuOlangNgentot`)
+        let tbc = await fetch(`http://api.zahwazein.xyz/webzone/${one}?query=${two}&apikey=zenzkey_1ec92f71d3bb`)
         let tubg = await tbc.json()
     m.reply(tubg)
             break

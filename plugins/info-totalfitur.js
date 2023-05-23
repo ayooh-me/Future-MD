@@ -9,16 +9,22 @@ let name = await conn.getName(who)
 let totalf = Object.values(global.plugins).filter(
     (v) => v.help && v.tags
   ).length
-let tqto = `${wm}
-
-${cmenut}
-${cmenub} *🔖 FITUR :* ${totalf}
-${cmenuf}
-
-_Jangan di spam ntar erorr_
-(. ❛ ᴗ ❛.)
-${cmenua}`
-return conn.send2ButtonLoc(m.chat, knimg, tqto, wm + '\n\n' + botdate, ' All Menu', usedPrefix + 'allmenu', ' List Menu', usedPrefix + 'menulist', m)
+let txt = `*乂  B O T  -  F E A T U R E*\n\n`
+      txt += `	◦  *Total* : ${totalf}\n`
+      txt += author
+   await conn.relayMessage(m.chat,  {
+    requestPaymentMessage: {
+      currencyCodeIso4217: 'USD',
+      amount1000: totalf * 1000,
+      requestFrom: '0@s.whatsapp.net',
+      noteMessage: {
+      extendedTextMessage: {
+      text: txt,
+      contextInfo: {
+      mentionedJid: [m.sender],
+      externalAdReply: {
+      showAdAttribution: true
+      }}}}}}, {})
 }
 handler.help = ['totalfitur']
 handler.tags = ['main','info']

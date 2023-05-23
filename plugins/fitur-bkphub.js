@@ -4,7 +4,7 @@ let handler = async(m, { conn, usedPrefix, text, args, command }) => {
 
   if (command == 'xnxx') {
   if (!text) throw `Contoh penggunaan ${usedPrefix}${command} japan`
-  let links = `https://api.lolhuman.xyz/api/xnxxsearch?apikey=${global.lolkey}&query=${text}`
+  let links = global.API('lolhuman', '/api/xnxxsearch', { query: text }, 'apikey')
 let f = await fetch(links)
 let xx = await f.json()
 let str = xx.result
@@ -19,7 +19,7 @@ let str = xx.result
     
     if (command = 'xnxxdl') {
     if (!text) throw `Contoh penggunaan ${usedPrefix}${command} https://www.xnxx.com/video-18ctcz24/masi_pakai_seragam_biru_mainnya_di_hotel`
-	let res = await fetch(API('https://api.zahwazein.xyz', '/downloader/xvideos', { apikey: 'LuOlangNgentot', url: text }))
+	let res = await fetch(global.API('zenz', '/api/downloader/xvideos', { url: text }, 'apikey'))
 	let json = await res.json()
 	if (json.result?.message) throw json.result.message
 	let teks = '⭔ Title : '+json.result.title+'\n⭔ Duration : '+json.result.duration+'s' 
@@ -30,7 +30,8 @@ let str = xx.result
     if (command == 'dlxnxx') {
     if (!args[0]) throw `Contoh penggunaan ${usedPrefix}${command} https://www.xnxx.com/video-uy5a73b/mom_is_horny_-_brooklyn`
     try {
-  let json = await fetch(`https://api.lolhuman.xyz/api/xnxx?apikey=${global.lolkey}&url=${text}`)
+  let json = await fetch(global.API('lolhuman', '/api/xnxx', { url: text }, 'apikey'))
+  
   let x = await json.json()
   let caption = `*Title:* ${x.result.title}
   *duration:* ${x.result.duration}
