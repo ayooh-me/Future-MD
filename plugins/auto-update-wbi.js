@@ -1,21 +1,40 @@
 import fetch from "node-fetch"
 import cheerio from "cheerio"
 
-export async function before(m) {
-setInterval(async () => {
+let handler = async (m, {
+    command,
+    usedPrefix,
+    conn,
+    text,
+    args
+}) => {
   try {
-    let outputs = await updateData();
-    await this.sendFile(m.chat, outputs.image, '', outputs.caption, m )
+    const result = await WaBetaInfo();
+    const currentDate = result.updated;
+      const output = [
+        `*[ NEW UPDATED ]*\n\n`,
+        `*Update:*\n${result.updated}\n`,
+        `*Desc:*\n${result.content}\n`,
+        `*Link:*\n${result.postedOnLink}\n\n`
+      ];
+      
+      result.faq.forEach((item, index) => {
+        output.push(`${index + 1}. ${item.question}\n${item.answer}\n`);
+      });
+      
+      let captions = output.join('\n');
+      let images = result.ogImage;
+      await conn.sendFile(m.chat, images, '', captions, m);
   } catch (e) {
     console.log(e);
   }
-}, 2*60*1000) // 2 minutes 10*60*1000
 }
-export const disabled = false
+handler.help = ["wbi"]
+handler.tags = ["info"]
+handler.command = /^(wbi)$/i
+export default handler
 
-let previousDate = "";
-
-async function getData() {
+async function WaBetaInfo() {
   const url = 'https://wabetainfo.com';
   
   try {
@@ -59,7 +78,6 @@ async function getData() {
       faq: faqList,
       ogImage: ogImageUrl
     };
-
     return result;
   } catch (error) {
     console.error('Error:', error);
@@ -67,22 +85,3 @@ async function getData() {
   }
 }
 
-async function updateData() {
-  const result = await getData();
-  if (result) {
-    const output = [`*[ NEW UPDATED ]*\n\n`,
-`*Update:*\n${result.updated}\n`,
-`*Desc:*\n${result.content}\n`,
-`*Link:*\n${result.postedOnLink}\n\n`];
-    result.faq.forEach((item, index )=> {
-      output.push(`${index + 1}. ${item.question}\n${item.answer}\n`);
-    });
-    let captions = output.join('\n');
-    let images = result.ogImage;
-    return { caption: captions,
-    image: images
-    	}
-  } else {
-    return null; // return null jika data tidak berubah
-  }
-}
