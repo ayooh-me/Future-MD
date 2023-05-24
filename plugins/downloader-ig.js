@@ -5,38 +5,30 @@ import {
     instagram
 } from "@xct007/frieren-scraper"
 
-// others version will added soon.
 let handler = async (m, {
-    conn,
-    args,
-    text,
+    command,
     usedPrefix,
-    command
+    conn,
+    text,
+    args
 }) => {
-    let imgr = flaaa.getRandom()
 
-    let ends = [
-        "V1",
-        "V2",
-        "V3",
+    let lister = [
+        "v1",
+        "v2",
+        "v3"
+
     ]
+let spas = "                "
+    let [feature, inputs, inputs_, inputs__, inputs___] = text.split(" ")
+    if (!lister.includes(feature.toLowerCase())) return m.reply("*Example:*\n" + usedPrefix + command + " v2 link\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v.toUpperCase()).join("\n"))
 
-    let [links, version] = text.split(" ")
-    if (!links) throw "Input URL"
-    let dapet = ["V1", "V2"]
-    let buttons = []
-    Object.keys(dapet).map((v, index) => {
-        buttons.push(
-            [dapet[v].toUpperCase() + " Video 🎥", usedPrefix + command + " " + links + " " + dapet[v]]
-        )
-    })
-    if (!(version)) return conn.sendButton(m.chat, htki + " 📺 IG DOWN 🔎 " + htka + `\n⚡ Silakan pilih menu di tombol di bawah...\n*Teks yang anda kirim:* ${links}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`, author, imgr + command, buttons, m)
-
-
-    if (ends.includes(version)) {
-        if (version == "V1") {
-            try {
-                let results = await instagram.v1(links)
+    if (lister.includes(feature)) {
+        if (feature == "v1") {
+            if (!inputs) return m.reply("Input query link")
+            m.reply(wait)
+                try {
+                let results = await instagram.v1(inputs)
 
                 let caption = `*[ I N S T A G R A M ]*`
                 let out = results[0].url
@@ -46,9 +38,11 @@ let handler = async (m, {
                 await m.reply(eror)
             }
         }
-        if (version == "V2") {
-            try {
-                let results = await (await fetch("https://fantox001-scrappy-api.vercel.app/instadl?url=" + links)).json()
+        if (feature == "v2") {
+            if (!inputs) return m.reply("Input query link")
+            m.reply(wait)
+                try {
+                let results = await (await fetch("https://fantox001-scrappy-api.vercel.app/instadl?url=" + inputs)).json()
 
                 let caption = `*[ I N S T A G R A M ]*`
                 let out = results.videoUrl
@@ -58,10 +52,13 @@ let handler = async (m, {
             } catch (e) {
                 await m.reply(eror)
             }
+
         }
-        if (version == "V3") {
-            try {
-                let results = await igDownload(links)
+        if (feature == "v3") {
+            if (!inputs) return m.reply("Input query link")
+            m.reply(wait)
+                try {
+                let results = await igDownload(inputs)
 
                 let caption = `*[ I N S T A G R A M ]*`
                 let out = results
@@ -70,9 +67,11 @@ let handler = async (m, {
             } catch (e) {
                 await m.reply(eror)
             }
-        }
-    }
 
+        }
+        
+
+    }
 }
 handler.help = ['instagram']
 handler.tags = ['downloader']
