@@ -11,7 +11,6 @@ import moment from "moment-timezone"
 
 /*Oᴡɴᴇʀ number*/
 global.owner = [
-    ["6282195322106"],
     ["6282195322106", "️WudySoft - Owner", true]
 ]
 global.mods = ["6282195322106"]
@@ -39,7 +38,7 @@ global.APIs = {
 /*Apikey*/
 global.APIKeys = {
     "https://api.neoxr.my.id": "5VC9rvNx",
-    "https://api.lolhuman.xyz": "SGWN",
+    "https://api.lolhuman.xyz": "BrunoSobrino",
     "https://api.xteam.xyz": "HIRO",
     "https://api.zeks.xyz": "apivinz",
     "https://hardianto.xyz": "hardianto",
@@ -47,12 +46,12 @@ global.APIKeys = {
     "https://pencarikode.xyz": "pais",
     "https://violetics.pw": "beta",
     "https://splendid-pantsuit-hare.cyclic.app": "Lann",
-    "https://api.zahwazein.xyz": "LuOlangNgentot",
+    "https://api.zahwazein.xyz": "zenzkey_1ec92f71d3bb",
     "https://api.botcahx.biz.id": "Admin"
 }
 
 /*Lolhuman*/
-global.lolkey = "SGWN"
+global.lolkey = "BrunoSobrino"
 /*OpenAi*/
 global.openaikey = "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"
 /*AmeApi*/
@@ -65,7 +64,7 @@ global.namebot = " ʜɪɴᴀᴛᴀ-ʙᴏᴛ あ⁩ "
 global.nameown = "「 𝐖𝐮𝐝𝐲𝐒𝐨𝐟𝐭 」"
 
 /* Random */
-global.pmenus = pickRandom(["乂", "◈", "➭", "ଓ", "⟆•", "⳻⳻", "•", "↬", "◈▻", "⭑", "ᯬ", "◉", "᭻", "»", "〆", "々", "⛥", "✗", "⚜", "⚚", "♪"])
+global.pmenus = pickRandom(["乂", "◈", "➭", "ଓ", "⟆•", "⳻", "•", "↬", "◈", "⭑", "ᯬ", "◉", "᭻", "»", "〆", "々", "⛥", "✗", "⚜", "⚚", "♪"])
 global.htjava = pickRandom(["乂", "⛶", "❏", "⫹⫺", "☰", "⎔", "✦", "⭔", "⬟", "⛊", "⚝"])
 
 /*Watermark*/
